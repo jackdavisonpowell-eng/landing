@@ -26,21 +26,26 @@ have to match between shots. Shoot for shape and contrast, not colour.
 ## The ladder
 
 One per step of the history on the About page. Landscape, 4:3.
-"drawn" means I made a graphic for it — replace it with a real photo any time.
+
+Named for the step, not its position, so adding a step in the middle never
+renames anything. "drawn" means I made a graphic for it — replace it with a
+real photo whenever you have one. "WANTED" is an empty slot.
 
 | file | the step | |
 | --- | --- | --- |
-| `ladder-01.jpg` | first build, age eleven — MAXIMUS | have it |
-| `ladder-02.jpg` | childhood tinkering — overclocking, Blender, YouTube | drawn |
-| `ladder-03.jpg` | the sim rig — wheel, cockpit, VR | have it |
-| `ladder-04.jpg` | MAXIMUS rebuilt in white |  |
-| `ladder-05.jpg` | the X99 home lab, 1660 era | have it |
-| `ladder-06.jpg` | the networking phase — VLANs, Pi-hole | drawn |
-| `ladder-07.jpg` | the first P100 | have it |
-| `ladder-08.jpg` | both P100s in | have it |
-| `ladder-09.jpg` | Pantheon, the Dell R210 | have it |
-| `ladder-10.jpg` | the three cards before they went in | have it |
-| `ladder-11.jpg` | the Pi satellite running FRIDAY | have it |
-| `ladder-12.jpg` | Georgia Southern | drawn |
+| `ladder-first-build.jpg` | first build, age eleven — MAXIMUS | have it |
+| `ladder-tinkering.jpg` | overclocking, Blender, YouTube | drawn |
+| `ladder-clubs.jpg` | robotics / engineering / coding clubs | WANTED |
+| `ladder-highschool.jpg` | Midtown + dual enrollment | drawn |
+| `ladder-sim-rig.jpg` | the sim rig — wheel, cockpit, VR | have it |
+| `ladder-maximus-rebuild.jpg` | MAXIMUS rebuilt in white | WANTED |
+| `ladder-home-lab.jpg` | the X99 home lab, 1660 era | have it |
+| `ladder-networking.jpg` | VLANs, Pi-hole, firewall | drawn |
+| `ladder-first-p100.jpg` | the first P100 | have it |
+| `ladder-second-p100.jpg` | both P100s in | have it |
+| `ladder-pantheon.jpg` | Pantheon, the Dell R210 | have it |
+| `ladder-three-cards.jpg` | the three cards before they went in | have it |
+| `ladder-the-fleet.jpg` | the Pi satellite running FRIDAY | have it |
+| `ladder-georgia-southern.jpg` | Georgia Southern | drawn |
 
 The showcase page has its own folder with its own list: `showcase/media/`.
