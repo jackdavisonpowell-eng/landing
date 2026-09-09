@@ -102,7 +102,7 @@
 
   /* keys with a real bevel, not a flat chip. Every key is the same key —
      the only one that looks different is the page you are on. */
-  .key{position:relative;display:inline-flex;align-items:center;justify-content:center;
+  .bar .key{position:relative;display:inline-flex;align-items:center;justify-content:center;
        font-family:var(--f-m);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
        color:var(--muted);height:1.9rem;padding:0 .95rem;min-width:5.6rem;white-space:nowrap;
        background:linear-gradient(180deg,#2B2F3A 0%,#1A1D25 46%,#0D0F14 100%);
@@ -116,17 +116,17 @@
        transition:transform .1s ease,box-shadow .1s ease,color .18s ease,background .18s ease;
        --c:6px;
        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
-  .key:hover{color:var(--text);transform:translateY(-1px);
+  .bar .key:hover{color:var(--text);transform:translateY(-1px);
        background:linear-gradient(180deg,#373C49 0%,#212530 46%,#111318 100%);
        box-shadow:0 3px 0 rgba(0,0,0,.8),0 6px 12px rgba(0,0,0,.6),
                   inset 0 1px 0 rgba(255,255,255,.26),
                   inset 0 -6px 10px rgba(0,0,0,.4)}
-  .key:focus-visible{outline:2px solid rgba(255,255,255,.85);outline-offset:2px}
-  .key:active{transform:translateY(2px);
+  .bar .key:focus-visible{outline:2px solid rgba(255,255,255,.85);outline-offset:2px}
+  .bar .key:active{transform:translateY(2px);
        box-shadow:0 0 0 rgba(0,0,0,.8),0 1px 2px rgba(0,0,0,.6),
                   inset 0 2px 5px rgba(0,0,0,.7)}
   /* the page you are on: the key that is already pressed */
-  .key.on,.key.on:hover{color:#07080B;font-weight:600;transform:none;
+  .bar .key.on,.bar .key.on:hover{color:#07080B;font-weight:600;transform:none;
        background:linear-gradient(180deg,#FFFFFF 0%,#DEE2EA 46%,#B2B8C4 100%);
        border-top:1px solid rgba(255,255,255,.95);
        border-left:1px solid rgba(255,255,255,.5);
@@ -158,7 +158,7 @@
     .strip::-webkit-scrollbar{display:none}
     .strip .count{display:none}
   }
-  @media (prefers-reduced-motion:reduce){.key{transition:none}}
+  @media (prefers-reduced-motion:reduce){.bar .key{transition:none}}
 
   main{position:relative;z-index:1}
   .kick{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}

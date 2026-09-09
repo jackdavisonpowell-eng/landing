@@ -18,6 +18,10 @@ have to match between shots. Shoot for shape and contrast, not colour.
 | `pantheon.jpg` | Pantheon, home servers band | wide |
 | `rack.jpg` | the whole rack, About page | tall, 4:5 |
 
+The four cards under "Start here" borrow ladder photos rather than carry
+shots of their own: first build, three cards, second P100, and the fleet. Send
+a picture made for one of those cards and it takes that card over.
+
 Empty slots were removed rather than left showing a placeholder, so the only
 waiting slots are `profile.jpg` and `ladder-maximus-rebuild.jpg`. For any other
 picture, send it and the slot goes back in.
