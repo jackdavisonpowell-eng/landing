@@ -55,9 +55,12 @@
      it shows through, which is a designed state, not a broken one. Every
      photo is pushed to hard monochrome so submissions from any camera, any
      lighting, still read as one set. */
-  .shot{position:absolute;inset:0;z-index:0;overflow:hidden;
-        background:var(--hatch);background-color:#07080B;
-        background-blend-mode:overlay}
+  /* An empty slot is a designed state: a visibly hatched plate, not a hole.
+     The old overlay blend made the hatch vanish against black, so a slot with
+     no photo yet read as a mistake. */
+  .shot{position:absolute;inset:0;z-index:0;overflow:hidden;background-color:#0B0D12;
+        background-image:repeating-linear-gradient(118deg,
+          rgba(255,255,255,.11) 0 1px,transparent 1px 7px)}
   .shot::after{content:"";position:absolute;inset:0;background-image:var(--img);
         background-size:cover;background-position:var(--pos,center);
         filter:grayscale(1) contrast(1.22) brightness(.62);
@@ -261,7 +264,7 @@
   </div>
 
   <section class="band">
-    <div class="head rise"><h2>Three doors</h2><span class="rule"></span><span class="kick">pick one</span></div>
+    <div class="head rise"><h2>Start here</h2><span class="rule"></span><span class="kick">four ways in</span></div>
     <nav class="doors">
       <a class="door rise" href="/portfolio/" style="transition-delay:.05s">
         <div class="shot" style="--img:url('media/door-about.jpg')"></div>

@@ -45,8 +45,10 @@
   .plate{background:var(--slab);backdrop-filter:blur(4px) saturate(1.1);
        box-shadow:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.7)}
 
-  .shot{position:absolute;inset:0;z-index:0;overflow:hidden;
-        background:var(--hatch);background-color:#07080B;background-blend-mode:overlay}
+  /* an empty slot is a designed hatched plate, not a hole */
+  .shot{position:absolute;inset:0;z-index:0;overflow:hidden;background-color:#0B0D12;
+        background-image:repeating-linear-gradient(118deg,
+          rgba(255,255,255,.11) 0 1px,transparent 1px 7px)}
   .shot::after{content:"";position:absolute;inset:0;background-image:var(--img);
         background-size:cover;background-position:var(--pos,center);
         filter:grayscale(1) contrast(1.22) brightness(.62);
