@@ -293,6 +293,48 @@
   .pj:hover .go::after{width:3.4rem}
   .pj:hover .shot::after{filter:grayscale(.15) contrast(1.1) brightness(.82);transform:scale(1.05)}
 
+  /* ── the ladder ───────────────────────────────────────────────────────── */
+  .ladder{position:relative;display:grid;gap:0}
+  .ladder::before{content:"";position:absolute;left:calc(clamp(2.6rem,6vw,4.4rem) - 1px);top:.6rem;bottom:.6rem;
+       width:1px;background:linear-gradient(180deg,transparent,var(--line) 8%,var(--line) 92%,transparent)}
+  @media (max-width:44rem){.ladder::before{display:none}}
+  .rung{position:relative;display:grid;
+       grid-template-columns:clamp(2.4rem,5vw,3.6rem) minmax(0,1fr) clamp(15rem,32vw,27rem);
+       gap:clamp(1rem,3vw,2.4rem);padding:2rem 0;border-bottom:1px solid var(--line)}
+  .rung:last-child{border-bottom:0}
+  @media (max-width:62rem){.rung{grid-template-columns:clamp(2.4rem,5vw,3.6rem) minmax(0,1fr)}
+       .rung .rshot{grid-column:2;max-width:34rem;margin-top:.7rem}}
+  @media (max-width:44rem){.rung{grid-template-columns:1fr;gap:.5rem}
+       .rung .rshot{grid-column:1;max-width:none}}
+  /* the rung photo. An empty one is the hatched plate, same as everywhere. */
+  .rshot{--c:11px;position:relative;aspect-ratio:4/3;overflow:hidden;align-self:start;
+       box-shadow:var(--edge);
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .rshot .cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:.5rem .65rem;
+       font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+       background:linear-gradient(180deg,transparent,rgba(0,0,0,.88))}
+  .rung:hover .rshot .shot::after{filter:grayscale(.15) contrast(1.08) brightness(.85);transform:scale(1.04)}
+  .rung .no{font-family:var(--f-d);font-style:italic;font-weight:900;font-size:clamp(1.1rem,2.6vw,1.7rem);
+       line-height:1;color:var(--faint);position:relative}
+  .rung .no::after{content:"";position:absolute;right:-1px;top:.35em;width:9px;height:9px;
+       background:var(--text);opacity:.85;transform:translateX(50%);
+       clip-path:polygon(38% 0,100% 0,62% 100%,0 100%)}
+  @media (max-width:44rem){.rung .no::after{display:none}}
+  .rung h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:0;
+       font-size:clamp(1.15rem,2.8vw,1.75rem);line-height:1.02;text-transform:uppercase;letter-spacing:-.015em}
+  .rung .lead{margin:.6rem 0 0;color:var(--text);font-size:.94rem;line-height:1.5;
+       max-width:56ch;font-weight:500}
+  .rung ul{margin:.9rem 0 0;padding:0;list-style:none;max-width:62ch}
+  .rung li{position:relative;padding-left:1rem;margin-bottom:.42rem;color:var(--muted);
+       font-size:.82rem;line-height:1.55}
+  .rung li::before{content:"";position:absolute;left:0;top:.5em;width:5px;height:8px;
+       background:currentColor;opacity:.5;clip-path:polygon(40% 0,100% 0,60% 100%,0 100%)}
+  .rung li b{color:var(--text);font-weight:500}
+  .rung .spec{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.35rem}
+  .rung .spec b{--c:5px;font-weight:500;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
+       color:var(--muted);padding:.32rem .6rem;background:var(--key);box-shadow:var(--edge);
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+
   /* ── section furniture ────────────────────────────────────────────────── */
   section.band{padding:clamp(3rem,8vw,6.5rem) clamp(1.2rem,5vw,4.5rem)}
   .head{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.2rem}
@@ -451,6 +493,228 @@
     AUTOGOD wrote on its own, overnight, and I read the code afterwards rather
     than before. FRIDAY is the one I built myself.</p>
     <div class="track rise" id="track" tabindex="0" aria-label="Selected projects"></div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="head rise"><h2>The ladder</h2><span class="rule"></span><span class="kick">how I got here</span></div>
+    <div class="ladder">
+
+      <div class="rung rise">
+        <div class="no">01</div>
+        <div>
+          <h3>First build, age eleven</h3>
+          <p class="lead">Built MAXIMUS, the desktop I still use, at eleven years old.</p>
+          <ul><li>Then took apart every family computer I could get permission for</li></ul>
+          <div class="spec"><b>MAXIMUS</b><b>first build</b></div>
+        </div>
+        <div class="rshot">
+          <div class="shot" style="--img:url('/media/ladder-first-build.jpg')"></div>
+          <span class="cap">the first build</span>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">02</div>
+        <div>
+          <h3>Childhood tinkering</h3>
+          <p class="lead">Years of overclocking, rendering and tuning other people&rsquo;s machines.</p>
+          <ul><li>Pushed clocks until hardware failed, then ran <b>one notch back</b></li><li>Killed a laptop at twelve with a custom water loop I spilled</li><li>Made Blender animations and PC-building videos for YouTube</li><li>Optimised Windows installs for anyone who asked</li></ul>
+          <div class="spec"><b>overclocking</b><b>one dead laptop</b><b>Blender</b><b>YouTube</b><b>Windows tuning</b></div>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">03</div>
+        <div>
+          <h3>Clubs, before any of it was a class</h3>
+          <p class="lead">Robotics, engineering and coding clubs outside school, for years.</p>
+          <ul><li>Things that move and things that compute are different disciplines</li><li>Both are mostly debugging</li></ul>
+          <div class="spec"><b>robotics</b><b>engineering</b><b>coding clubs</b></div>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">04</div>
+        <div>
+          <h3>Midtown, and dual enrollment</h3>
+          <p class="lead">Computer science every year of high school, with college courses alongside it.</p>
+          <ul><li><b>Four consecutive years</b> of CS at Midtown High, Atlanta</li><li>AP Computer Science</li><li><b>Dual enrolled at Georgia State University</b> for CS courses</li><li>Drafting and design as the secondary pathway</li></ul>
+          <div class="spec"><b>Midtown High</b><b>AP Computer Science</b><b>dual enrolled</b><b>Georgia State</b><b>drafting &amp; design</b></div>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">05</div>
+        <div>
+          <h3>The sim rig</h3>
+          <p class="lead">Built a full sim-racing cockpit from scratch.</p>
+          <ul><li>Logitech G29, Oculus Quest 2, heavily modded Assetto Corsa</li><li>Bass shakers wired in, so you feel the kerbs through the seat</li><li>Driven by MAXIMUS</li></ul>
+          <div class="spec"><b>Logitech G29</b><b>Quest 2</b><b>Assetto Corsa</b><b>bass shakers</b></div>
+        </div>
+        <div class="rshot">
+          <div class="shot" style="--img:url('/media/ladder-sim-rig.jpg')"></div>
+          <span class="cap">the cockpit &mdash; G29, pedals, VR</span>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">06</div>
+        <div>
+          <h3>Making my own clothes</h3>
+          <p class="lead">Could not afford the jeans I wanted, so I made them instead.</p>
+          <ul><li>My mom&rsquo;s old sewing machine &mdash; months for the first pair, several since</li><li>Drafting class taught me to draw a pattern before cutting</li><li>Fabric has no undo, which forces planning software never does</li></ul>
+          <div class="spec"><b>pattern drafting</b><b>garment construction</b><b>self-taught</b></div>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">07</div>
+        <div>
+          <h3>Reselling on Depop</h3>
+          <p class="lead">Built a profitable resale business on my own, as a notable seller.</p>
+          <ul><li>Sourced jeans cheap in thrift stores, sold at market price</li><li><b>Thousands of dollars</b> &mdash; my first real online business</li><li>Ran all of it: sourcing, pricing, photography, shipping, buyers</li></ul>
+          <div class="spec"><b>Depop</b><b>sourcing &amp; pricing</b><b>margin</b><b>first business</b></div>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">08</div>
+        <div>
+          <h3>MAXIMUS, rebuilt</h3>
+          <p class="lead">Tore the first build down and did it properly.</p>
+          <ul><li>The white machine it is today, with the RTX 5070 behind it</li><li>Same name, nothing left of the original but the idea</li></ul>
+          <div class="spec"><b>RTX 5070</b><b>white build</b></div>
+        </div>
+        <div class="rshot">
+          <div class="shot" style="--img:url('/media/ladder-maximus-rebuild.jpg')"></div>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">09</div>
+        <div>
+          <h3>The home lab begins</h3>
+          <p class="lead">An X99 board, 16 GB and a GTX 1660, built to stream games to myself.</p>
+          <ul><li>Turned into Pi-hole, a handful of servers and services only I depended on</li><li>The whole original home lab mess</li></ul>
+          <div class="spec"><b>X99</b><b>16 GB RAM</b><b>GTX 1660</b><b>Pi-hole</b></div>
+        </div>
+        <div class="rshot">
+          <div class="shot" style="--img:url('/media/ladder-home-lab.jpg')"></div>
+          <span class="cap">GA-X99-UD3P &mdash; where the home lab started</span>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">10</div>
+        <div>
+          <h3>Discovering what AI could actually do</h3>
+          <p class="lead">Chat-window coding became agentic harnesses, and my throughput exploded.</p>
+          <ul><li>Started on ChatGPT in high school, pasting code across by hand</li><li>Harnesses like Claude Code built real projects <b>many times faster</b></li><li>What was left was ideas and money &mdash; and money meant usage limits</li><li>Answered that by buying <b>$70 Tesla P100s</b> nobody wanted yet</li><li>Those cards cost far more now; the experience cannot be bought</li></ul>
+          <div class="spec"><b>ChatGPT</b><b>agentic harnesses</b><b>usage limits</b><b>$70 P100s</b><b>HBM2</b></div>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">11</div>
+        <div>
+          <h3>The networking phase</h3>
+          <p class="lead">Split one flat house network into four, with policy behind it.</p>
+          <ul><li><b>VLANs</b> for trusted machines, servers, IoT and guests</li><li>Network-wide <b>DNS</b> through Pi-hole on my own hardware</li><li>Firewall rules written around least reach for least trust</li></ul>
+          <div class="spec"><b>VLANs</b><b>Pi-hole</b><b>network-wide DNS</b><b>firewall rules</b></div>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">12</div>
+        <div>
+          <h3>The first P100</h3>
+          <p class="lead">One 16 GB Tesla P100 running 14B models, with nobody metering it.</p>
+          <ul><li>Good enough to talk to, not good enough to trust with a task</li></ul>
+          <div class="spec"><b>Tesla P100 16GB</b><b>14B models</b></div>
+        </div>
+        <div class="rshot">
+          <div class="shot" style="--img:url('/media/ladder-first-p100.jpg')"></div>
+          <span class="cap">the P100, out of the box</span>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">13</div>
+        <div>
+          <h3>So I bought another</h3>
+          <p class="lead">Two P100s, 32 GB of VRAM, and the models got big enough to leave alone.</p>
+          <ul><li>The point it stopped answering questions and started finishing tasks</li></ul>
+          <div class="spec"><b>2&times; P100</b><b>32 GB VRAM</b><b>autonomous work</b></div>
+        </div>
+        <div class="rshot">
+          <div class="shot" style="--img:url('/media/ladder-second-p100.jpg')"></div>
+          <span class="cap">on the bench, both cards in</span>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">14</div>
+        <div>
+          <h3>Pantheon takes the rest</h3>
+          <p class="lead">Bought a second server so the GPU box could do nothing but models.</p>
+          <ul><li>A Dell R210 running the websites, game servers and media stack</li><li>Proxmox containers, resource-weighted so they coexist under load</li></ul>
+          <div class="spec"><b>Dell R210</b><b>Proxmox</b><b>game servers</b><b>media stack</b></div>
+        </div>
+        <div class="rshot">
+          <div class="shot" style="--img:url('/media/ladder-pantheon.jpg')"></div>
+          <span class="cap">Pantheon &mdash; a Dell R210 with the lid off</span>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">15</div>
+        <div>
+          <h3>Three cards, and the BIOS that would not allow it</h3>
+          <p class="lead">Fitting a third compute card was an address-space problem, not a slot problem.</p>
+          <ul><li>Stock firmware&rsquo;s <b>Above 4G Decoding</b> toggle is broken on that board</li><li>Flashed a modded BIOS raising high MMIO from <b>256 GB to 1 TB</b></li><li>FreeDOS stick and a patched flasher, since the stock tool rejects modified images</li><li>Above 4G on, PCIe forced to Gen 3, legacy video off, one cleared CMOS</li><li>All three run at x8 &mdash; the CPU has only 28 lanes to give</li></ul>
+          <div class="spec"><b>V100 32GB</b><b>modded BIOS</b><b>Above 4G</b><b>64 GB VRAM</b></div>
+        </div>
+        <div class="rshot">
+          <div class="shot" style="--img:url('/media/ladder-three-cards.jpg')"></div>
+          <span class="cap">V100 32GB and two P100s, before they went in</span>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">16</div>
+        <div>
+          <h3>A fleet, not a box</h3>
+          <p class="lead">Three cards, two workloads, reassigned from a control panel.</p>
+          <ul><li>FRIDAY, the voice assistant, on the V100</li><li>AUTOGOD, the worker, on the P100 pair</li><li>The layout swaps <b>without dropping a session mid-answer</b></li></ul>
+          <div class="spec"><b>FRIDAY &rarr; V100</b><b>AUTOGOD &rarr; 2&times; P100</b><b>hot swap</b></div>
+        </div>
+        <div class="rshot">
+          <div class="shot" style="--img:url('/media/ladder-the-fleet.jpg')"></div>
+          <span class="cap">the Pi satellite, running FRIDAY</span>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">17</div>
+        <div>
+          <h3>Atlanta &rarr; Georgia Southern</h3>
+          <p class="lead">Running the whole stack remotely, from a dorm room.</p>
+          <ul><li>The hardware stayed in Atlanta. The agents did not stop</li></ul>
+          <div class="spec"><b>remote administration</b><b>Statesboro, GA</b></div>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">18</div>
+        <div>
+          <h3>What I am aiming at</h3>
+          <p class="lead">Training models, not only running them.</p>
+          <ul><li>Fine-tuning on my own data, then <b>building a language model from scratch</b></li><li>More systems built with AI rather than merely using it</li><li><b>Transferring to Georgia Tech</b> for computer or AI engineering</li><li>Hands on graphics cards since I was eleven. None of it was ever a plan</li></ul>
+          <div class="spec"><b>fine-tuning</b><b>training from scratch</b><b>Georgia Tech</b><b>computer / AI engineering</b></div>
+        </div>
+      </div>
+
+    </div>
   </section>
 
   <section class="band" style="padding-top:0">
