@@ -173,6 +173,7 @@
        font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
        background:linear-gradient(180deg,transparent,rgba(0,0,0,.85))}
   .frame.tall{grid-row:span 2}
+  .rig:has(.frame:only-of-type){grid-template-rows:auto}
   .say{padding:1.6rem 1.4rem;background:var(--slab);box-shadow:var(--edge)}
   .say p{margin:0 0 .9rem;color:var(--muted);font-size:.82rem;line-height:1.72}
   .say p:last-child{margin-bottom:0}
@@ -330,10 +331,7 @@
         takes the cards &mdash; the whole layout is swapped from a panel on
         the wall.</p>
       </div>
-      <div class="frame rise" style="transition-delay:.14s">
-        <div class="shot" style="--img:url('media/console.jpg')"></div>
-        <span class="cap">the fleet console &mdash; every agent on one wall</span>
-      </div>
+
     </div>
   </section>
 

@@ -12,16 +12,15 @@ have to match between shots. Shoot for shape and contrast, not colour.
 
 | file | where it goes | crop |
 | --- | --- | --- |
-| `profile.jpg` | your face, on the About page masthead | tall, 3:4 |
+| `profile.jpg` | your face, About masthead | tall, 3:4 |
 | `hero.jpg` | full-bleed behind the home headline | wide, >=2400px |
 | `rig.jpg` | "The machine" band, home page | portrait-ish |
-| `pantheon.jpg` | Pantheon, home page servers band | wide |
+| `pantheon.jpg` | Pantheon, home servers band | wide |
 | `rack.jpg` | the whole rack, About page | tall, 4:5 |
-| `door-about.jpg` | home tile 01 | tall, 3:4 |
-| `door-showcase.jpg` | home tile 02 | tall, 3:4 |
-| `door-blog.jpg` | home tile 03 | tall, 3:4 |
-| `door-login.jpg` | home tile 04 | tall, 3:4 |
-| `desk.jpg` | About, "where it gets done" | wide |
+
+Empty slots were removed rather than left showing a placeholder, so the only
+waiting slots are `profile.jpg` and `ladder-maximus-rebuild.jpg`. For any other
+picture, send it and the slot goes back in.
 
 ## The ladder
 
