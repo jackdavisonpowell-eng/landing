@@ -134,10 +134,11 @@
   .head .rule{flex:1;height:8px;background:var(--hatch);opacity:.3}
 
   /* ── doors ────────────────────────────────────────────────────────────── */
-  .doors{display:grid;gap:.7rem;grid-template-columns:repeat(3,minmax(0,1fr))}
-  @media (max-width:56rem){.doors{grid-template-columns:1fr}}
+  .doors{display:grid;gap:.7rem;grid-template-columns:repeat(4,minmax(0,1fr))}
+  @media (max-width:74rem){.doors{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:42rem){.doors{grid-template-columns:1fr}}
   .door{--c:var(--cut-m);position:relative;display:flex;flex-direction:column;justify-content:flex-end;
-       min-height:clamp(15rem,34vw,23rem);padding:1.5rem 1.35rem 1.3rem;overflow:hidden;
+       min-height:clamp(15rem,26vw,21rem);padding:1.5rem 1.35rem 1.3rem;overflow:hidden;
        box-shadow:var(--edge);isolation:isolate;
        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
   .door .scrim{background:linear-gradient(180deg,rgba(0,0,0,.28) 0,rgba(0,0,0,.55) 45%,rgba(2,3,5,.93) 100%)}
@@ -174,6 +175,28 @@
   .say p:last-child{margin-bottom:0}
   .say b{color:var(--text);font-weight:500}
 
+  /* ── server spec sheets ───────────────────────────────────────────────── */
+  .boxes{display:grid;gap:.7rem;grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:56rem){.boxes{grid-template-columns:1fr}}
+  .box{--c:var(--cut-m);position:relative;display:flex;flex-direction:column;overflow:hidden;
+       background:var(--slab);box-shadow:var(--edge);
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .box .lid{position:relative;height:clamp(9rem,17vw,13rem);overflow:hidden}
+  .box .lid .scrim{background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(2,3,5,.92))}
+  .box .name{position:absolute;left:1.2rem;bottom:.85rem;z-index:2}
+  .box .name h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.25rem 0 0;
+       font-size:clamp(1.5rem,3.4vw,2.2rem);line-height:.98;text-transform:uppercase;letter-spacing:-.02em}
+  .box .role{padding:1rem 1.2rem .2rem;color:var(--muted);font-size:.78rem;line-height:1.6}
+  .box .role b{color:var(--text);font-weight:500}
+  .box dl{margin:.9rem 0 0;padding:0 1.2rem 1.2rem;display:grid;
+       grid-template-columns:7.5rem 1fr;gap:0}
+  .box dt{padding:.5rem 0;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+       color:var(--faint);border-top:1px solid var(--line)}
+  .box dd{margin:0;padding:.5rem 0;font-size:.76rem;color:var(--text);border-top:1px solid var(--line)}
+  .box dd s{text-decoration:none;color:var(--muted)}
+  @media (max-width:26rem){.box dl{grid-template-columns:1fr}
+       .box dd{padding-top:0;border-top:0}}
+
   /* ── ticker ───────────────────────────────────────────────────────────── */
   .ticker{position:relative;overflow:hidden;border-top:1px solid var(--line);
        border-bottom:1px solid var(--line);background:rgba(6,7,10,.7);padding:.75rem 0}
@@ -206,6 +229,7 @@
     <a class="hbtn on" href="/">Home</a>
     <a class="hbtn" href="/portfolio/">About</a>
     <a class="hbtn" href="/showcase/">Showcase</a>
+    <a class="hbtn" href="/blog/">Log</a>
     <a class="hbtn" href="https://fleet.autogod.org/">Login</a>
   </nav>
 </header>
@@ -218,12 +242,13 @@
     <div class="ghost" aria-hidden="true">autogod</div>
     <div class="in">
       <span class="kick">Jack Powell &mdash; Atlanta, GA</span>
-      <h1>What I do<br><em>all day</em></h1>
-      <p>I build machines that build things. Three data-center GPUs in a
-      tower at home run my own models, and an agent called <b>AUTOGOD</b>
-      works on that stack around the clock &mdash; planning, building, and
-      rating its own work while I sleep. No cloud API bills, nothing
-      leaving the house.</p>
+      <h1>AUTOGOD<br><em>documentation</em></h1>
+      <p>The record of a machine that builds things. Two servers in Atlanta run
+      my own models on repurposed data-center GPUs, and an agent called
+      <b>AUTOGOD</b> works on that stack around the clock &mdash; planning,
+      building, and rating its own work while I sleep. This is the
+      documentation: the hardware, the projects, and the running log of what
+      broke along the way.</p>
     </div>
     <span class="cue">scroll</span>
   </section>
@@ -260,10 +285,21 @@
           <span class="go">see the work</span>
         </div>
       </a>
-      <a class="door key rise" href="https://fleet.autogod.org/" style="transition-delay:.21s">
+      <a class="door rise" href="/blog/" style="transition-delay:.21s">
+        <div class="shot" style="--img:url('media/door-blog.jpg')"></div>
+        <div class="scrim"></div>
+        <span class="no">03 &middot; working notes</span>
+        <div class="in">
+          <h3>The Log</h3>
+          <p>What broke, what I measured, what I decided. Written as I go,
+          not cleaned up afterwards.</p>
+          <span class="go">read the log</span>
+        </div>
+      </a>
+      <a class="door key rise" href="https://fleet.autogod.org/" style="transition-delay:.29s">
         <div class="shot" style="--img:url('media/door-login.jpg')"></div>
         <div class="scrim"></div>
-        <span class="no">03 &middot; auth required</span>
+        <span class="no">04 &middot; auth required</span>
         <div class="in">
           <h3>Login &rarr;</h3>
           <p>The control panel where the whole fleet is run from. One wall,
@@ -295,6 +331,57 @@
         <div class="shot" style="--img:url('media/console.jpg')"></div>
         <span class="cap">the fleet console &mdash; every agent on one wall</span>
       </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="head rise"><h2>The servers</h2><span class="rule"></span><span class="kick">both in Atlanta</span></div>
+    <div class="boxes">
+
+      <div class="box rise">
+        <div class="lid">
+          <div class="shot" style="--img:url('media/rig.jpg')"></div>
+          <div class="scrim"></div>
+          <span class="name"><span class="kick">inference</span><h3>thebeast</h3></span>
+        </div>
+        <p class="role">The one that thinks. Everything with a model in it runs
+        here &mdash; <b>FRIDAY on the V100</b>, <b>AUTOGOD on the P100 pair</b>,
+        and the layout swaps between them from the fleet console.</p>
+        <dl>
+          <dt>CPU</dt><dd>Intel i7-5820K <s>6c / 12t &middot; 3.3GHz</s></dd>
+          <dt>Board</dt><dd>Gigabyte X99-UD3P <s>2014</s></dd>
+          <dt>Memory</dt><dd>16 GB DDR4</dd>
+          <dt>GPU 1</dt><dd>Tesla V100 <s>32 GB</s></dd>
+          <dt>GPU 2&ndash;3</dt><dd>2&times; Tesla P100 <s>16 GB each</s></dd>
+          <dt>VRAM</dt><dd>64 GB total</dd>
+          <dt>Storage</dt><dd>238 GB SSD + 1 TB HDD</dd>
+          <dt>OS</dt><dd>Debian</dd>
+          <dt>Serves</dt><dd>FRIDAY &middot; AUTOGOD &middot; the fleet console &middot; this site</dd>
+        </dl>
+      </div>
+
+      <div class="box rise" style="transition-delay:.1s">
+        <div class="lid">
+          <div class="shot" style="--img:url('media/pantheon.jpg')"></div>
+          <div class="scrim"></div>
+          <span class="name"><span class="kick">games &amp; media</span><h3>Pantheon</h3></span>
+        </div>
+        <p class="role">A Dell R210 that was doing nothing until I gave it a
+        job. Now it runs the <b>game servers and the media stack</b>, in
+        containers, on hardware from 2010.</p>
+        <dl>
+          <dt>CPU</dt><dd>Intel Xeon X3450 <s>4c / 8t &middot; 2.67GHz</s></dd>
+          <dt>Chassis</dt><dd>Dell R210 <s>1U rack</s></dd>
+          <dt>Memory</dt><dd>16 GB</dd>
+          <dt>Storage</dt><dd>2&times; 240 GB Intel SSD <s>hardware RAID-1</s></dd>
+          <dt>OS</dt><dd>Proxmox</dd>
+          <dt>Serves</dt><dd>Minecraft <s>1.21.11 Fabric, 62-mod pack</s></dd>
+          <dt></dt><dd>Satisfactory <s>dedicated</s></dd>
+          <dt></dt><dd>Jellyfin media stack</dd>
+          <dt></dt><dd>Pi-hole</dd>
+        </dl>
+      </div>
+
     </div>
   </section>
 

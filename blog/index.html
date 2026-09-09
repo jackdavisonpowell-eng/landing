@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log &mdash; autogod.org</title>
+<meta name="description" content="Working notes: what broke, what I measured, and what I decided.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9700;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,600;0,800;0,900;1,800;1,900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ground:#000; --text:#F4F5F8; --muted:#9BA0AE; --faint:#5D6170;
+    --slab:linear-gradient(176deg,rgba(17,19,25,.56),rgba(4,5,8,.68));
+    --key:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.022));
+    --key-hi:linear-gradient(180deg,rgba(255,255,255,.155),rgba(255,255,255,.045));
+    --edge:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.62);
+    --line:rgba(255,255,255,.09);
+    --hatch:repeating-linear-gradient(118deg,rgba(255,255,255,.22) 0 1px,transparent 1px 6px);
+    --hatch-lg:repeating-linear-gradient(118deg,rgba(255,255,255,.055) 0 1px,transparent 1px 11px);
+    --f-d:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --f-m:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --cut:20px; --cut-m:12px; --cut-s:7px;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--ground)}
+  body{margin:0;background:var(--ground);color:var(--text);font-family:var(--f-m);
+       font-size:15px;line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit}
+  body::before{content:"";position:fixed;inset:-20vmax;z-index:0;pointer-events:none;
+       background:var(--hatch-lg);opacity:.5;animation:drift 90s linear infinite}
+  @keyframes drift{to{transform:translate3d(11vmax,-6vmax,0)}}
+
+  .cut{--c:var(--cut);position:relative;
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .cut::before{content:"";position:absolute;left:0;top:0;pointer-events:none;z-index:5;
+       width:calc(var(--c) * 2);height:calc(var(--c) * 2);
+       background:linear-gradient(135deg,rgba(255,255,255,.55) 0 1.5px,transparent 1.5px)}
+  .cut::after{content:"";position:absolute;right:0;bottom:0;pointer-events:none;z-index:5;
+       width:calc(var(--c) * 2);height:calc(var(--c) * 2);
+       background:linear-gradient(315deg,rgba(255,255,255,.22) 0 1.5px,transparent 1.5px)}
+  .plate{background:var(--slab);backdrop-filter:blur(4px) saturate(1.1);
+       box-shadow:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.7)}
+
+  header.top{position:relative;z-index:20;display:flex;align-items:center;gap:1rem;padding:.55rem 1rem}
+  .wm{display:inline-flex;align-items:center;font-family:var(--f-d);font-style:italic;font-weight:900;
+       font-size:clamp(1.3rem,2.15vw,1.95rem);text-transform:uppercase;line-height:1;white-space:nowrap;
+       text-shadow:0 0 22px rgba(235,238,245,.3)}
+  .wm::before{content:"";width:1.3rem;height:1.15rem;flex:none;margin-right:.7rem;background:var(--text);
+       opacity:.9;clip-path:polygon(38% 0,100% 0,62% 100%,0 100%)}
+  .wm i{color:var(--muted)}
+  .top .sp{flex:1;height:8px;background:var(--hatch);opacity:.35;
+       -webkit-mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);
+       mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent)}
+  .hnav{display:flex;gap:.4rem;flex:none;flex-wrap:wrap;justify-content:flex-end}
+  .hbtn{--c:var(--cut-s);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
+       padding:.5rem .9rem;background:var(--key);color:var(--muted);box-shadow:var(--edge);white-space:nowrap;
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .hbtn:hover{background:var(--key-hi);color:var(--text)}
+  .hbtn.on{color:#07080B;background:linear-gradient(180deg,#FFF,#CFD3DD);font-weight:600}
+
+  main{position:relative;z-index:1;padding:clamp(1.4rem,4vw,3rem) clamp(1.2rem,5vw,4.5rem) 4rem;
+       max-width:78rem;margin:0 auto}
+  .kick{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+
+  .mast{margin-bottom:2.4rem}
+  .mast h1{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.5rem 0 0;
+       font-size:clamp(2.6rem,9vw,6.4rem);line-height:.88;letter-spacing:-.035em;text-transform:uppercase;
+       text-shadow:0 0 50px rgba(235,238,245,.2)}
+  .mast p{margin:1rem 0 0;color:var(--muted);font-size:.88rem;line-height:1.7;max-width:56ch}
+
+  /* ── the index ────────────────────────────────────────────────────────── */
+  .list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+  .row{position:relative;display:grid;grid-template-columns:8.5rem 1fr;gap:clamp(1rem,3vw,2.4rem);
+       padding:1.5rem 0;border-bottom:1px solid var(--line);text-align:left;background:none;border-left:0;
+       border-right:0;border-top:0;color:inherit;cursor:pointer;width:100%}
+  @media (max-width:44rem){.row{grid-template-columns:1fr;gap:.45rem}}
+  .row .when{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);padding-top:.45rem}
+  .row h2{font-family:var(--f-d);font-style:italic;font-weight:900;margin:0;
+       font-size:clamp(1.3rem,3.2vw,2.05rem);line-height:1.02;text-transform:uppercase;letter-spacing:-.02em;
+       transition:transform .45s cubic-bezier(.16,1,.3,1)}
+  .row p{margin:.55rem 0 0;color:var(--muted);font-size:.82rem;line-height:1.62;max-width:70ch}
+  .row .tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.8rem}
+  .row .tags b{font-size:.57rem;letter-spacing:.15em;text-transform:uppercase;color:var(--faint);
+       font-weight:500;padding:.24rem .5rem;box-shadow:var(--edge);background:var(--key)}
+  .row:hover h2{transform:translateX(10px)}
+  .row:hover p{color:#C9CDD8}
+  .row::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:0;background:var(--text);
+       transition:width .5s cubic-bezier(.16,1,.3,1)}
+  .row:hover::after{width:100%}
+
+  .void{padding:3.5rem 1.5rem;text-align:center;color:var(--faint);background:var(--slab);
+       box-shadow:var(--edge)}
+  .void b{display:block;font-family:var(--f-d);font-style:italic;font-weight:900;font-size:1.5rem;
+       text-transform:uppercase;color:var(--muted);margin-bottom:.6rem}
+
+  /* ── one post ─────────────────────────────────────────────────────────── */
+  .back{--c:var(--cut-s);display:inline-block;margin-bottom:1.6rem;padding:.5rem .95rem;
+       background:var(--key);box-shadow:var(--edge);color:var(--muted);border:0;cursor:pointer;
+       font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .back:hover{background:var(--key-hi);color:var(--text)}
+  article{max-width:44rem}
+  article h1{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.5rem 0 0;
+       font-size:clamp(2rem,6vw,4rem);line-height:.92;letter-spacing:-.03em;text-transform:uppercase}
+  .body{margin-top:2rem;color:#C6CAD5;font-size:.92rem;line-height:1.78}
+  .body h2{font-family:var(--f-d);font-style:italic;font-weight:900;color:var(--text);
+       font-size:clamp(1.2rem,2.6vw,1.7rem);text-transform:uppercase;letter-spacing:-.015em;
+       margin:2.4rem 0 .8rem;line-height:1.05}
+  .body h3{font-family:var(--f-d);font-style:italic;font-weight:800;color:var(--text);
+       font-size:1.05rem;text-transform:uppercase;margin:1.8rem 0 .6rem}
+  .body p{margin:0 0 1.1rem}
+  .body b{color:var(--text)}
+  .body a{color:var(--text);text-decoration:underline;text-underline-offset:3px}
+  .body ul,.body ol{margin:0 0 1.2rem;padding-left:1.2rem}
+  .body li{margin:0 0 .45rem}
+  .body blockquote{margin:1.4rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:2px solid var(--line);
+       color:var(--muted);font-style:italic}
+  .body code{font-family:var(--f-m);font-size:.86em;background:rgba(255,255,255,.06);padding:.1em .38em}
+  .body pre{background:rgba(255,255,255,.045);box-shadow:var(--edge);padding:1rem 1.1rem;overflow-x:auto;
+       margin:0 0 1.3rem}
+  .body pre code{background:none;padding:0;font-size:.8rem;line-height:1.6}
+  .body hr{border:0;height:8px;background:var(--hatch);opacity:.3;margin:2.2rem 0}
+  .body figure{margin:1.8rem 0}
+  .body img,.body video{display:block;width:100%;height:auto;box-shadow:var(--edge)}
+
+  footer{position:relative;z-index:1;padding:2.2rem 1.2rem;text-align:center;font-size:.6rem;
+       letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top cut plate">
+  <span class="wm">autogod<i>.org</i></span>
+  <span class="sp"></span>
+  <nav class="hnav">
+    <a class="hbtn" href="/">Home</a>
+    <a class="hbtn" href="/portfolio/">About</a>
+    <a class="hbtn" href="/showcase/">Showcase</a>
+    <a class="hbtn on" href="/blog/">Log</a>
+    <a class="hbtn" href="https://fleet.autogod.org/">Login</a>
+  </nav>
+</header>
+
+<main id="view"></main>
+<footer>autogod.org &mdash; built and run by Jack Powell</footer>
+
+<script>
+/* The posts are written as markdown notes in the Obsidian vault and turned
+   into posts.json by publish.py. Nothing here needs editing to add one. */
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g,
+  c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let POSTS = [];
+
+const MAST = `<div class="mast">
+    <span class="kick">working notes</span>
+    <h1>The Log</h1>
+    <p>What broke, what I measured, and what I decided. Not write-ups — the
+    <a href="/showcase/" style="color:var(--text);text-decoration:underline">showcase</a>
+    does those. This is the running account.</p>
+  </div>`;
+
+function rowHTML(p, i) {
+  return `<button class="row" data-i="${i}">
+    <span class="when">${esc(p.date || "")}</span>
+    <span>
+      <h2>${esc(p.title)}</h2>
+      ${p.excerpt ? `<p>${esc(p.excerpt)}</p>` : ""}
+      ${(p.tags || []).length ? `<span class="tags">${
+        p.tags.map(t => `<b>${esc(t)}</b>`).join("")}</span>` : ""}
+    </span></button>`;
+}
+
+function index() {
+  $("view").innerHTML = MAST + (POSTS.length
+    ? `<div class="list">${POSTS.map(rowHTML).join("")}</div>`
+    : `<div class="void cut"><b>nothing written yet</b>
+       add a note to <code>Site/Blog</code> in the vault and it lands here.</div>`);
+}
+
+function post(p) {
+  $("view").innerHTML = `<button class="back" onclick="location.hash=''">&larr; all entries</button>
+    <article>
+      <span class="kick">${esc(p.date || "")}${
+        (p.tags || []).length ? " &middot; " + p.tags.map(esc).join(" &middot; ") : ""}</span>
+      <h1>${esc(p.title)}</h1>
+      <div class="body">${p.html || ""}</div>
+    </article>`;
+  scrollTo(0, 0);
+}
+
+function route() {
+  const slug = decodeURIComponent(location.hash.replace(/^#/, ""));
+  const p = POSTS.find(x => x.slug === slug);
+  p ? post(p) : index();
+}
+
+addEventListener("hashchange", route);
+document.addEventListener("click", (ev) => {
+  const r = ev.target.closest(".row");
+  if (r) location.hash = POSTS[+r.dataset.i].slug;
+});
+
+fetch("posts.json", {cache: "no-store"})
+  .then(r => r.ok ? r.json() : {posts: []})
+  .then(d => { POSTS = d.posts || []; route(); })
+  .catch(() => { POSTS = []; index(); });
+</script>
+
+</body>
+</html>

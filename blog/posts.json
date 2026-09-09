@@ -1,0 +1,17 @@
+{
+ "generated": "2026-09-09T14:28:32",
+ "posts": [
+  {
+   "title": "The log starts here",
+   "date": "2026-09-09",
+   "tags": [
+    "meta"
+   ],
+   "slug": "first-entry",
+   "html": "<p>This is where I write down what I am working on and what I run into. Not polished write-ups — the projects page already does that. This is the running account: the thing that broke, the measurement that surprised me, the decision I made and why.</p>\n<p>I am starting it because I keep solving the same problem twice. Something goes wrong at two in the morning, I fix it, and four months later I hit the same wall with no memory of what the answer was. Writing it down is cheaper than rediscovering it.</p>\n<p>Delete this post once there is a real one under it.</p>",
+   "excerpt": "This is where I write down what I am working on and what I run into. Not\npolished write-ups — the projects page already does that. This is the running\naccount: the thing that broke, the measurement t…",
+   "file": "First entry.md",
+   "stats": []
+  }
+ ]
+}
