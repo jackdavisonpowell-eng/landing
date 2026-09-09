@@ -89,35 +89,39 @@
   .strip .count{margin-left:auto;padding-left:1rem;font-size:.6rem;letter-spacing:.16em;
        text-transform:uppercase;color:var(--faint);white-space:nowrap}
 
-  /* keys with a real bevel, not a flat chip */
-  .key{position:relative;font-family:var(--f-m);font-size:.6rem;letter-spacing:.16em;
-       text-transform:uppercase;color:var(--muted);padding:.52rem .95rem;white-space:nowrap;
-       background:linear-gradient(180deg,#2A2E38 0%,#181B22 48%,#0E1015 100%);
-       border-top:1px solid rgba(255,255,255,.30);
-       border-left:1px solid rgba(255,255,255,.14);
-       border-right:1px solid rgba(0,0,0,.85);
+  /* keys with a real bevel, not a flat chip. Every key is the same key —
+     the only one that looks different is the page you are on. */
+  .key{position:relative;display:inline-flex;align-items:center;justify-content:center;
+       font-family:var(--f-m);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
+       color:var(--muted);height:1.9rem;padding:0 .95rem;min-width:5.6rem;white-space:nowrap;
+       background:linear-gradient(180deg,#2B2F3A 0%,#1A1D25 46%,#0D0F14 100%);
+       border-top:1px solid rgba(255,255,255,.34);
+       border-left:1px solid rgba(255,255,255,.12);
+       border-right:1px solid rgba(0,0,0,.9);
        border-bottom:2px solid rgba(0,0,0,.95);
-       box-shadow:0 2px 0 rgba(0,0,0,.75),0 3px 6px rgba(0,0,0,.6),
-                  inset 0 1px 0 rgba(255,255,255,.16);
-       transition:transform .09s ease,box-shadow .09s ease,color .2s ease,background .2s ease;
+       box-shadow:0 2px 0 rgba(0,0,0,.8),0 4px 8px rgba(0,0,0,.55),
+                  inset 0 1px 0 rgba(255,255,255,.18),
+                  inset 0 -6px 10px rgba(0,0,0,.45);
+       transition:transform .1s ease,box-shadow .1s ease,color .18s ease,background .18s ease;
        --c:6px;
        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
-  .key:hover{color:var(--text);
-       background:linear-gradient(180deg,#343945 0%,#1E222B 48%,#121419 100%)}
-  .key:focus-visible{outline:2px solid rgba(255,255,255,.8);outline-offset:2px}
+  .key:hover{color:var(--text);transform:translateY(-1px);
+       background:linear-gradient(180deg,#373C49 0%,#212530 46%,#111318 100%);
+       box-shadow:0 3px 0 rgba(0,0,0,.8),0 6px 12px rgba(0,0,0,.6),
+                  inset 0 1px 0 rgba(255,255,255,.26),
+                  inset 0 -6px 10px rgba(0,0,0,.4)}
+  .key:focus-visible{outline:2px solid rgba(255,255,255,.85);outline-offset:2px}
   .key:active{transform:translateY(2px);
-       box-shadow:0 0 0 rgba(0,0,0,.75),0 1px 2px rgba(0,0,0,.6),
-                  inset 0 1px 0 rgba(255,255,255,.10)}
-  .key.on{color:#07080B;font-weight:600;
-       background:linear-gradient(180deg,#FFFFFF 0%,#DDE1EA 45%,#AFB5C2 100%);
-       border-top:1px solid rgba(255,255,255,.9);
-       box-shadow:0 2px 0 rgba(0,0,0,.75),0 3px 7px rgba(0,0,0,.55),
+       box-shadow:0 0 0 rgba(0,0,0,.8),0 1px 2px rgba(0,0,0,.6),
+                  inset 0 2px 5px rgba(0,0,0,.7)}
+  /* the page you are on: the key that is already pressed */
+  .key.on,.key.on:hover{color:#07080B;font-weight:600;transform:none;
+       background:linear-gradient(180deg,#FFFFFF 0%,#DEE2EA 46%,#B2B8C4 100%);
+       border-top:1px solid rgba(255,255,255,.95);
+       border-left:1px solid rgba(255,255,255,.5);
+       box-shadow:0 2px 0 rgba(0,0,0,.8),0 4px 9px rgba(0,0,0,.5),
                   inset 0 1px 0 rgba(255,255,255,.95)}
-  .key.admin{color:#0B0D12;font-weight:600;
-       background:linear-gradient(180deg,#F0C066 0%,#C8933A 48%,#8C6420 100%);
-       border-top:1px solid rgba(255,235,190,.8)}
-  .key.admin:hover{color:#0B0D12;
-       background:linear-gradient(180deg,#FFD27E 0%,#D8A249 48%,#9C7228 100%)}
+
 
   /* ── the block: the banner sits in it ── */
   .bar .mark{position:absolute;top:0;right:0;width:var(--rw);height:var(--tall);z-index:3;
@@ -233,7 +237,7 @@
     <a class="key" href="/showcase/">Showcase</a>
     <a class="key" href="/portfolio/">About</a>
     <a class="key on" href="/blog/" aria-current="page">Log</a>
-    <a class="key admin" href="https://fleet.autogod.org/">Admin panel</a>
+    <a class="key" href="https://fleet.autogod.org/">Admin panel</a>
   </nav>
   <div class="mark">
     <pre aria-label="AUTOGOD">          ▄███▄   ██   ██ ███████   ▄███▄    ▄███▄   ▄███▄   █████▄          
