@@ -28,26 +28,26 @@ have to match between shots. Shoot for shape and contrast, not colour.
 One per step of the history on the About page. Landscape, 4:3.
 
 Named for the step, not its position, so adding a step in the middle never
-renames anything. "drawn" means I made a graphic for it — replace it with a
-real photo whenever you have one. "WANTED" is an empty slot.
+renames anything. "WANTED" is an empty slot showing the hatched plate.
 
 | file | the step | |
 | --- | --- | --- |
 | `ladder-first-build.jpg` | first build, age eleven — MAXIMUS | have it |
-| `ladder-tinkering.jpg` | overclocking, Blender, YouTube | drawn |
+| `ladder-tinkering.jpg` | overclocking, Blender, YouTube | WANTED |
 | `ladder-clubs.jpg` | robotics / engineering / coding clubs | WANTED |
-| `ladder-highschool.jpg` | Midtown + dual enrollment | drawn |
+| `ladder-highschool.jpg` | Midtown + dual enrollment | WANTED |
 | `ladder-sim-rig.jpg` | the sim rig — wheel, cockpit, VR | have it |
 | `ladder-sewing.jpg` | the pants, or the machine you made them on | WANTED |
 | `ladder-maximus-rebuild.jpg` | MAXIMUS rebuilt in white | WANTED |
 | `ladder-home-lab.jpg` | the X99 home lab, 1660 era | have it |
 | `ladder-discovering-ai.jpg` | ChatGPT, then the harnesses, then cheap P100s | WANTED |
-| `ladder-networking.jpg` | VLANs, Pi-hole, firewall | drawn |
+| `ladder-networking.jpg` | VLANs, Pi-hole, firewall | WANTED |
 | `ladder-first-p100.jpg` | the first P100 | have it |
 | `ladder-second-p100.jpg` | both P100s in | have it |
 | `ladder-pantheon.jpg` | Pantheon, the Dell R210 | have it |
 | `ladder-three-cards.jpg` | the three cards before they went in | have it |
 | `ladder-the-fleet.jpg` | the Pi satellite running FRIDAY | have it |
-| `ladder-georgia-southern.jpg` | Georgia Southern | drawn |
+| `ladder-georgia-southern.jpg` | Georgia Southern | WANTED |
+| `ladder-future.jpg` | training, Georgia Tech, what is next | WANTED |
 
 The showcase page has its own folder with its own list: `showcase/media/`.
