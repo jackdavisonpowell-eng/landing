@@ -1,10 +1,17 @@
 # landing
 
 Public landing page for autogod.org — a static, no-build, no-dependency site.
-Three pages: `index.html` (home, links out), `portfolio/index.html` (about —
-currently a stub), and `showcase` (not in this repo — it's a symlink on the
+Three pages: `index.html` (home), `portfolio/index.html` (about — the
+hardware ladder), and `showcase` (not in this repo — it's a symlink on the
 server to the separate [showcase](https://github.com/jackdavisonpowell-eng/showcase)
 repo's checkout).
+
+## Photos
+
+Both pages are photo-driven. Image slots are CSS custom properties layered
+over a hatched plate, so a file that isn't in `media/` yet just doesn't paint
+and the placeholder shows through — no broken images, no code change needed
+to add one later. `media/SHOTS.md` is the list of filenames and crops.
 
 ## Editing
 
@@ -20,6 +27,7 @@ the Cloudflare tunnel that also carries fleet.autogod.org. To ship a change:
 
     rsync -a --exclude .git --exclude showcase ~/landing/ thebeast:~/landing/
 
-No restart needed — the server reads files per request. Don't touch
-`showcase/` through this repo; that content is deployed separately by the
-showcase repo's own rsync command.
+No restart needed — the server reads files per request. Don't touch `showcase/` through this repo — it's a symlink. That content
+ships from the showcase repo with:
+
+    rsync -a --exclude .git ~/showcase/ thebeast:~/fleet/showcase/
