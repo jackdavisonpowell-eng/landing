@@ -1,6 +1,17 @@
 {
- "generated": "2026-09-09T14:28:32",
+ "generated": "2026-09-09T14:44:55",
  "posts": [
+  {
+   "title": "Embed test",
+   "date": "2026-09-09",
+   "cover": "navbar-full.png",
+   "slug": "embed-test",
+   "html": "<p>Pasted straight into Obsidian, no filing:</p>\n<figure><img src=\"/media/navbar-closeup.png\" alt=\"\" loading=\"lazy\"></figure>\n<p>And with a caption:</p>\n<figure><img src=\"/media/navbar-full.png\" alt=\"the whole navbar\" loading=\"lazy\"></figure>",
+   "excerpt": "Pasted straight into Obsidian, no filing:",
+   "file": "Embed test.md",
+   "tags": [],
+   "stats": []
+  },
   {
    "title": "The log starts here",
    "date": "2026-09-09",

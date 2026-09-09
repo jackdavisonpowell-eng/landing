@@ -26,12 +26,49 @@ import time
 from pathlib import Path
 
 VAULT = Path(os.environ.get("SITE_VAULT", "/data/vault/Site"))
+# Obsidian drops pasted images into an attachment folder somewhere in the
+# vault and embeds them as [[name.png]] — not necessarily anywhere near the
+# note. So resolve an embed by filename across the whole vault, the way
+# Obsidian itself does, rather than demanding the file be filed by hand.
+VAULT_ROOT = Path(os.environ.get("SITE_VAULT_ROOT", str(VAULT.parent)))
 LANDING = Path(os.environ.get("SITE_LANDING", str(Path.home() / "landing")))
 SHOWCASE = Path(os.environ.get("SITE_SHOWCASE", str(Path.home() / "fleet" / "showcase")))
 
 MEDIA_EXT = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif",
              ".mp4", ".webm", ".mov", ".m4v"}
 VIDEO_EXT = {".mp4", ".webm", ".mov", ".m4v"}
+SKIP_DIRS = {".obsidian", ".stversions", ".stfolder", ".git", ".trash", "node_modules"}
+
+_INDEX = {}   # lowercase filename -> Path, every media file in the vault
+_USED = set()  # what the notes actually referenced this run
+
+
+def index_media():
+    """One pass over the vault. Files under Site/Media win a name collision,
+    because that folder is the one place a name is chosen deliberately."""
+    _INDEX.clear()
+    for root in (VAULT_ROOT, VAULT / "Media"):
+        if not root.is_dir():
+            continue
+        for f in root.rglob("*"):
+            if any(part in SKIP_DIRS for part in f.parts):
+                continue
+            if f.is_file() and f.suffix.lower() in MEDIA_EXT:
+                _INDEX[f.name.lower()] = f
+    return len(_INDEX)
+
+
+def find_media(name):
+    """Resolve an embed to a real file. Accepts a bare name, a name with a
+    path in front of it, and a name that has been URL-escaped by Obsidian."""
+    if not name:
+        return None
+    from urllib.parse import unquote
+    cand = unquote(str(name)).split("/")[-1].split("\\")[-1].strip()
+    hit = _INDEX.get(cand.lower())
+    if hit:
+        _USED.add(hit)
+    return hit
 
 
 # ── frontmatter ──────────────────────────────────────────────────────────────
@@ -60,9 +97,28 @@ def split_front(text):
 
 
 # ── markdown, the parts a person actually types ──────────────────────────────
+def media_tag(src, alt=""):
+    f = find_media(src)
+    name = f.name if f else str(src).split("/")[-1]
+    # root-relative: the blog lives at /blog/ and the showcase at /showcase/,
+    # but every copied file lands under /media/, so a bare name 404s on both
+    url = "/media/" + name
+    if Path(name).suffix.lower() in VIDEO_EXT:
+        return (f'<video src="{url}" controls muted loop playsinline '
+                f'preload="metadata"></video>')
+    return f'<img src="{url}" alt="{html.escape(alt, quote=True)}" loading="lazy">'
+
+
 def inline(s):
     s = html.escape(s, quote=False)
     s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
+    # ![[photo.png]] and ![[photo.png|a caption]] — what Obsidian writes when
+    # you paste an image straight into a note
+    s = re.sub(r"!\[\[([^\]|]+)(?:\|([^\]]*))?\]\]",
+               lambda m: media_tag(m.group(1), m.group(2) or ""), s)
+    # [[a note]] links have nowhere to go on a public site — keep the words
+    s = re.sub(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]",
+               lambda m: m.group(2) or m.group(1), s)
     # an image or a video, written the same way in both cases
     def media(m):
         alt, src = m.group(1), m.group(2)
@@ -174,6 +230,10 @@ def read_notes(folder):
         item["html"] = markdown(body)
         item["excerpt"] = meta.get("excerpt") or plain(body)
         item["file"] = f.name
+        cover = item.get("cover")
+        if cover:
+            hit = find_media(re.sub(r"^!?\[\[|\]\]$", "", str(cover)).split("|")[0])
+            item["cover"] = hit.name if hit else str(cover).split("/")[-1]
         tags = item.get("tags", [])
         item["tags"] = ([t.strip() for t in tags.split(",") if t.strip()]
                         if isinstance(tags, str) else list(tags))
@@ -194,16 +254,22 @@ def read_notes(folder):
 
 
 def copy_media(dests):
-    src = VAULT / "Media"
+    """Everything deliberately filed in Site/Media, plus anything a note
+    actually embedded from elsewhere in the vault. Nothing else — the vault
+    has plenty of images that are none of the internet's business."""
+    wanted = dict()
+    folder = VAULT / "Media"
+    if folder.is_dir():
+        for f in folder.rglob("*"):
+            if f.is_file() and f.suffix.lower() in MEDIA_EXT:
+                wanted[f.name] = f
+    for f in _USED:
+        wanted.setdefault(f.name, f)
     n = 0
-    if not src.is_dir():
-        return 0
-    for f in src.iterdir():
-        if not f.is_file() or f.suffix.lower() not in MEDIA_EXT:
-            continue
+    for name, f in wanted.items():
         for d in dests:
             d.mkdir(parents=True, exist_ok=True)
-            out = d / f.name
+            out = d / name
             if not out.exists() or out.stat().st_mtime < f.stat().st_mtime:
                 shutil.copy2(f, out); n += 1
     return n
@@ -220,6 +286,7 @@ def main():
     if not VAULT.is_dir():
         print(f"no {VAULT} — nothing to publish"); return 0
 
+    found = index_media()
     posts = read_notes(VAULT / "Blog")
     posts.sort(key=lambda p: str(p.get("date", "")), reverse=True)
     write_json(LANDING / "blog" / "posts.json",
@@ -234,7 +301,8 @@ def main():
                {"generated": time.strftime("%Y-%m-%dT%H:%M:%S"), "projects": projects})
 
     files = copy_media([LANDING / "media", SHOWCASE / "media"])
-    print(f"published {len(posts)} posts, {len(projects)} projects, {files} media files")
+    print(f"published {len(posts)} posts, {len(projects)} projects, "
+          f"{files} media files copied ({found} indexed, {len(_USED)} embedded)")
     return 0
 
 

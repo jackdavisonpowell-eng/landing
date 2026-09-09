@@ -86,7 +86,17 @@ appears when someone clicks the card. Write as much as you want there.
 
 ## Adding photos and videos
 
-Drop the file in `Site/Media/`. That is it — it gets copied to both pages.
+**The easy way: paste a photo straight into the note.** Obsidian files it
+wherever your attachment settings put it and writes `![[photo.png]]` for you.
+That works — the publisher looks for embedded files anywhere in the vault, so
+you do not have to move anything or care where Obsidian put it.
+
+The other way is to drop the file in `Site/Media/` yourself, which is what you
+want for the named slots below, since those need an exact filename.
+
+Only two kinds of image get published: anything sitting in `Site/Media/`, and
+anything a `Site/` note actually embeds. The rest of the vault's images stay
+private.
 
 Use it as a card or post cover by name:
 
@@ -97,9 +107,12 @@ cover: v100-install.jpg
 Or put it in the middle of what you are writing, on its own line:
 
 ```
-![the second card going in](v100-install.jpg)
-![the fans spinning up](fans.mp4)
+![[v100-install.jpg]]
+![[fans.mp4]]
+![[v100-install.jpg|a caption under it]]
 ```
+
+The `![](file.jpg)` form works too if you prefer typing it.
 
 Videos work the same way as images. `.mp4` and `.webm` are safest. A video
 gets play controls, starts muted, and loops.
