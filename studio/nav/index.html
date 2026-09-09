@@ -25,8 +25,20 @@
      to hold the banner. clip-path also clips hit-testing, so the empty
      area beside the wedge is not clickable and the page shows through. */
   header.bar{position:fixed;top:0;left:0;right:0;height:var(--tall);z-index:60;
-    background:var(--slab);backdrop-filter:blur(8px) saturate(1.1);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.8);
+    /* liquid glass: a specular sheet over a tinted, blurred pane. The top
+       band is the highlight, the mid band the body, and the blur is doing
+       the work — saturation lifted so colour behind it stays alive. */
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.16) 0,rgba(255,255,255,.05) 34%,
+                              rgba(255,255,255,.012) 62%,rgba(255,255,255,.05) 100%),
+      radial-gradient(120% 160% at 88% -30%,rgba(255,255,255,.10),transparent 60%),
+      linear-gradient(176deg,rgba(24,27,35,.60),rgba(9,11,16,.74));
+    backdrop-filter:blur(26px) saturate(1.9) brightness(1.06);
+    -webkit-backdrop-filter:blur(26px) saturate(1.9) brightness(1.06);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.42),
+               inset 0 -1px 0 rgba(0,0,0,.75),
+               inset 0 0 40px rgba(255,255,255,.045);
+    filter:drop-shadow(0 12px 26px rgba(0,0,0,.55));
     clip-path:polygon(
       0 0, 100% 0, 100% 100%,
       calc(100% - var(--rw)) 100%,
@@ -48,11 +60,14 @@
   /* the diagonal drawn as its own hairline, so it stays crisp */
   .edge{position:absolute;top:var(--skinny);right:var(--rw);width:var(--rise);height:var(--rise);
     pointer-events:none;z-index:2;
-    background:linear-gradient(to top right,transparent calc(50% - .8px),
-      rgba(255,255,255,.5) 50%,transparent calc(50% + .8px));}
+    background:linear-gradient(to top right,transparent calc(50% - .9px),
+      rgba(255,255,255,.68) 50%,transparent calc(50% + .9px));}
   .underline{position:absolute;left:0;top:calc(var(--skinny) - 1px);
-    width:calc(100% - var(--rw) - var(--rise));height:1px;background:rgba(255,255,255,.5);
-    pointer-events:none;z-index:2}
+    width:calc(100% - var(--rw) - var(--rise));height:1px;pointer-events:none;z-index:2;
+    background:linear-gradient(90deg,rgba(255,255,255,.14),rgba(255,255,255,.62))}
+  /* the block's own bottom edge — the last piece of the silhouette */
+  .baseline{position:absolute;right:0;bottom:0;width:var(--rw);height:1px;pointer-events:none;z-index:2;
+    background:linear-gradient(90deg,rgba(255,255,255,.62),rgba(255,255,255,.28))}
 
   /* ── the strip: buttons live here ────────────────────────────────── */
   .strip{position:absolute;top:0;left:0;height:var(--skinny);
@@ -92,9 +107,13 @@
   .mark{position:absolute;top:0;right:0;width:var(--rw);height:var(--tall);z-index:3;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     padding:.5rem 1.1rem .6rem}
-  .mark pre{white-space:pre;line-height:1.03;color:#fff;font-family:var(--fm);
-    font-size:calc((var(--rw) - 2.6rem) / 47);
+    /* the mark leans the way the display face does; the O stays a circle,
+     so it counter-skews by exactly what its parent applies */
+  .mark pre{white-space:pre;line-height:1.03;color:#fff;font-family:var(--fm);font-weight:500;
+    font-size:calc((var(--rw) - 3.1rem) / 47);
+    transform:skewX(-11deg);transform-origin:50% 50%;
     text-shadow:0 0 10px rgba(255,255,255,.34),0 0 30px rgba(190,210,255,.16)}
+  .mark pre b{display:inline-block;font-weight:inherit;transform:skewX(11deg)}
   .mark .dot{margin-top:.42rem;font-size:.5rem;letter-spacing:.42em;color:var(--f);
     text-transform:uppercase}
 
@@ -125,6 +144,7 @@
 
 <header class="bar">
   <span class="underline"></span>
+  <span class="baseline"></span>
   <span class="edge"></span>
   <nav class="strip">
     <span class="glyph"></span>
@@ -134,13 +154,13 @@
     <a class="key admin" href="https://fleet.autogod.org/">Admin panel</a>
   </nav>
   <div class="mark">
-    <pre aria-label="AUTOGOD">          ▄███▄   ██   ██ ███████   ▄███▄    ▄███▄   ▄███▄   █████▄          
-      ▄  ██▀ ▀██ ██   ██    ███    ██▀ ▀██  ██▀ ▀▀   ██▀ ▀██ ██   ██  ▄      
-   ▄███ ██   ██  ██   ██    ███    ██   ██  ██       ██   ██  ██   ██ ███▄   
-▄██████ ███████  ██   ██    ███    ██   ██  ██  ███  ██   ██  ██   ██ ██████▄
-   ▀███ ██   ██  ██   ██    ███    ██   ██  ██   ██  ██   ██  ██   ██ ███▀   
-      ▀██   ██   ██▄ ▄██    ███    ██▄ ▄██  ██▄ ▄██  ██▄ ▄██   ██   ██▀      
-       ██   ██   ▀███▀      ███     ▀███▀    ▀███▀     ▀███▀   █████▀        </pre>
+    <pre aria-label="AUTOGOD">          ▄███▄   ██   ██ ███████  <b class="up"> ▄███▄  </b>  ▄███▄   ▄███▄   █████▄          
+      ▄  ██▀ ▀██ ██   ██    ███    <b class="up">██▀ ▀██ </b> ██▀ ▀▀   ██▀ ▀██ ██   ██  ▄      
+   ▄███ ██   ██  ██   ██    ███    <b class="up">██   ██ </b> ██       ██   ██  ██   ██ ███▄   
+▄██████ ███████  ██   ██    ███    <b class="up">██   ██ </b> ██  ███  ██   ██  ██   ██ ██████▄
+   ▀███ ██   ██  ██   ██    ███    <b class="up">██   ██ </b> ██   ██  ██   ██  ██   ██ ███▀   
+      ▀██   ██   ██▄ ▄██    ███    <b class="up">██▄ ▄██ </b> ██▄ ▄██  ██▄ ▄██   ██   ██▀      
+       ██   ██   ▀███▀      ███    <b class="up"> ▀███▀  </b>  ▀███▀     ▀███▀   █████▀        </pre>
     <span class="dot">autogod.org</span>
   </div>
 </header>
