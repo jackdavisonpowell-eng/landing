@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio &mdash; autogod</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9700;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,600;0,800;0,900;1,800;1,900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ground:#000; --text:#F4F5F8; --muted:#9BA0AE; --faint:#5D6170;
+    --slab:linear-gradient(176deg,rgba(17,19,25,.56),rgba(4,5,8,.68));
+    --key:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.022));
+    --key-hi:linear-gradient(180deg,rgba(255,255,255,.155),rgba(255,255,255,.045));
+    --edge:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.62);
+    --hatch:repeating-linear-gradient(118deg,rgba(255,255,255,.22) 0 1px,transparent 1px 6px);
+    --f-d:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --f-m:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --cut:20px; --cut-s:7px;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--ground)}
+  body{margin:0;min-height:100vh;background:var(--ground);color:var(--text);
+       font-family:var(--f-m);font-size:15px;line-height:1.5;
+       -webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+  a{color:inherit;text-decoration:none}
+  .cut{--c:var(--cut);position:relative;
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .cut::before{content:"";position:absolute;left:0;top:0;pointer-events:none;z-index:3;
+       width:calc(var(--c) * 2);height:calc(var(--c) * 2);
+       background:linear-gradient(135deg,rgba(255,255,255,.55) 0 1.5px,transparent 1.5px)}
+  .cut::after{content:"";position:absolute;right:0;bottom:0;pointer-events:none;z-index:3;
+       width:calc(var(--c) * 2);height:calc(var(--c) * 2);
+       background:linear-gradient(315deg,rgba(255,255,255,.22) 0 1.5px,transparent 1.5px)}
+  .plate{background:var(--slab);backdrop-filter:blur(4px) saturate(1.1);
+       box-shadow:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.7)}
+  .top{display:flex;align-items:center;gap:1rem;padding:.55rem 1rem}
+  .wm{display:inline-flex;align-items:center;font-family:var(--f-d);font-style:italic;
+       font-weight:900;font-size:clamp(1.3rem,2.15vw,1.95rem);text-transform:uppercase;
+       line-height:1;white-space:nowrap;text-shadow:0 0 22px rgba(235,238,245,.3)}
+  .wm::before{content:"";width:1.3rem;height:1.15rem;flex:none;margin-right:.7rem;
+       background:var(--text);opacity:.9;clip-path:polygon(38% 0,100% 0,62% 100%,0 100%)}
+  .wm i{color:var(--muted)}
+  .top .sp{flex:1;height:8px;background:var(--hatch);opacity:.35;
+       -webkit-mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);
+       mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent)}
+  .top a.back{--c:var(--cut-s);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+       padding:.5rem 1rem;background:var(--key);color:var(--muted);box-shadow:var(--edge);
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .top a.back:hover{background:var(--key-hi);color:var(--text)}
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 1.2rem}
+  .void{text-align:center;color:var(--faint);max-width:34rem}
+  .void b{display:block;font-family:var(--f-d);font-style:italic;font-weight:900;
+       font-size:clamp(2rem,5vw,3rem);color:var(--muted);text-transform:uppercase;
+       margin-bottom:.7rem;letter-spacing:-.02em}
+  .void p{font-size:.85rem;line-height:1.6;color:var(--faint)}
+  footer{padding:1.2rem;text-align:center;font-size:.6rem;letter-spacing:.16em;
+       text-transform:uppercase;color:var(--faint)}
+</style>
+</head>
+<body>
+<header class="top cut plate">
+  <span class="wm">autogod<i>.org</i></span>
+  <span class="sp"></span>
+  <a class="back" href="/">&larr; home</a>
+</header>
+<main>
+  <div class="void">
+    <b>Portfolio</b>
+    <p>Not written yet. The <a href="/showcase/" style="color:var(--muted);text-decoration:underline">showcase</a> has the project grid in the meantime.</p>
+  </div>
+</main>
+<footer>autogod.org &mdash; prototype</footer>
+</body>
+</html>

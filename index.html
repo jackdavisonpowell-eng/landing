@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>autogod</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9700;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,600;0,800;0,900;1,800;1,900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  /* AUTOGOD v7 language, trimmed to what this page uses. Copied from the
+     showcase stylesheet, not shared, so this page can't break if that one
+     changes. */
+  :root{
+    --ground:#000;
+    --text:#F4F5F8; --muted:#9BA0AE; --faint:#5D6170;
+    --live:#FFFFFF; --live-glo:rgba(255,255,255,.45);
+    --dim:#40444F;
+    --slab:linear-gradient(176deg,rgba(17,19,25,.56),rgba(4,5,8,.68));
+    --key:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.022));
+    --key-hi:linear-gradient(180deg,rgba(255,255,255,.155),rgba(255,255,255,.045));
+    --edge:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.62);
+    --line-soft:rgba(255,255,255,.07);
+    --hatch:repeating-linear-gradient(118deg,rgba(255,255,255,.22) 0 1px,transparent 1px 6px);
+    --f-d:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --f-m:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --cut:20px; --cut-m:12px; --cut-s:7px;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--ground)}
+  body{margin:0;min-height:100vh;background:var(--ground);color:var(--text);
+       font-family:var(--f-m);font-size:15px;line-height:1.5;
+       -webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+  a{color:inherit;text-decoration:none}
+
+  .cut{--c:var(--cut);position:relative;
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .cut::before{content:"";position:absolute;left:0;top:0;pointer-events:none;z-index:3;
+       width:calc(var(--c) * 2);height:calc(var(--c) * 2);
+       background:linear-gradient(135deg,rgba(255,255,255,.55) 0 1.5px,transparent 1.5px)}
+  .cut::after{content:"";position:absolute;right:0;bottom:0;pointer-events:none;z-index:3;
+       width:calc(var(--c) * 2);height:calc(var(--c) * 2);
+       background:linear-gradient(315deg,rgba(255,255,255,.22) 0 1.5px,transparent 1.5px)}
+  .plate{background:var(--slab);backdrop-filter:blur(4px) saturate(1.1);
+       box-shadow:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.7)}
+
+  .top{display:flex;align-items:center;gap:1rem;padding:.55rem 1rem}
+  .wm{display:inline-flex;align-items:center;font-family:var(--f-d);font-style:italic;
+       font-weight:900;font-size:clamp(1.3rem,2.15vw,1.95rem);text-transform:uppercase;
+       line-height:1;white-space:nowrap;text-shadow:0 0 22px rgba(235,238,245,.3)}
+  .wm::before{content:"";width:1.3rem;height:1.15rem;flex:none;margin-right:.7rem;
+       background:var(--text);opacity:.9;clip-path:polygon(38% 0,100% 0,62% 100%,0 100%)}
+  .wm i{color:var(--muted)}
+  .top .sp{flex:1;height:8px;background:var(--hatch);opacity:.35;
+       -webkit-mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);
+       mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent)}
+  .badge{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);
+       white-space:nowrap}
+
+  main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+       padding:3rem 1.2rem}
+  .hero{text-align:center;max-width:46rem;margin-bottom:2.6rem}
+  .hero h1{font-family:var(--f-d);font-style:italic;font-weight:900;margin:0;
+       font-size:clamp(2.6rem,8vw,5.6rem);line-height:.94;letter-spacing:-.02em;
+       text-transform:uppercase;text-shadow:0 0 46px rgba(235,238,245,.24)}
+  .hero p{margin:1rem auto 0;color:var(--muted);font-size:.92rem;max-width:38ch}
+
+  .nav{display:grid;gap:.6rem;grid-template-columns:repeat(3,minmax(0,1fr));
+       width:100%;max-width:52rem}
+  @media (max-width:44rem){.nav{grid-template-columns:1fr}}
+  .tile{--c:var(--cut-m);display:flex;flex-direction:column;gap:.5rem;
+       padding:1.5rem 1.3rem 1.3rem;text-align:left;
+       box-shadow:var(--edge);
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .tile .kick{font-size:.6rem;letter-spacing:.19em;text-transform:uppercase;color:var(--faint);
+       display:flex;align-items:center;gap:.45rem}
+  .tile .kick::before{content:"";width:5px;height:9px;flex:none;background:currentColor;
+       opacity:.55;clip-path:polygon(40% 0,100% 0,60% 100%,0 100%)}
+  .tile h2{font-family:var(--f-d);font-style:italic;font-weight:900;margin:0;
+       font-size:1.5rem;line-height:1.05;text-transform:uppercase}
+  .tile p{margin:0;color:var(--muted);font-size:.78rem;line-height:1.5}
+  .tile.link{cursor:pointer}
+  .tile.a{background:var(--slab)}
+  .tile.b{background:var(--slab)}
+  .tile.c{background:linear-gradient(180deg,#FFF,#CFD3DD);color:#07080B}
+  .tile.c .kick{color:#4a4d55}
+  .tile.c p{color:#3a3d45}
+
+  footer{padding:1.2rem;text-align:center;font-size:.6rem;letter-spacing:.16em;
+       text-transform:uppercase;color:var(--faint)}
+</style>
+</head>
+<body>
+
+<header class="top cut plate">
+  <span class="wm">autogod<i>.org</i></span>
+  <span class="sp"></span>
+  <span class="badge">prototype</span>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>Autogod</h1>
+    <p>Things I build with AI, and the console I run them from.</p>
+  </div>
+
+  <nav class="nav">
+    <a class="tile cut a" href="/portfolio/">
+      <span class="kick">01 &middot; about</span>
+      <h2>Portfolio</h2>
+      <p>Who's building this, and why.</p>
+    </a>
+    <a class="tile cut b" href="/showcase/">
+      <span class="kick">02 &middot; projects</span>
+      <h2>Showcase</h2>
+      <p>What's shipped &mdash; live, building, shelved.</p>
+    </a>
+    <a class="tile cut c" href="https://fleet.autogod.org/">
+      <span class="kick">03 &middot; auth required</span>
+      <h2>Login &rarr;</h2>
+      <p>Control center for the running fleet.</p>
+    </a>
+  </nav>
+</main>
+
+<footer>autogod.org &mdash; prototype</footer>
+
+</body>
+</html>
