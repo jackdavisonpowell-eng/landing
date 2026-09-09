@@ -201,9 +201,20 @@
   @keyframes pulse{0%,100%{opacity:.25}50%{opacity:.9}}
 
   /* ── stat rail ────────────────────────────────────────────────────────── */
+  /* the rail is the hand-off: it totals up the hero and points down into
+     what comes next, rather than ending the screen on four dead numbers */
+  .bridge{background:var(--slab);border-top:1px solid var(--line);
+       border-bottom:1px solid var(--line)}
+  .bridge .lead{display:flex;align-items:center;gap:1rem;
+       padding:.8rem clamp(1rem,3vw,2.2rem)}
+  .bridge .lead .rule{flex:1;height:8px;background:var(--hatch);opacity:.28}
+  .bridge .lead a{display:inline-flex;align-items:center;gap:.55rem;flex:none;
+       font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .bridge .lead a:hover{color:var(--text)}
+  .bridge .lead a::after{content:"";width:6px;height:10px;background:currentColor;
+       clip-path:polygon(40% 0,100% 0,60% 100%,0 100%);animation:pulse 2.4s ease-in-out infinite}
   .rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-       border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-       background:var(--slab)}
+       border-top:1px solid var(--line)}
   .rail>div{padding:1.5rem clamp(1rem,3vw,2.2rem);border-left:1px solid var(--line)}
   .rail>div:first-child{border-left:0}
   .rail .rv{font-family:var(--f-d);font-style:italic;font-weight:900;font-size:clamp(1.7rem,4.2vw,3.1rem);
@@ -343,25 +354,34 @@
     <div class="ghost" aria-hidden="true">autogod</div>
     <div class="in">
       <span class="kick">Jack Powell &mdash; Atlanta, GA</span>
-      <h1>AUTOGOD<br><em>documentation</em></h1>
-      <p>The record of a machine that builds things. Two servers in Atlanta run
-      my own models on repurposed data-center GPUs, and an agent called
-      <b>AUTOGOD</b> works on that stack around the clock &mdash; planning,
-      building, and rating its own work while I sleep. This is the
-      documentation: the hardware, the projects, and the running log of what
-      broke along the way.</p>
+      <h1>What is <em>this?</em></h1>
+      <p>A hub for everything I build. Two servers in Atlanta run my own
+      language models on repurposed data-center GPUs, and every AI and
+      autonomous project that comes off them lands here &mdash; what it is,
+      what it runs on, and the part that was actually hard.</p>
+      <p><b>AUTOGOD</b> is the agent at the center of it. I give it a goal and
+      it works the stack on its own: picking what to try, building it, judging
+      what it built, keeping what survives and dropping what does not. Most of
+      that happens overnight while I sleep. The showcase is what it kept. The
+      blog is what broke.</p>
     </div>
-    <span class="cue">scroll</span>
   </section>
 
-  <div class="rail">
-    <div><div class="rv">3</div><div class="rk">Tesla GPUs</div></div>
-    <div><div class="rv">64<s>GB</s></div><div class="rk">VRAM on one box</div></div>
-    <div><div class="rv">27</div><div class="rk">projects built unattended</div></div>
-    <div><div class="rv">24<s>/7</s></div><div class="rk">the loop never stops</div></div>
-  </div>
+  <section class="bridge">
+    <div class="lead">
+      <span class="kick">what it adds up to</span>
+      <span class="rule"></span>
+      <a href="#start">four ways in</a>
+    </div>
+    <div class="rail">
+      <div><div class="rv">3</div><div class="rk">Tesla GPUs</div></div>
+      <div><div class="rv">64<s>GB</s></div><div class="rk">VRAM on one box</div></div>
+      <div><div class="rv">27</div><div class="rk">projects built unattended</div></div>
+      <div><div class="rv">24<s>/7</s></div><div class="rk">the loop never stops</div></div>
+    </div>
+  </section>
 
-  <section class="band">
+  <section class="band" id="start">
     <div class="head rise"><h2>Start here</h2><span class="rule"></span><span class="kick">four ways in</span></div>
     <nav class="doors">
       <a class="door rise" href="/portfolio/" style="transition-delay:.05s">
