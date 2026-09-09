@@ -33,7 +33,7 @@ renames anything. "WANTED" is an empty slot showing the hatched plate.
 | file | the step | |
 | --- | --- | --- |
 | `ladder-first-build.jpg` | first build, age eleven — MAXIMUS | have it |
-| `ladder-tinkering.jpg` | overclocking, Blender, YouTube | WANTED |
+| `ladder-tinkering.jpg` | overclocking, Blender, YouTube | have it |
 | `ladder-clubs.jpg` | robotics / engineering / coding clubs | WANTED |
 | `ladder-highschool.jpg` | Midtown + dual enrollment | WANTED |
 | `ladder-sim-rig.jpg` | the sim rig — wheel, cockpit, VR | have it |
