@@ -1,0 +1,161 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nav</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9700;</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,600;0,800;0,900;1,900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --t:#F4F5F8;--m:#9BA0AE;--f:#5D6170;--line:rgba(255,255,255,.10);
+    --slab:linear-gradient(176deg,rgba(19,21,27,.96),rgba(6,7,10,.98));
+    --fd:"Archivo",Arial,sans-serif;--fm:"IBM Plex Mono",monospace;
+    /* the bar: skinny across, and it steps up on a true 45 at the right */
+    --skinny:46px;          /* height of the strip */
+    --tall:132px;           /* height of the block that holds the banner */
+    --rise:86px;            /* tall - skinny; the diagonal runs the same, so 45 */
+    --rw:430px;             /* width of the banner block */
+  }
+  *{box-sizing:border-box;margin:0}
+  html{background:#000}
+  body{background:#000;color:var(--t);font-family:var(--fm);font-size:15px;
+       padding-top:var(--skinny)}
+  a{color:inherit;text-decoration:none}
+
+  /* ── the bar ──────────────────────────────────────────────────────────
+     One shape: full-width strip, then a wedge on the right that steps down
+     to hold the banner. clip-path also clips hit-testing, so the empty
+     area beside the wedge is not clickable and the page shows through. */
+  header.bar{position:fixed;top:0;left:0;right:0;height:var(--tall);z-index:60;
+    background:var(--slab);backdrop-filter:blur(8px) saturate(1.1);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.8);
+    clip-path:polygon(
+      0 0, 100% 0, 100% 100%,
+      calc(100% - var(--rw)) 100%,
+      calc(100% - var(--rw) - var(--rise)) var(--skinny),
+      0 var(--skinny));
+  }
+  /* the lit edge that runs along the whole silhouette */
+  header.bar::after{content:"";position:absolute;inset:0;pointer-events:none;
+    clip-path:polygon(
+      0 0, 100% 0, 100% 100%,
+      calc(100% - var(--rw)) 100%,
+      calc(100% - var(--rw) - var(--rise)) var(--skinny),
+      0 var(--skinny));
+    background:
+      linear-gradient(135deg,transparent calc(50% - 1px),rgba(255,255,255,.55) 50%,transparent calc(50% + 1px))
+      no-repeat;
+    background-size:0 0;}
+
+  /* the diagonal drawn as its own hairline, so it stays crisp */
+  .edge{position:absolute;top:var(--skinny);right:var(--rw);width:var(--rise);height:var(--rise);
+    pointer-events:none;z-index:2;
+    background:linear-gradient(to top right,transparent calc(50% - .8px),
+      rgba(255,255,255,.5) 50%,transparent calc(50% + .8px));}
+  .underline{position:absolute;left:0;top:calc(var(--skinny) - 1px);
+    width:calc(100% - var(--rw) - var(--rise));height:1px;background:rgba(255,255,255,.5);
+    pointer-events:none;z-index:2}
+
+  /* ── the strip: buttons live here ────────────────────────────────── */
+  .strip{position:absolute;top:0;left:0;height:var(--skinny);
+    display:flex;align-items:center;gap:.45rem;padding:0 1rem;z-index:3}
+  .glyph{width:1.05rem;height:.95rem;flex:none;margin-right:.55rem;background:var(--t);
+    opacity:.9;clip-path:polygon(38% 0,100% 0,62% 100%,0 100%)}
+
+  /* 3D keys — a real bevel, not a flat chip */
+  .key{position:relative;font-family:var(--fm);font-size:.6rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--m);padding:.52rem .95rem;white-space:nowrap;
+    background:linear-gradient(180deg,#2A2E38 0%,#181B22 48%,#0E1015 100%);
+    border-top:1px solid rgba(255,255,255,.30);
+    border-left:1px solid rgba(255,255,255,.14);
+    border-right:1px solid rgba(0,0,0,.85);
+    border-bottom:2px solid rgba(0,0,0,.95);
+    box-shadow:0 2px 0 rgba(0,0,0,.75),0 3px 6px rgba(0,0,0,.6),
+               inset 0 1px 0 rgba(255,255,255,.16);
+    transition:transform .09s ease,box-shadow .09s ease,color .2s ease;
+    --c:6px;
+    clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c));}
+  .key:hover{color:var(--t);
+    background:linear-gradient(180deg,#343945 0%,#1E222B 48%,#121419 100%)}
+  .key:active{transform:translateY(2px);
+    box-shadow:0 0 0 rgba(0,0,0,.75),0 1px 2px rgba(0,0,0,.6),
+               inset 0 1px 0 rgba(255,255,255,.10)}
+  .key.on{color:#07080B;font-weight:600;
+    background:linear-gradient(180deg,#FFFFFF 0%,#DDE1EA 45%,#AFB5C2 100%);
+    border-top:1px solid rgba(255,255,255,.9);
+    box-shadow:0 2px 0 rgba(0,0,0,.75),0 3px 7px rgba(0,0,0,.55),
+               inset 0 1px 0 rgba(255,255,255,.95)}
+  .key.admin{color:#0B0D12;
+    background:linear-gradient(180deg,#F0C066 0%,#C8933A 48%,#8C6420 100%);
+    border-top:1px solid rgba(255,235,190,.8);font-weight:600}
+  .key.admin:hover{background:linear-gradient(180deg,#FFD27E 0%,#D8A249 48%,#9C7228 100%)}
+
+  /* ── the block: the banner sits in it ───────────────────────────── */
+  .mark{position:absolute;top:0;right:0;width:var(--rw);height:var(--tall);z-index:3;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:.5rem 1.1rem .6rem}
+  .mark pre{white-space:pre;line-height:1.03;color:#fff;font-family:var(--fm);
+    font-size:calc((var(--rw) - 2.6rem) / 47);
+    text-shadow:0 0 10px rgba(255,255,255,.34),0 0 30px rgba(190,210,255,.16)}
+  .mark .dot{margin-top:.42rem;font-size:.5rem;letter-spacing:.42em;color:var(--f);
+    text-transform:uppercase}
+
+  @media (max-width:64rem){
+    :root{--rw:270px;--tall:104px;--rise:58px;--skinny:46px}
+    .strip .key:nth-child(n+5){display:none}
+  }
+  @media (max-width:44rem){
+    :root{--rw:0px;--tall:46px;--rise:0px}
+    .mark{display:none}.edge{display:none}
+    .underline{width:100%}
+    .strip{width:100%;overflow-x:auto;gap:.35rem}
+  }
+
+  /* ── just enough page to see it against ─────────────────────────── */
+  .page{padding:clamp(3rem,9vw,7rem) clamp(1.2rem,5vw,5rem) 6rem;position:relative}
+  .page::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;
+    background:repeating-linear-gradient(118deg,rgba(255,255,255,.055) 0 1px,transparent 1px 11px)}
+  .kick{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--f)}
+  h1{font-family:var(--fd);font-style:italic;font-weight:900;text-transform:uppercase;
+     font-size:clamp(2.4rem,10vw,8rem);line-height:.85;letter-spacing:-.045em;margin-top:1rem}
+  h1 .o{color:transparent;-webkit-text-stroke:2px rgba(244,245,248,.9)}
+  p.l{margin-top:1.8rem;max-width:52ch;color:var(--m);font-size:.9rem;line-height:1.7}
+  .note{margin-top:3rem;font-size:.7rem;color:var(--f);line-height:1.8;max-width:64ch}
+  .note b{color:var(--m);font-weight:400}
+</style></head>
+<body>
+
+<header class="bar">
+  <span class="underline"></span>
+  <span class="edge"></span>
+  <nav class="strip">
+    <span class="glyph"></span>
+    <a class="key on" href="/">Home</a>
+    <a class="key" href="/showcase/">Showcase</a>
+    <a class="key" href="/portfolio/">About me</a>
+    <a class="key admin" href="https://fleet.autogod.org/">Admin panel</a>
+  </nav>
+  <div class="mark">
+    <pre aria-label="AUTOGOD">          ▄███▄   ██   ██ ███████   ▄███▄    ▄███▄   ▄███▄   █████▄          
+      ▄  ██▀ ▀██ ██   ██    ███    ██▀ ▀██  ██▀ ▀▀   ██▀ ▀██ ██   ██  ▄      
+   ▄███ ██   ██  ██   ██    ███    ██   ██  ██       ██   ██  ██   ██ ███▄   
+▄██████ ███████  ██   ██    ███    ██   ██  ██  ███  ██   ██  ██   ██ ██████▄
+   ▀███ ██   ██  ██   ██    ███    ██   ██  ██   ██  ██   ██  ██   ██ ███▀   
+      ▀██   ██   ██▄ ▄██    ███    ██▄ ▄██  ██▄ ▄██  ██▄ ▄██   ██   ██▀      
+       ██   ██   ▀███▀      ███     ▀███▀    ▀███▀     ▀███▀   █████▀        </pre>
+    <span class="dot">autogod.org</span>
+  </div>
+</header>
+
+<section class="page">
+  <span class="kick">Jack Powell &mdash; Atlanta, GA</span>
+  <h1>AUTOGOD<br><span class="o">documentation</span></h1>
+  <p class="l">Scroll &mdash; the bar is sticky and keeps its shape. The wedge steps
+  down on a true 45, and because the shape clips hit-testing too, the empty space
+  beside it is not clickable.</p>
+  <p class="note">Four keys, bevelled rather than flat: <b>Home</b>, <b>Showcase</b>,
+  <b>About me</b>, and <b>Admin panel</b> picked out in amber since it is the only one
+  behind a login. The banner is the real AUTOGOD-HEADER art, wordmark rows only.
+  Under 44rem the wedge folds away and the strip runs full width.</p>
+</section>
+
+<div style="height:150vh"></div>
+</body></html>
