@@ -18,7 +18,7 @@
     --hatch:repeating-linear-gradient(118deg,rgba(255,255,255,.22) 0 1px,transparent 1px 6px);
     --f-d:"Archivo","Helvetica Neue",Arial,sans-serif;
     --f-m:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-    --cut:20px;
+    --cut:20px; --cut-m:12px; --cut-s:7px;
   }
   *{box-sizing:border-box}
   html{background:var(--ground)}
@@ -46,10 +46,13 @@
   .top .sp{flex:1;height:8px;background:var(--hatch);opacity:.35;
        -webkit-mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);
        mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent)}
-  .top a.back{--c:var(--cut-s);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
-       padding:.5rem 1rem;background:var(--key);color:var(--muted);box-shadow:var(--edge);
+  .hnav{display:flex;gap:.4rem;flex:none;flex-wrap:wrap;justify-content:flex-end}
+  .hbtn{--c:var(--cut-s);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
+       padding:.5rem .9rem;background:var(--key);color:var(--muted);box-shadow:var(--edge);
+       white-space:nowrap;
        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
-  .top a.back:hover{background:var(--key-hi);color:var(--text)}
+  .hbtn:hover{background:var(--key-hi);color:var(--text)}
+  .hbtn.on{color:#07080B;background:linear-gradient(180deg,#FFF,#CFD3DD);font-weight:600}
   main{flex:1;padding:3.2rem 1.2rem 2rem}
   .wrap{max-width:44rem;margin:0 auto}
   .profile{text-align:center;margin-bottom:2.6rem}
@@ -104,7 +107,12 @@
 <header class="top cut plate">
   <span class="wm">autogod<i>.org</i></span>
   <span class="sp"></span>
-  <a class="back" href="/">&larr; home</a>
+  <nav class="hnav">
+    <a class="hbtn" href="/">Home</a>
+    <a class="hbtn on" href="/portfolio/">About</a>
+    <a class="hbtn" href="/showcase/">Showcase</a>
+    <a class="hbtn" href="https://fleet.autogod.org/">Login</a>
+  </nav>
 </header>
 <main>
   <div class="wrap">
