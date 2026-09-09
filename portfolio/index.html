@@ -59,7 +59,7 @@
      One silhouette: a skinny fixed strip that steps up on a true 45 to hold
      the AUTOGOD banner. clip-path clips hit-testing too, so the empty space
      beside the wedge is page, not dead header. */
-  :root{--skinny:46px; --tall:132px; --rise:86px; --rw:430px}
+  :root{--skinny:46px; --tall:96px; --rise:50px; --rw:430px}
   body{padding-top:var(--skinny)}
 
   header.bar{position:fixed;top:0;left:0;right:0;height:var(--tall);z-index:60;
@@ -133,17 +133,17 @@
   /* ── the block: the banner sits in it ── */
   .bar .mark{position:absolute;top:0;right:0;width:var(--rw);height:var(--tall);z-index:3;
        display:flex;flex-direction:column;align-items:center;justify-content:center;
-       padding:.5rem 1.1rem .6rem}
+       padding:.28rem .9rem .34rem}
   /* the mark leans the way the display face does; the O stays a circle, so
      each letter counter-skews by exactly what its parent applies */
   .bar .mark pre{white-space:pre;line-height:1.03;color:#fff;font-family:"IBM Plex Mono",monospace;
        font-weight:500;font-size:calc((var(--rw) - 2.6rem) / 47);margin:0;
        text-shadow:0 0 10px rgba(255,255,255,.34),0 0 30px rgba(190,210,255,.16)}
-  .bar .mark .dot{margin-top:.42rem;font-size:.5rem;letter-spacing:.42em;color:var(--faint);
+  .bar .mark .dot{margin-top:.26rem;line-height:1;font-size:.5rem;letter-spacing:.42em;color:var(--faint);
        text-transform:uppercase}
 
   @media (max-width:72rem){
-    :root{--rw:300px;--tall:112px;--rise:66px}
+    :root{--rw:300px;--tall:76px;--rise:30px}
     .key{padding:.5rem .7rem;letter-spacing:.12em}
   }
   @media (max-width:52rem){
