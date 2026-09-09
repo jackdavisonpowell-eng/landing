@@ -23,7 +23,7 @@ shots of their own: first build, three cards, second P100, and the fleet. Send
 a picture made for one of those cards and it takes that card over.
 
 Empty slots were removed rather than left showing a placeholder, so the only
-waiting slots are `profile.jpg` and `ladder-maximus-rebuild.jpg`. For any other
+waiting slot is `profile.jpg`. For any other
 picture, send it and the slot goes back in.
 
 ## The ladder
@@ -36,7 +36,7 @@ added in the middle.
 | --- | --- | --- |
 | `ladder-first-build.jpg` | first build, age eleven — MAXIMUS | have it |
 | `ladder-sim-rig.jpg` | the sim rig — wheel, cockpit, VR | have it |
-| `ladder-maximus-rebuild.jpg` | MAXIMUS rebuilt in white | WANTED |
+| `ladder-maximus-rebuild.jpg` | MAXIMUS rebuilt in white | have it |
 | `ladder-home-lab.jpg` | the X99 home lab, 1660 era | have it |
 | `ladder-first-p100.jpg` | the first P100 | have it |
 | `ladder-second-p100.jpg` | both P100s in | have it |
