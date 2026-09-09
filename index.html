@@ -256,8 +256,11 @@
        flex-direction:column;min-height:26rem;overflow:hidden;box-shadow:var(--edge);
        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
   .pj .shot{height:11rem;position:relative;flex:none}
+  /* these covers are marks and screens, not photographs, so they get a
+     lighter scrim and less crush than the page-wide photo treatment */
   .pj .shot::before{content:"";position:absolute;inset:0;z-index:1;
-       background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(4,5,8,.9))}
+       background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(4,5,8,.58))}
+  .pj .shot::after{filter:grayscale(1) contrast(1.06) brightness(1)}
   .pj .by{position:absolute;top:.8rem;left:.85rem;z-index:2;display:inline-flex;
        align-items:center;gap:.45rem;padding:.34rem .6rem;font-size:.5rem;
        letter-spacing:.18em;text-transform:uppercase;color:var(--text);
