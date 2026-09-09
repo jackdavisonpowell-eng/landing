@@ -40,6 +40,7 @@ real photo whenever you have one. "WANTED" is an empty slot.
 | `ladder-sim-rig.jpg` | the sim rig — wheel, cockpit, VR | have it |
 | `ladder-maximus-rebuild.jpg` | MAXIMUS rebuilt in white | WANTED |
 | `ladder-home-lab.jpg` | the X99 home lab, 1660 era | have it |
+| `ladder-discovering-ai.jpg` | ChatGPT, then the harnesses, then cheap P100s | WANTED |
 | `ladder-networking.jpg` | VLANs, Pi-hole, firewall | drawn |
 | `ladder-first-p100.jpg` | the first P100 | have it |
 | `ladder-second-p100.jpg` | both P100s in | have it |

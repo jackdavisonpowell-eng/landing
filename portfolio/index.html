@@ -325,7 +325,11 @@
           coursework running alongside it. That is the first time the work came
           with someone else's deadlines attached, which turned out to matter
           more than the syllabus did.</p>
-          <div class="spec"><b>Midtown High</b><b>4 years of CS</b><b>dual enrolled</b><b>Georgia State</b></div>
+          <p>Alongside those I took <b>AP Computer Science</b>, and drafting
+          and design as my secondary pathway &mdash; which turned out to be the
+          more useful pair than it sounds, because most of what I build now is
+          half software and half deciding how a thing should be laid out.</p>
+          <div class="spec"><b>Midtown High</b><b>4 years of CS</b><b>AP Computer Science</b><b>drafting &amp; design</b><b>dual enrolled</b><b>Georgia State</b></div>
         </div>
         <div class="rshot plate">
           <div class="shot" style="--img:url('/media/ladder-highschool.jpg')"></div>
@@ -382,6 +386,35 @@
       <div class="rung rise">
         <div class="no">08</div>
         <div>
+          <h3>Discovering what AI could actually do</h3>
+          <p>I started using ChatGPT to help me code in high school, back when
+          that meant copying code out of a chat window and pasting it into an
+          editor yourself. There was no agent, nothing that could type into a
+          terminal on your behalf.</p>
+          <p>Then the harnesses arrived &mdash; Claude Code and the things like
+          it &mdash; and the shape of the work changed completely. Something
+          with the expertise of a master's degree could build a real project
+          many times faster than I could by hand. My throughput exploded.
+          Projects that would have been months of grinding stopped being about
+          endurance at all. <b>What was left was ideas, and money.</b></p>
+          <p>Money was the wall I kept hitting. Usage limits, constantly. So I
+          went looking for the cheapest way to own the compute instead of
+          renting it, and found old data-center cards with a lot of HBM2 on
+          them going for almost nothing &mdash; <b>seventy or eighty dollars for
+          a Tesla P100</b>, because at the time almost nobody wanted one.</p>
+          <p>Those cards cost considerably more now. Starting early did not just
+          get me cheap hardware, it got me a couple of years of experience with
+          it that I could not buy today at any price.</p>
+          <div class="spec"><b>ChatGPT</b><b>agentic harnesses</b><b>usage limits</b><b>$70 P100s</b><b>HBM2</b></div>
+        </div>
+        <div class="rshot">
+          <div class="shot" style="--img:url('/media/ladder-discovering-ai.jpg')"></div>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">09</div>
+        <div>
           <h3>The networking phase</h3>
           <p>Once there was more than one server, one flat network stopped
           being acceptable. I split the house into VLANs: the machines I
@@ -404,11 +437,11 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">09</div>
+        <div class="no">10</div>
         <div>
           <h3>The first P100</h3>
-          <p>Then I got interested in running language models myself. One Tesla
-          P100, 16 GB, running 14B models. It worked, and it was not good
+          <p>So: one Tesla P100, 16 GB, running 14B models on my own
+          hardware with nobody metering it. It worked, and it was not good
           enough &mdash; 14B could hold a conversation but it could not be
           trusted with a task and left alone.</p>
           <div class="spec"><b>Tesla P100 16GB</b><b>14B models</b></div>
@@ -420,7 +453,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">10</div>
+        <div class="no">11</div>
         <div>
           <h3>So I bought another</h3>
           <p>Two P100s, 32 GB of VRAM, and suddenly the models were big enough
@@ -436,7 +469,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">11</div>
+        <div class="no">12</div>
         <div>
           <h3>Pantheon takes the rest</h3>
           <p>The big box was now worth too much as a GPU machine to keep
@@ -453,29 +486,21 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">12</div>
+        <div class="no">13</div>
         <div>
           <h3>Three cards, and the BIOS that would not allow it</h3>
-          <p>Adding a third card to a Gigabyte X99 board is not a slot problem,
-          it is an address-space problem. Three compute cards need their memory
-          mapped above the 4 GB line, and on that board the stock F22 firmware's
+          <p>Fitting a third card to a Gigabyte X99 board is an address-space
+          problem, not a slot problem. Three compute cards need their memory
+          mapped above the 4 GB line, and on that board the stock firmware's
           <b>Above 4G Decoding</b> toggle is broken &mdash; switch it on and the
           machine will not boot.</p>
           <p>The fix was a modded BIOS from the Win-Raid community that raises
-          the high MMIO window from 256 GB to 1 TB. Flashing it meant building a
-          FreeDOS stick and using a patched flash tool, because the stock one
-          refuses a modified image outright. The board has two BIOS chips and
-          the backup one is the safety net, so that chip does not get touched
-          &mdash; a bad flash then just fails to POST a few times and the board
-          restores itself.</p>
-          <p>Then the settings that actually matter: Above 4G on, PCIe forced to
-          Gen 3 rather than Auto because the third card will not train
-          otherwise, and the legacy compatibility layer off. My first attempt
-          black-screened on exactly that last point and needed the CMOS cleared.
-          Once it came up, the 32 GB V100 went in beside the pair of P100s.</p>
-          <p>They all run at PCIe 3.0 x8, because the CPU only has 28 lanes to
-          hand out. That is the real ceiling on this board, and it is why the
-          cards talk to each other through the host bridge instead of directly.</p>
+          the high memory window from 256 GB to 1 TB, flashed off a FreeDOS
+          stick with a patched tool because the stock one rejects a modified
+          image outright. Then Above 4G on, PCIe forced to Gen 3 rather than
+          Auto, legacy video off, and one cleared CMOS after my first attempt
+          black-screened. All three cards run at x8, because the CPU only has
+          28 lanes to hand out.</p>
           <div class="spec"><b>V100 32GB</b><b>modded BIOS</b><b>Above 4G</b><b>64 GB VRAM</b></div>
         </div>
         <div class="rshot">
@@ -485,7 +510,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">13</div>
+        <div class="no">14</div>
         <div>
           <h3>A fleet, not a box</h3>
           <p>FRIDAY, the voice assistant, takes the V100. AUTOGOD, the worker,
@@ -501,7 +526,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">14</div>
+        <div class="no">15</div>
         <div>
           <h3>Atlanta &rarr; Georgia Southern</h3>
           <p>I grew up building this in Atlanta and I run it now from a dorm
