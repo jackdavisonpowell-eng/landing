@@ -136,8 +136,18 @@
        padding:.5rem 1.1rem .6rem}
   /* the mark leans the way the display face does; the O stays a circle, so
      each letter counter-skews by exactly what its parent applies */
+  /* the wordmark stands square; the camber lives in the strokes flanking it,
+     leaning in at the top on both sides. One number controls the whole lean. */
+  .bar .mark{--camber:18deg}
+  .bar .wordmark{display:flex;align-items:stretch;justify-content:center;
+       gap:calc(var(--rw) / 26)}
+  .bar .rail{display:flex;flex:none;gap:calc(var(--rw) / 86)}
+  .bar .rail i{display:block;width:calc(var(--rw) / 56);background:#fff;
+       box-shadow:0 0 10px rgba(255,255,255,.34),0 0 30px rgba(190,210,255,.16)}
+  .bar .rail.l i{transform:skewX(calc(-1 * var(--camber)))}
+  .bar .rail.r i{transform:skewX(var(--camber))}
   .bar .mark pre{white-space:pre;line-height:1.03;color:#fff;font-family:"IBM Plex Mono",monospace;
-       font-weight:500;font-size:calc((var(--rw) - 2.6rem) / 47);margin:0;
+       font-weight:500;font-size:calc((var(--rw) * .855 - 2.2rem) / 38);margin:0;
        text-shadow:0 0 10px rgba(255,255,255,.34),0 0 30px rgba(190,210,255,.16)}
   .bar .mark .dot{margin-top:.42rem;font-size:.5rem;letter-spacing:.42em;color:var(--faint);
        text-transform:uppercase}
@@ -322,13 +332,17 @@
     <a class="key admin" href="https://fleet.autogod.org/">Admin panel</a>
   </nav>
   <div class="mark">
-    <pre aria-label="AUTOGOD">          ▄███▄   ██   ██ ███████   ▄███▄    ▄███▄   ▄███▄   █████▄          
-      ▄  ██▀ ▀██ ██   ██    ███    ██▀ ▀██  ██▀ ▀▀   ██▀ ▀██ ██   ██  ▄      
-   ▄███ ██   ██  ██   ██    ███    ██   ██  ██       ██   ██  ██   ██ ███▄   
-▄██████ ███████  ██   ██    ███    ██   ██  ██  ███  ██   ██  ██   ██ ██████▄
-   ▀███ ██   ██  ██   ██    ███    ██   ██  ██   ██  ██   ██  ██   ██ ███▀   
-      ▀██   ██   ██▄ ▄██    ███    ██▄ ▄██  ██▄ ▄██  ██▄ ▄██   ██   ██▀      
-       ██   ██   ▀███▀      ███     ▀███▀    ▀███▀     ▀███▀   █████▀        </pre>
+    <div class="wordmark">
+      <span class="rail l" aria-hidden="true"><i></i><i></i></span>
+      <pre aria-label="AUTOGOD">  ▄███▄   ██   ██ ███████   ▄███▄    ▄███▄   ▄███▄   █████▄  
+ ██▀ ▀██ ██   ██    ███    ██▀ ▀██  ██▀ ▀▀   ██▀ ▀██ ██   ██ 
+██   ██  ██   ██    ███    ██   ██  ██       ██   ██  ██   ██
+███████  ██   ██    ███    ██   ██  ██  ███  ██   ██  ██   ██
+██   ██  ██   ██    ███    ██   ██  ██   ██  ██   ██  ██   ██
+█   ██   ██▄ ▄██    ███    ██▄ ▄██  ██▄ ▄██  ██▄ ▄██   ██   █
+█   ██   ▀███▀      ███     ▀███▀    ▀███▀     ▀███▀   █████▀</pre>
+      <span class="rail r" aria-hidden="true"><i></i><i></i></span>
+    </div>
     <span class="dot">autogod.org</span>
   </div>
 </header>
