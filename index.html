@@ -225,6 +225,63 @@
        .rail>div:nth-child(3){border-left:0}
        .rail>div:nth-child(n+3){border-top:1px solid var(--line)}}
 
+  /* ── the work: four picked projects, on a rail you can push ─────────────
+     Same projects.json the showcase reads, filtered to feature: true, so the
+     four shown here are chosen by editing the vault note, not this file. */
+  .work .head .nav{display:flex;gap:.4rem;flex:none}
+  .work .arw{--c:6px;width:2rem;height:1.9rem;display:inline-flex;align-items:center;
+       justify-content:center;cursor:pointer;color:var(--muted);border:0;
+       background:linear-gradient(180deg,#2B2F3A 0%,#1A1D25 46%,#0D0F14 100%);
+       box-shadow:0 2px 0 rgba(0,0,0,.8),0 4px 8px rgba(0,0,0,.55),
+                  inset 0 1px 0 rgba(255,255,255,.18);
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c));
+       transition:color .18s ease,background .18s ease,transform .1s ease}
+  .work .arw:hover:not(:disabled){color:var(--text);
+       background:linear-gradient(180deg,#373C49 0%,#212530 46%,#111318 100%)}
+  .work .arw:active:not(:disabled){transform:translateY(2px)}
+  .work .arw:disabled{opacity:.3;cursor:default}
+  .work .arw::before{content:"";width:7px;height:11px;background:currentColor;
+       clip-path:polygon(100% 0,100% 100%,0 50%)}
+  .work .arw.next::before{clip-path:polygon(0 0,0 100%,100% 50%)}
+
+  .track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,calc((100% - 1.4rem)/3));
+       gap:.7rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+       scrollbar-width:none;padding-bottom:.2rem}
+  .track::-webkit-scrollbar{display:none}
+  @media (max-width:74rem){.track{grid-auto-columns:minmax(0,calc((100% - .7rem)/2))}}
+  @media (max-width:48rem){.track{grid-auto-columns:minmax(0,88%)}}
+  @media (prefers-reduced-motion:reduce){.track{scroll-behavior:auto}}
+
+  .pj{--c:var(--cut-m);position:relative;scroll-snap-align:start;display:flex;
+       flex-direction:column;min-height:26rem;overflow:hidden;box-shadow:var(--edge);
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .pj .shot{height:11rem;position:relative;flex:none}
+  .pj .shot::before{content:"";position:absolute;inset:0;z-index:1;
+       background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(4,5,8,.9))}
+  .pj .body{position:relative;z-index:2;padding:1.1rem 1.25rem 1.35rem;display:flex;
+       flex-direction:column;flex:1;background:var(--slab)}
+  .pj .top{display:flex;align-items:flex-start;gap:.6rem;min-height:2.5em}
+  .pj .top .kick{flex:1;line-height:1.25}
+  .pj .st{margin-left:auto;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;
+       color:var(--faint);white-space:nowrap}
+  .pj .st.live{color:var(--text)}
+  .work>.lede{max-width:62ch;color:var(--muted);font-size:.85rem;line-height:1.7;
+       margin:-1.4rem 0 2rem}
+  .pj h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.35rem 0 0;
+       font-size:clamp(1.3rem,2.4vw,1.9rem);line-height:1;text-transform:uppercase;
+       letter-spacing:-.02em}
+  .pj p{margin:.65rem 0 0;color:var(--muted);font-size:.78rem;line-height:1.6}
+  .pj dl{margin:1rem 0 0;display:grid;grid-template-columns:auto 1fr;gap:.28rem .9rem;
+       font-size:.62rem;line-height:1.3}
+  .pj dt{color:var(--faint);letter-spacing:.14em;text-transform:uppercase}
+  .pj dd{margin:0;color:var(--text)}
+  .pj .go{margin-top:auto;padding-top:1.1rem;font-size:.58rem;letter-spacing:.2em;
+       text-transform:uppercase;display:inline-flex;align-items:center;gap:.6rem}
+  .pj .go::after{content:"";width:1.6rem;height:1px;background:currentColor;
+       transition:width .35s cubic-bezier(.16,1,.3,1)}
+  .pj:hover .go::after{width:3.4rem}
+  .pj:hover .shot::after{filter:grayscale(.15) contrast(1.1) brightness(.82);transform:scale(1.05)}
+
   /* ── section furniture ────────────────────────────────────────────────── */
   section.band{padding:clamp(3rem,8vw,6.5rem) clamp(1.2rem,5vw,4.5rem)}
   .head{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.2rem}
@@ -371,7 +428,7 @@
     <div class="lead">
       <span class="kick">what it adds up to</span>
       <span class="rule"></span>
-      <a href="#start">four ways in</a>
+      <a href="#work">the work</a>
     </div>
     <div class="rail">
       <div><div class="rv">3</div><div class="rk">Tesla GPUs</div></div>
@@ -379,6 +436,19 @@
       <div><div class="rv">27</div><div class="rk">projects built unattended</div></div>
       <div><div class="rv">24<s>/7</s></div><div class="rk">the loop never stops</div></div>
     </div>
+  </section>
+
+  <section class="band work" id="work" style="padding-bottom:0">
+    <div class="head rise"><h2>The work</h2><span class="rule"></span>
+      <span class="nav">
+        <button class="arw prev" type="button" aria-label="Previous project"></button>
+        <button class="arw next" type="button" aria-label="Next project"></button>
+      </span>
+    </div>
+    <p class="lede rise">Four picked out of everything running. Each one holds a
+    goal, does the work on its own hardware, and reports what it did &mdash;
+    that is the whole pattern the rest of the stack repeats.</p>
+    <div class="track rise" id="track" tabindex="0" aria-label="Selected projects"></div>
   </section>
 
   <section class="band" id="start">
@@ -524,6 +594,53 @@
     for (const e of es) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
   }, {rootMargin: "0px 0px -10% 0px", threshold: .12});
   document.querySelectorAll(".rise").forEach(el => io.observe(el));
+
+  /* the four cards come from the showcase's own data file, filtered to the
+     ones flagged feature in the vault. No second list to keep in step. */
+  (async () => {
+    const track = document.getElementById("track");
+    if (!track) return;
+    let picked = [];
+    try {
+      const r = await fetch("/showcase/projects.json", {cache: "no-cache"});
+      const d = await r.json();
+      picked = (d.projects || []).filter(p => p.feature).slice(0, 4);
+    } catch (e) { /* the section simply stays empty rather than half-painted */ }
+    if (!picked.length) { document.getElementById("work").hidden = true; return; }
+
+    const esc = (t) => String(t == null ? "" : t).replace(/[&<>"]/g,
+      c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+    track.innerHTML = picked.map(p => {
+      const rows = (p.stats || []).slice(0, 3)
+        .map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("");
+      const cover = p.cover
+        ? `style="--img:url('/showcase/media/${esc(p.cover)}')"` : "";
+      return `<a class="pj cut plate" href="/showcase/">
+        <span class="shot" ${cover}></span>
+        <span class="body">
+          <span class="top"><span class="kick">${esc(p.kicker)}</span>
+            <span class="st ${esc(p.status)}">${esc(p.status)}</span></span>
+          <h3>${esc(p.title)}</h3>
+          <p>${esc(p.excerpt || "")}</p>
+          ${rows ? `<dl>${rows}</dl>` : ""}
+          <span class="go">read it</span>
+        </span></a>`;
+    }).join("");
+
+    const step = () => track.firstElementChild
+      ? track.firstElementChild.getBoundingClientRect().width + 11 : 320;
+    const prev = document.querySelector(".work .prev");
+    const next = document.querySelector(".work .next");
+    const ends = () => {
+      prev.disabled = track.scrollLeft < 4;
+      next.disabled = track.scrollLeft > track.scrollWidth - track.clientWidth - 4;
+    };
+    prev.addEventListener("click", () => track.scrollBy({left: -step()}));
+    next.addEventListener("click", () => track.scrollBy({left: step()}));
+    track.addEventListener("scroll", ends, {passive: true});
+    addEventListener("resize", ends);
+    ends();
+  })();
 </script>
 
 </body>
