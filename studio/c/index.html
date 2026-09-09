@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C &mdash; Spatial</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9700;</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,600;0,800;0,900;1,800;1,900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{--t:#F4F5F8;--m:#9BA0AE;--f:#5D6170;--line:rgba(255,255,255,.10);
+        --edge:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.62);
+        --fd:"Archivo",Arial,sans-serif;--fm:"IBM Plex Mono",monospace}
+  *{box-sizing:border-box;margin:0}
+  html{background:#000}
+  body{background:#000;color:var(--t);font-family:var(--fm);font-size:15px;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  #grid{position:fixed;inset:0;z-index:0;pointer-events:none}
+  main{position:relative;z-index:1}
+  .tag{position:fixed;top:1rem;left:1rem;z-index:99;font-size:.58rem;letter-spacing:.22em;
+       text-transform:uppercase;color:var(--f)}
+  .back{position:fixed;top:1rem;right:1rem;z-index:99;font-size:.58rem;letter-spacing:.18em;
+       text-transform:uppercase;color:var(--m);padding:.5rem .9rem;background:rgba(255,255,255,.07);
+       box-shadow:var(--edge)}
+
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+        padding:6rem clamp(1.2rem,5vw,5rem) 4rem;perspective:900px}
+  .kick{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--f)}
+  h1{font-family:var(--fd);font-style:italic;font-weight:900;text-transform:uppercase;
+     font-size:clamp(2.8rem,12vw,10rem);line-height:.84;letter-spacing:-.045em;margin-top:1.2rem;
+     transform-style:preserve-3d;will-change:transform}
+  h1 .o{color:transparent;-webkit-text-stroke:2px rgba(244,245,248,.85)}
+  .lede{margin-top:2rem;max-width:50ch;color:var(--m);font-size:.9rem;line-height:1.7}
+  .lede b{color:var(--t);font-weight:500}
+
+  section.band{padding:clamp(4rem,10vw,9rem) clamp(1.2rem,5vw,5rem)}
+  h2.big{font-family:var(--fd);font-style:italic;font-weight:900;text-transform:uppercase;
+       font-size:clamp(2rem,7vw,5.5rem);line-height:.92;letter-spacing:-.04em;margin-bottom:2.6rem}
+
+  /* ── cards that hold depth ──────────────────────────────────────────── */
+  .deck{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(min(22rem,100%),1fr));
+        perspective:1200px}
+  .tile{position:relative;padding:1.5rem 1.4rem;transform-style:preserve-3d;will-change:transform;
+        background:linear-gradient(176deg,rgba(17,19,25,.72),rgba(4,5,8,.88));box-shadow:var(--edge)}
+  .tile::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+       background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),
+       rgba(255,255,255,.13),transparent 45%);transition:opacity .3s}
+  .tile:hover::after{opacity:1}
+  .tile .no{font-family:var(--fd);font-style:italic;font-weight:900;color:var(--f);font-size:.85rem}
+  .tile h3{font-family:var(--fd);font-style:italic;font-weight:900;text-transform:uppercase;
+       font-size:1.5rem;line-height:1;margin:.5rem 0 0;letter-spacing:-.02em;transform:translateZ(28px)}
+  .tile .lead{margin-top:.75rem;color:var(--t);font-size:.85rem;line-height:1.5;transform:translateZ(16px)}
+  .tile ul{margin:.85rem 0 0;padding:0;list-style:none}
+  .tile li{position:relative;padding-left:1rem;margin-bottom:.4rem;color:var(--m);
+       font-size:.78rem;line-height:1.5}
+  .tile li::before{content:"";position:absolute;left:0;top:.5em;width:5px;height:8px;
+       background:currentColor;opacity:.5;clip-path:polygon(40% 0,100% 0,60% 100%,0 100%)}
+  .tile li b{color:var(--t);font-weight:500}
+  .tile .win{margin-top:1.1rem;aspect-ratio:4/3;overflow:hidden;background:#0B0D12;transform:translateZ(10px)}
+  .tile .win img{width:100%;height:118%;object-fit:cover;display:block;
+       filter:grayscale(1) contrast(1.2) brightness(.72);will-change:transform}
+  footer{position:relative;z-index:1;padding:6rem 1.2rem 8rem;text-align:center;font-size:.58rem;
+       letter-spacing:.2em;text-transform:uppercase;color:var(--f)}
+  @media (prefers-reduced-motion:reduce){#grid{display:none}}
+</style>
+</head>
+<body>
+<canvas id="grid"></canvas>
+<span class="tag">treatment C &mdash; spatial</span>
+<a class="back" href="/studio/">all three</a>
+
+<main>
+<section class="hero">
+  <span class="kick">Jack Powell &mdash; Atlanta, GA</span>
+  <h1 id="h1">Local<br><span class="o">compute</span></h1>
+  <p class="lede">Two servers in Atlanta, three data-center GPUs, self-hosted language
+  models, and <b>autonomous agents</b> working on the stack around the clock. I specified,
+  built and administer all of it.</p>
+</section>
+
+<section class="band">
+  <h2 class="big">The ladder</h2>
+  <div class="deck">
+    <article class="tile">
+      <span class="no">01</span><h3>First build, age eleven</h3>
+      <p class="lead">Built MAXIMUS, the desktop I still use.</p>
+      <ul><li>Then took apart every family computer I could get permission for</li></ul>
+      <div class="win"><img src="/media/ladder-first-build.jpg" alt=""></div>
+    </article>
+    <article class="tile">
+      <span class="no">14</span><h3>Pantheon takes the rest</h3>
+      <p class="lead">Bought a second server so the GPU box could do nothing but models.</p>
+      <ul><li>A Dell R210 running websites, game servers and the media stack</li>
+          <li>Proxmox containers, resource-weighted so they coexist</li></ul>
+      <div class="win"><img src="/media/ladder-pantheon.jpg" alt=""></div>
+    </article>
+    <article class="tile">
+      <span class="no">15</span><h3>Three cards, and the BIOS</h3>
+      <p class="lead">An address-space problem, not a slot problem.</p>
+      <ul><li>Stock <b>Above 4G Decoding</b> is broken on that board</li>
+          <li>Modded BIOS raising high MMIO <b>256 GB to 1 TB</b></li>
+          <li>All three at x8 &mdash; the CPU has 28 lanes</li></ul>
+      <div class="win"><img src="/media/ladder-three-cards.jpg" alt=""></div>
+    </article>
+    <article class="tile">
+      <span class="no">16</span><h3>A fleet, not a box</h3>
+      <p class="lead">Three cards, two workloads, reassigned from a control panel.</p>
+      <ul><li>FRIDAY on the V100, AUTOGOD on the P100 pair</li>
+          <li>Swaps <b>without dropping a session mid-answer</b></li></ul>
+      <div class="win"><img src="/media/ladder-the-fleet.jpg" alt=""></div>
+    </article>
+  </div>
+</section>
+</main>
+
+<footer>treatment C &mdash; receding grid, pointer light, depth tilt, parallax windows</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ── a plane receding to a horizon, drifting with the scroll ─────────── */
+(function plane(){
+  if (reduce) return;
+  const cv = document.getElementById("grid"), g = cv.getContext("2d");
+  let w, h, dpr, off = 0, vel = 0, mx = .5, my = .5, raf = 0;
+  const resize = () => { dpr = Math.min(devicePixelRatio || 1, 2);
+    w = cv.width = innerWidth * dpr; h = cv.height = innerHeight * dpr;
+    cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px"; };
+  resize(); addEventListener("resize", resize);
+  addEventListener("pointermove", e => { mx = e.clientX / innerWidth; my = e.clientY / innerHeight; });
+
+  function frame(){
+    g.clearRect(0, 0, w, h);
+    const hz = h * (0.44 + (my - .5) * 0.06);        // horizon, nudged by the pointer
+    const cx = w * (0.5 + (mx - .5) * 0.12);
+    g.lineWidth = dpr;
+
+    // depth lines, spaced so they bunch toward the horizon
+    for (let i = 0; i < 26; i++) {
+      const t = ((i + off) % 26) / 26;
+      const y = hz + Math.pow(t, 2.6) * (h - hz);
+      const a = 0.021 + t * 0.10;
+      g.strokeStyle = "rgba(255,255,255," + a.toFixed(3) + ")";
+      g.beginPath(); g.moveTo(0, y); g.lineTo(w, y); g.stroke();
+    }
+    // radials converging on the vanishing point
+    for (let i = -16; i <= 16; i++) {
+      const a = 0.028 + (1 - Math.abs(i) / 17) * 0.05;
+      g.strokeStyle = "rgba(255,255,255," + a.toFixed(3) + ")";
+      g.beginPath(); g.moveTo(cx, hz); g.lineTo(cx + i * w * 0.14, h); g.stroke();
+    }
+    g.strokeStyle = "rgba(255,255,255,.12)";
+    g.beginPath(); g.moveTo(0, hz); g.lineTo(w, hz); g.stroke();
+
+    off += 0.012 + Math.abs(vel) * 0.02;
+    vel *= 0.92;
+    raf = requestAnimationFrame(frame);
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
+    else if (!raf) raf = requestAnimationFrame(frame);
+  });
+  raf = requestAnimationFrame(frame);
+  window.__pushPlane = (v) => { vel = v; };
+})();
+
+if (!reduce && window.gsap) {
+  gsap.registerPlugin(ScrollTrigger);
+  if (window.Lenis) {
+    const lenis = new Lenis({lerp: .1});
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+  ScrollTrigger.create({onUpdate: (self) => window.__pushPlane(self.getVelocity() / 900)});
+
+  gsap.from("h1", {yPercent: 18, opacity: 0, rotateX: 32, duration: 1.3, ease: "power4.out"});
+  gsap.from(".kick, .lede", {y: 26, opacity: 0, duration: 1, delay: .3, stagger: .12, ease: "power3.out"});
+
+  /* the headline keeps a little parallax as the page moves */
+  gsap.to("#h1", {yPercent: -14, ease: "none",
+    scrollTrigger: {trigger: ".hero", start: "top top", end: "bottom top", scrub: .5}});
+
+  gsap.utils.toArray(".tile").forEach(t => {
+    gsap.from(t, {y: 60, opacity: 0, duration: 1, ease: "power3.out",
+      scrollTrigger: {trigger: t, start: "top 86%", once: true}});
+    /* the photo inside each window drifts against its frame */
+    gsap.to(t.querySelector("img"), {yPercent: -14, ease: "none",
+      scrollTrigger: {trigger: t, start: "top bottom", end: "bottom top", scrub: .6}});
+
+    /* tilt toward the pointer, and light the surface where it is */
+    const rx = gsap.quickTo(t, "rotationX", {duration: .5, ease: "power3"});
+    const ry = gsap.quickTo(t, "rotationY", {duration: .5, ease: "power3"});
+    t.addEventListener("pointermove", e => {
+      const r = t.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+      rx(-(py - .5) * 9); ry((px - .5) * 11);
+      t.style.setProperty("--mx", px * 100 + "%");
+      t.style.setProperty("--my", py * 100 + "%");
+    });
+    t.addEventListener("pointerleave", () => {
+      gsap.to(t, {rotationX: 0, rotationY: 0, duration: .8, ease: "elastic.out(1,.5)"});
+    });
+  });
+}
+</script>
+</body>
+</html>

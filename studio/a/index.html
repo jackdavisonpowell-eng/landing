@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A &mdash; Cinematic</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9700;</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,600;0,800;0,900;1,800;1,900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{--t:#F4F5F8;--m:#9BA0AE;--f:#5D6170;--line:rgba(255,255,255,.10);
+        --slab:linear-gradient(176deg,rgba(17,19,25,.56),rgba(4,5,8,.68));
+        --edge:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.62);
+        --fd:"Archivo",Arial,sans-serif;--fm:"IBM Plex Mono",monospace}
+  *{box-sizing:border-box;margin:0}
+  html{background:#000}
+  body{background:#000;color:var(--t);font-family:var(--fm);font-size:15px;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .tag{position:fixed;top:1rem;left:1rem;z-index:99;font-size:.58rem;letter-spacing:.22em;
+       text-transform:uppercase;color:var(--f);mix-blend-mode:difference}
+  .back{position:fixed;top:1rem;right:1rem;z-index:99;font-size:.58rem;letter-spacing:.18em;
+       text-transform:uppercase;color:var(--m);padding:.5rem .9rem;background:rgba(255,255,255,.07);
+       box-shadow:var(--edge)}
+
+  /* ── pinned hero: the photo pulls back, the type takes over ─────────── */
+  .stage{position:relative;height:100vh;overflow:hidden}
+  .stage .pic{position:absolute;inset:0;background-image:url('/media/rack.jpg');
+       background-size:cover;background-position:center;
+       filter:grayscale(1) contrast(1.25) brightness(.5);will-change:transform}
+  .stage .veil{position:absolute;inset:0;
+       background:linear-gradient(180deg,rgba(0,0,0,.7),rgba(0,0,0,.2) 40%,#000 96%)}
+  .stage .type{position:absolute;inset:0;display:flex;flex-direction:column;
+       align-items:center;justify-content:center;text-align:center;padding:1.5rem}
+  .stage h1{font-family:var(--fd);font-style:italic;font-weight:900;text-transform:uppercase;
+       font-size:clamp(3rem,15vw,13rem);line-height:.82;letter-spacing:-.045em;will-change:transform}
+  .stage h1 span{display:block}
+  .stage h1 .o{color:transparent;-webkit-text-stroke:2px rgba(244,245,248,.9)}
+  .stage .sub{margin-top:1.6rem;font-size:.66rem;letter-spacing:.34em;text-transform:uppercase;
+       color:var(--m)}
+  .scrollcue{position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);
+       font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--f)}
+
+  /* ── the counter band scrubs as you pass it ─────────────────────────── */
+  .band{padding:clamp(4rem,12vw,10rem) clamp(1.2rem,6vw,6rem)}
+  .nums{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);
+        border-bottom:1px solid var(--line)}
+  .nums>div{padding:2.2rem 1.4rem;border-left:1px solid var(--line)}
+  .nums>div:first-child{border-left:0}
+  .nums .v{font-family:var(--fd);font-style:italic;font-weight:900;
+       font-size:clamp(2rem,6vw,4.4rem);line-height:.9;letter-spacing:-.04em}
+  .nums .k{margin-top:.7rem;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--f)}
+  @media (max-width:52rem){.nums{grid-template-columns:repeat(2,1fr)}
+       .nums>div:nth-child(3){border-left:0}.nums>div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+  h2.big{font-family:var(--fd);font-style:italic;font-weight:900;text-transform:uppercase;
+       font-size:clamp(2.4rem,9vw,7rem);line-height:.9;letter-spacing:-.04em;
+       margin-bottom:clamp(2rem,5vw,4rem)}
+
+  /* ── rungs: image wipes in, lines rise ──────────────────────────────── */
+  .rung{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+        gap:clamp(1.5rem,5vw,5rem);align-items:center;
+        padding:clamp(3rem,9vw,8rem) 0;border-top:1px solid var(--line)}
+  @media (max-width:60rem){.rung{grid-template-columns:1fr;gap:1.8rem}}
+  .rung.flip .shot{order:-1}
+  .rung h3{font-family:var(--fd);font-style:italic;font-weight:900;text-transform:uppercase;
+       font-size:clamp(1.7rem,4.5vw,3.4rem);line-height:.98;letter-spacing:-.03em}
+  .rung .lead{margin-top:1rem;font-size:1rem;line-height:1.5;color:var(--t);max-width:44ch}
+  .rung ul{margin-top:1.3rem;padding:0;list-style:none;max-width:52ch}
+  .rung li{position:relative;padding-left:1.1rem;margin-bottom:.55rem;color:var(--m);
+       font-size:.84rem;line-height:1.55}
+  .rung li::before{content:"";position:absolute;left:0;top:.5em;width:5px;height:8px;
+       background:currentColor;opacity:.55;clip-path:polygon(40% 0,100% 0,60% 100%,0 100%)}
+  .rung li b{color:var(--t);font-weight:500}
+  .shot{position:relative;aspect-ratio:4/3;overflow:hidden;background:#0B0D12;
+        clip-path:inset(0 100% 0 0)}
+  .shot img{width:100%;height:100%;object-fit:cover;display:block;
+       filter:grayscale(1) contrast(1.2) brightness(.78);transform:scale(1.18);will-change:transform}
+  .no{font-family:var(--fd);font-style:italic;font-weight:900;font-size:.9rem;color:var(--f);
+      letter-spacing:.1em;margin-bottom:.5rem;display:block}
+  .rev{display:block;overflow:hidden}
+  .rev>span{display:block;will-change:transform}
+  footer{padding:6rem 1.2rem 8rem;text-align:center;font-size:.58rem;letter-spacing:.2em;
+       text-transform:uppercase;color:var(--f)}
+  @media (prefers-reduced-motion:reduce){.shot{clip-path:none}.shot img{transform:none}}
+</style>
+</head>
+<body>
+<span class="tag">treatment A &mdash; cinematic</span>
+<a class="back" href="/studio/">all three</a>
+
+<section class="stage">
+  <div class="pic" id="pic"></div>
+  <div class="veil"></div>
+  <div class="type">
+    <h1 id="h1"><span>Jack</span><span class="o">Powell</span></h1>
+    <div class="sub" id="sub">local AI infrastructure &middot; Atlanta</div>
+  </div>
+  <span class="scrollcue">scroll</span>
+</section>
+
+<section class="band">
+  <div class="nums">
+    <div><div class="v" data-count="3">0</div><div class="k">Tesla GPUs</div></div>
+    <div><div class="v" data-count="64" data-suffix="GB">0</div><div class="k">VRAM, one tower</div></div>
+    <div><div class="v" data-count="27">0</div><div class="k">projects built unattended</div></div>
+    <div><div class="v" data-count="2">0</div><div class="k">servers in Atlanta</div></div>
+  </div>
+</section>
+
+<section class="band" style="padding-top:0">
+  <h2 class="big rev"><span>The ladder</span></h2>
+
+  <div class="rung">
+    <div>
+      <span class="no">01</span>
+      <h3 class="rev"><span>First build, age eleven</span></h3>
+      <p class="lead">Built MAXIMUS, the desktop I still use, at eleven years old.</p>
+      <ul><li>Then took apart every family computer I could get permission for</li></ul>
+    </div>
+    <div class="shot"><img src="/media/ladder-first-build.jpg" alt=""></div>
+  </div>
+
+  <div class="rung flip">
+    <div>
+      <span class="no">15</span>
+      <h3 class="rev"><span>Three cards, and the BIOS</span></h3>
+      <p class="lead">Fitting a third compute card was an address-space problem, not a slot problem.</p>
+      <ul>
+        <li>Stock firmware's <b>Above 4G Decoding</b> toggle is broken on that board</li>
+        <li>Flashed a modded BIOS raising high MMIO from <b>256 GB to 1 TB</b></li>
+        <li>All three run at x8 &mdash; the CPU has only 28 lanes to give</li>
+      </ul>
+    </div>
+    <div class="shot"><img src="/media/ladder-three-cards.jpg" alt=""></div>
+  </div>
+
+  <div class="rung">
+    <div>
+      <span class="no">16</span>
+      <h3 class="rev"><span>A fleet, not a box</span></h3>
+      <p class="lead">Three cards, two workloads, reassigned from a control panel.</p>
+      <ul>
+        <li>FRIDAY, the voice assistant, on the V100</li>
+        <li>AUTOGOD, the worker, on the P100 pair</li>
+        <li>The layout swaps <b>without dropping a session mid-answer</b></li>
+      </ul>
+    </div>
+    <div class="shot"><img src="/media/ladder-the-fleet.jpg" alt=""></div>
+  </div>
+</section>
+
+<footer>treatment A &mdash; pinned hero, scrubbed counters, wipe reveals</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (!reduce && window.gsap) {
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* smooth scroll, driven by gsap's ticker so the two never fight */
+  if (window.Lenis) {
+    const lenis = new Lenis({lerp: .1});
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* the hero: photo pulls back and darkens, type drifts up and fades */
+  gsap.timeline({scrollTrigger: {trigger: ".stage", start: "top top", end: "bottom top", scrub: .6}})
+    .to("#pic", {scale: 1.25, filter: "grayscale(1) contrast(1.4) brightness(.22)", ease: "none"}, 0)
+    .to("#h1", {yPercent: -18, opacity: .12, ease: "none"}, 0)
+    .to("#sub", {yPercent: -60, opacity: 0, ease: "none"}, 0);
+
+  /* counters run once, on arrival */
+  document.querySelectorAll("[data-count]").forEach(el => {
+    const end = +el.dataset.count, suffix = el.dataset.suffix || "";
+    ScrollTrigger.create({trigger: el, start: "top 88%", once: true, onEnter: () => {
+      gsap.fromTo(el, {innerText: 0}, {innerText: end, duration: 1.4, ease: "power2.out",
+        snap: {innerText: 1}, onUpdate: () => { el.innerHTML = Math.round(+el.innerText) + (suffix ? `<span style="font-size:.4em;color:var(--m)">${suffix}</span>` : ""); }});
+    }});
+  });
+
+  /* headings rise out of their own mask */
+  gsap.utils.toArray(".rev > span").forEach(el => {
+    gsap.from(el, {yPercent: 115, duration: 1, ease: "power3.out",
+      scrollTrigger: {trigger: el, start: "top 90%", once: true}});
+  });
+
+  /* the photo wipes open while the image inside settles back to scale 1 */
+  gsap.utils.toArray(".shot").forEach(shot => {
+    const tl = gsap.timeline({scrollTrigger: {trigger: shot, start: "top 82%", once: true}});
+    tl.to(shot, {clipPath: "inset(0 0% 0 0)", duration: 1.1, ease: "power3.inOut"})
+      .to(shot.querySelector("img"), {scale: 1, duration: 1.6, ease: "power3.out"}, 0);
+  });
+
+  /* copy staggers in under the heading */
+  gsap.utils.toArray(".rung").forEach(r => {
+    gsap.from(r.querySelectorAll(".lead, li, .no"), {y: 26, opacity: 0, duration: .8,
+      stagger: .07, ease: "power3.out",
+      scrollTrigger: {trigger: r, start: "top 78%", once: true}});
+  });
+}
+</script>
+</body>
+</html>
