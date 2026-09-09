@@ -16,7 +16,7 @@ have to match between shots. Shoot for shape and contrast, not colour.
 | `hero.jpg` | full-bleed behind the home headline | wide, >=2400px |
 | `rig.jpg` | "The machine" band, home page | portrait-ish |
 | `pantheon.jpg` | Pantheon, home page servers band | wide |
-| `console.jpg` | the fleet console on a screen | wide |
+| `rack.jpg` | the whole rack, About page | tall, 4:5 |
 | `door-about.jpg` | home tile 01 | tall, 3:4 |
 | `door-showcase.jpg` | home tile 02 | tall, 3:4 |
 | `door-blog.jpg` | home tile 03 | tall, 3:4 |
@@ -26,19 +26,21 @@ have to match between shots. Shoot for shape and contrast, not colour.
 ## The ladder
 
 One per step of the history on the About page. Landscape, 4:3.
+"drawn" means I made a graphic for it — replace it with a real photo any time.
 
 | file | the step | |
 | --- | --- | --- |
 | `ladder-01.jpg` | first build, age eleven — MAXIMUS | have it |
-| `ladder-02.jpg` | grandma's OptiPlex, Blender |  |
+| `ladder-02.jpg` | childhood tinkering — overclocking, Blender, YouTube | drawn |
 | `ladder-03.jpg` | the sim rig — wheel, cockpit, VR | have it |
 | `ladder-04.jpg` | MAXIMUS rebuilt in white |  |
 | `ladder-05.jpg` | the X99 home lab, 1660 era | have it |
-| `ladder-06.jpg` | the first P100 | have it |
-| `ladder-07.jpg` | both P100s in | have it |
-| `ladder-08.jpg` | the rack Pantheon lives in | have it |
-| `ladder-09.jpg` | the three cards before they went in | have it |
-| `ladder-10.jpg` | the Pi satellite running FRIDAY | have it |
-| `ladder-11.jpg` | Statesboro — the dorm desk |  |
+| `ladder-06.jpg` | the networking phase — VLANs, Pi-hole | drawn |
+| `ladder-07.jpg` | the first P100 | have it |
+| `ladder-08.jpg` | both P100s in | have it |
+| `ladder-09.jpg` | Pantheon, the Dell R210 | have it |
+| `ladder-10.jpg` | the three cards before they went in | have it |
+| `ladder-11.jpg` | the Pi satellite running FRIDAY | have it |
+| `ladder-12.jpg` | Georgia Southern | drawn |
 
 The showcase page has its own folder with its own list: `showcase/media/`.

@@ -111,6 +111,7 @@
   .frame{--c:var(--cut-m);position:relative;min-height:clamp(13rem,26vw,20rem);overflow:hidden;
        box-shadow:var(--edge);
        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .frame.tall{min-height:clamp(19rem,40vw,29rem)}
   .frame .cap{position:absolute;left:0;bottom:0;z-index:2;padding:.7rem 1rem;
        font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
        background:linear-gradient(180deg,transparent,rgba(0,0,0,.85))}
@@ -136,6 +137,8 @@
        font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
        background:linear-gradient(180deg,transparent,rgba(0,0,0,.88))}
   .rung:hover .rshot .shot::after{filter:grayscale(.15) contrast(1.08) brightness(.85);transform:scale(1.04)}
+  /* a drawn panel is not a photograph; it does not want the photo grade */
+  .rshot.plate .shot::after,.rung:hover .rshot.plate .shot::after{filter:none}
   .rung .no{font-family:var(--f-d);font-style:italic;font-weight:900;font-size:clamp(1.1rem,2.6vw,1.7rem);
        line-height:1;color:var(--faint);position:relative}
   .rung .no::after{content:"";position:absolute;right:-1px;top:.35em;width:9px;height:9px;
@@ -243,9 +246,9 @@
         <p>Everything on the showcase page was built this way &mdash; free to
         run, with no usage limits, because it's my own hardware.</p>
       </div>
-      <div class="frame rise" style="transition-delay:.08s">
-        <div class="shot" style="--img:url('/media/console.jpg')"></div>
-        <span class="cap">the fleet console &mdash; every agent on one wall</span>
+      <div class="frame tall rise" style="transition-delay:.08s">
+        <div class="shot" style="--img:url('/media/rack.jpg')"></div>
+        <span class="cap">the rack &mdash; every machine in one place</span>
       </div>
     </div>
   </section>
@@ -272,15 +275,24 @@
       <div class="rung rise">
         <div class="no">02</div>
         <div>
-          <h3>Grandma's old OptiPlex</h3>
-          <p>Around thirteen I inherited a Dell OptiPlex that nobody wanted and
-          learned Blender animation and video editing on it. Slow hardware is a
-          good teacher &mdash; you find out quickly which parts of a render are
-          your fault.</p>
-          <div class="spec"><b>Dell OptiPlex</b><b>Blender</b><b>video editing</b></div>
+          <h3>Childhood tinkering</h3>
+          <p>I got obsessed with overclocking. Not the safe kind &mdash; I
+          wanted to know exactly where a machine fell over, so I would push the
+          clocks until it did, then back off one notch and live there. You
+          learn a lot about what a component actually is from the point where
+          it stops working.</p>
+          <p>Alongside that I was making YouTube videos: <b>Blender</b>
+          animations built around the games I was playing, and PC building
+          content. Rendering is the fastest way to find out whether your
+          overclock was really stable.</p>
+          <p>And I tuned Windows installs for anybody who would let me near
+          their computer. Half of that was genuine optimisation and half was an
+          excuse to take someone else's machine apart.</p>
+          <div class="spec"><b>overclocking</b><b>Blender</b><b>YouTube</b><b>Windows tuning</b></div>
         </div>
-        <div class="rshot">
+        <div class="rshot plate">
           <div class="shot" style="--img:url('/media/ladder-02.jpg')"></div>
+          <span class="cap">frequency and voltage</span>
         </div>
       </div>
 
@@ -333,6 +345,30 @@
       <div class="rung rise">
         <div class="no">06</div>
         <div>
+          <h3>The networking phase</h3>
+          <p>Once there was more than one server, one flat network stopped
+          being acceptable. I split the house into VLANs: the machines I
+          actually trust, the servers, the IoT things that phone home
+          constantly, and a guest network for everyone else.</p>
+          <p>Every device on the network resolves DNS through <b>Pi-hole</b> on
+          my own hardware, so ads and telemetry get dropped before they leave
+          the house rather than after somebody else has already logged them.</p>
+          <p>Then firewall rules decide who may talk to whom. The smart plugs
+          cannot see the servers, guests cannot see anything, and the devices
+          with the worst security are the ones with the least reach. That
+          principle is the whole reason the rest of this stack runs at home
+          instead of in somebody's cloud.</p>
+          <div class="spec"><b>VLANs</b><b>Pi-hole</b><b>network-wide DNS</b><b>firewall rules</b></div>
+        </div>
+        <div class="rshot plate">
+          <div class="shot" style="--img:url('/media/ladder-06.jpg')"></div>
+          <span class="cap">four VLANs, one DNS sink</span>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">07</div>
+        <div>
           <h3>The first P100</h3>
           <p>Then I got interested in running language models myself. One Tesla
           P100, 16 GB, running 14B models. It worked, and it was not good
@@ -341,13 +377,13 @@
           <div class="spec"><b>Tesla P100 16GB</b><b>14B models</b></div>
         </div>
         <div class="rshot">
-          <div class="shot" style="--img:url('/media/ladder-06.jpg')"></div>
+          <div class="shot" style="--img:url('/media/ladder-07.jpg')"></div>
           <span class="cap">the P100, out of the box</span>
         </div>
       </div>
 
       <div class="rung rise">
-        <div class="no">07</div>
+        <div class="no">08</div>
         <div>
           <h3>So I bought another</h3>
           <p>Two P100s, 32 GB of VRAM, and suddenly the models were big enough
@@ -357,13 +393,13 @@
           <div class="spec"><b>2&times; P100</b><b>32 GB VRAM</b><b>autonomous work</b></div>
         </div>
         <div class="rshot">
-          <div class="shot" style="--img:url('/media/ladder-07.jpg')"></div>
+          <div class="shot" style="--img:url('/media/ladder-08.jpg')"></div>
           <span class="cap">on the bench, both cards in</span>
         </div>
       </div>
 
       <div class="rung rise">
-        <div class="no">08</div>
+        <div class="no">09</div>
         <div>
           <h3>Pantheon takes the rest</h3>
           <p>The big box was now worth too much as a GPU machine to keep
@@ -373,14 +409,14 @@
           <div class="spec"><b>Dell R210</b><b>game servers</b><b>media stack</b></div>
         </div>
         <div class="rshot">
-          <div class="shot" style="--img:url('/media/ladder-08.jpg')"></div>
+          <div class="shot" style="--img:url('/media/ladder-09.jpg')"></div>
           <span class="cap">Pantheon &mdash; a Dell R210 with the lid off</span>
           <span class="cap">the rack &mdash; Pantheon, lower shelf</span>
         </div>
       </div>
 
       <div class="rung rise">
-        <div class="no">09</div>
+        <div class="no">10</div>
         <div>
           <h3>Three cards, and the BIOS that would not allow it</h3>
           <p>Adding a third card to a Gigabyte X99 board is not a slot problem,
@@ -406,13 +442,13 @@
           <div class="spec"><b>V100 32GB</b><b>modded BIOS</b><b>Above 4G</b><b>64 GB VRAM</b></div>
         </div>
         <div class="rshot">
-          <div class="shot" style="--img:url('/media/ladder-09.jpg')"></div>
+          <div class="shot" style="--img:url('/media/ladder-10.jpg')"></div>
           <span class="cap">V100 32GB and two P100s, before they went in</span>
         </div>
       </div>
 
       <div class="rung rise">
-        <div class="no">10</div>
+        <div class="no">11</div>
         <div>
           <h3>A fleet, not a box</h3>
           <p>FRIDAY, the voice assistant, takes the V100. AUTOGOD, the worker,
@@ -422,21 +458,22 @@
           <div class="spec"><b>FRIDAY &rarr; V100</b><b>AUTOGOD &rarr; 2&times; P100</b><b>hot swap</b></div>
         </div>
         <div class="rshot">
-          <div class="shot" style="--img:url('/media/ladder-10.jpg')"></div>
+          <div class="shot" style="--img:url('/media/ladder-11.jpg')"></div>
           <span class="cap">the Pi satellite, running FRIDAY</span>
         </div>
       </div>
 
       <div class="rung rise">
-        <div class="no">11</div>
+        <div class="no">12</div>
         <div>
           <h3>Atlanta &rarr; Georgia Southern</h3>
           <p>I grew up building this in Atlanta and I run it now from a dorm
           room at Georgia Southern University. <b>The hardware stayed home. The
           agents did not stop.</b></p>
         </div>
-        <div class="rshot">
-          <div class="shot" style="--img:url('/media/ladder-11.jpg')"></div>
+        <div class="rshot plate">
+          <div class="shot" style="--img:url('/media/ladder-12.jpg')"></div>
+          <span class="cap">since fall 2026</span>
         </div>
       </div>
 
