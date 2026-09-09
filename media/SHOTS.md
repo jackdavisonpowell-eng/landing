@@ -31,11 +31,11 @@ One per step of the history on the About page. Landscape, 4:3.
 | --- | --- | --- |
 | `ladder-01.jpg` | first build, age eleven — MAXIMUS | have it |
 | `ladder-02.jpg` | grandma's OptiPlex, Blender |  |
-| `ladder-03.jpg` | the sim rig — wheel, cockpit, VR |  |
+| `ladder-03.jpg` | the sim rig — wheel, cockpit, VR | have it |
 | `ladder-04.jpg` | MAXIMUS rebuilt in white |  |
-| `ladder-05.jpg` | the X99 home lab, 1660 era |  |
-| `ladder-06.jpg` | the first P100 |  |
-| `ladder-07.jpg` | both P100s in |  |
+| `ladder-05.jpg` | the X99 home lab, 1660 era | have it |
+| `ladder-06.jpg` | the first P100 | have it |
+| `ladder-07.jpg` | both P100s in | have it |
 | `ladder-08.jpg` | the rack Pantheon lives in | have it |
 | `ladder-09.jpg` | the three cards before they went in | have it |
 | `ladder-10.jpg` | the Pi satellite running FRIDAY | have it |
