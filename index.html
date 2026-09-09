@@ -3,49 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jack's AI Dashboard</title>
+<title>Jack Powell &mdash; autogod.org</title>
+<meta name="description" content="I build machines that build things. Local AI inference, autonomous agents, and the hardware underneath both.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9700;</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,600;0,800;0,900;1,800;1,900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
-  /* AUTOGOD v7 language, trimmed to what this page uses. Copied from the
-     showcase stylesheet, not shared, so this page can't break if that one
-     changes. */
+  /* AUTOGOD v7 language. Self-contained on purpose — every page in this site
+     carries its own copy so one page can never break another. */
   :root{
     --ground:#000;
     --text:#F4F5F8; --muted:#9BA0AE; --faint:#5D6170;
-    --live:#FFFFFF; --live-glo:rgba(255,255,255,.45);
-    --dim:#40444F;
     --slab:linear-gradient(176deg,rgba(17,19,25,.56),rgba(4,5,8,.68));
     --key:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.022));
     --key-hi:linear-gradient(180deg,rgba(255,255,255,.155),rgba(255,255,255,.045));
     --edge:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.62);
-    --line-soft:rgba(255,255,255,.07);
+    --line:rgba(255,255,255,.09);
     --hatch:repeating-linear-gradient(118deg,rgba(255,255,255,.22) 0 1px,transparent 1px 6px);
+    --hatch-lg:repeating-linear-gradient(118deg,rgba(255,255,255,.055) 0 1px,transparent 1px 11px);
     --f-d:"Archivo","Helvetica Neue",Arial,sans-serif;
     --f-m:"IBM Plex Mono",ui-monospace,Menlo,monospace;
     --cut:20px; --cut-m:12px; --cut-s:7px;
   }
   *{box-sizing:border-box}
-  html{background:var(--ground)}
-  body{margin:0;min-height:100vh;background:var(--ground);color:var(--text);
-       font-family:var(--f-m);font-size:15px;line-height:1.5;
-       -webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+  html{background:var(--ground);scroll-behavior:smooth}
+  body{margin:0;background:var(--ground);color:var(--text);
+       font-family:var(--f-m);font-size:15px;line-height:1.5;overflow-x:hidden;
+       -webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
+
+  /* the hatch field the whole site sits on — drifts slowly, never distracts */
+  body::before{content:"";position:fixed;inset:-20vmax;z-index:0;pointer-events:none;
+       background:var(--hatch-lg);opacity:.5;animation:drift 90s linear infinite}
+  @keyframes drift{to{transform:translate3d(11vmax,-6vmax,0)}}
 
   .cut{--c:var(--cut);position:relative;
        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
-  .cut::before{content:"";position:absolute;left:0;top:0;pointer-events:none;z-index:3;
+  .cut::before{content:"";position:absolute;left:0;top:0;pointer-events:none;z-index:5;
        width:calc(var(--c) * 2);height:calc(var(--c) * 2);
        background:linear-gradient(135deg,rgba(255,255,255,.55) 0 1.5px,transparent 1.5px)}
-  .cut::after{content:"";position:absolute;right:0;bottom:0;pointer-events:none;z-index:3;
+  .cut::after{content:"";position:absolute;right:0;bottom:0;pointer-events:none;z-index:5;
        width:calc(var(--c) * 2);height:calc(var(--c) * 2);
        background:linear-gradient(315deg,rgba(255,255,255,.22) 0 1.5px,transparent 1.5px)}
   .plate{background:var(--slab);backdrop-filter:blur(4px) saturate(1.1);
        box-shadow:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.7)}
 
-  .top{display:flex;align-items:center;gap:1rem;padding:.55rem 1rem}
+  /* ── photo slot ──────────────────────────────────────────────────────────
+     Drop a file into media/ with the documented name and it appears. If the
+     file is not there yet the url simply fails to paint and the hatch below
+     it shows through, which is a designed state, not a broken one. Every
+     photo is pushed to hard monochrome so submissions from any camera, any
+     lighting, still read as one set. */
+  .shot{position:absolute;inset:0;z-index:0;overflow:hidden;
+        background:var(--hatch);background-color:#07080B;
+        background-blend-mode:overlay}
+  .shot::after{content:"";position:absolute;inset:0;background-image:var(--img);
+        background-size:cover;background-position:var(--pos,center);
+        filter:grayscale(1) contrast(1.22) brightness(.62);
+        transition:filter .6s ease,transform 1.2s cubic-bezier(.16,1,.3,1)}
+  .scrim{position:absolute;inset:0;z-index:1;pointer-events:none}
+
+  header.top{position:relative;z-index:20;display:flex;align-items:center;gap:1rem;
+       padding:.55rem 1rem;margin:0 0 0 0}
   .wm{display:inline-flex;align-items:center;font-family:var(--f-d);font-style:italic;
        font-weight:900;font-size:clamp(1.3rem,2.15vw,1.95rem);text-transform:uppercase;
        line-height:1;white-space:nowrap;text-shadow:0 0 22px rgba(235,238,245,.3)}
@@ -55,8 +75,6 @@
   .top .sp{flex:1;height:8px;background:var(--hatch);opacity:.35;
        -webkit-mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);
        mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent)}
-  .badge{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);
-       white-space:nowrap}
   .hnav{display:flex;gap:.4rem;flex:none;flex-wrap:wrap;justify-content:flex-end}
   .hbtn{--c:var(--cut-s);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
        padding:.5rem .9rem;background:var(--key);color:var(--muted);box-shadow:var(--edge);
@@ -65,40 +83,118 @@
   .hbtn:hover{background:var(--key-hi);color:var(--text)}
   .hbtn.on{color:#07080B;background:linear-gradient(180deg,#FFF,#CFD3DD);font-weight:600}
 
-  main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-       padding:3rem 1.2rem}
-  .hero{text-align:center;max-width:40rem;margin-bottom:2.6rem}
-  .hero .kick{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
-       color:var(--faint);display:block;margin-bottom:.7rem}
-  .hero h1{font-family:var(--f-d);font-style:italic;font-weight:900;margin:0;
-       font-size:clamp(2rem,5.6vw,3.6rem);line-height:1;letter-spacing:-.02em;
-       text-transform:uppercase;text-shadow:0 0 46px rgba(235,238,245,.24)}
-  .hero p{margin:1.1rem auto 0;color:var(--muted);font-size:.86rem;line-height:1.65;
-       max-width:46ch}
+  main{position:relative;z-index:1}
+  .kick{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
 
-  .nav{display:grid;gap:.6rem;grid-template-columns:repeat(3,minmax(0,1fr));
-       width:100%;max-width:52rem}
-  @media (max-width:44rem){.nav{grid-template-columns:1fr}}
-  .tile{--c:var(--cut-m);display:flex;flex-direction:column;gap:.5rem;
-       padding:1.5rem 1.3rem 1.3rem;text-align:left;
+  /* ── hero ─────────────────────────────────────────────────────────────── */
+  .hero{position:relative;min-height:min(86vh,860px);display:flex;align-items:flex-end;
+       padding:clamp(2rem,7vw,6rem) clamp(1.2rem,5vw,4.5rem) clamp(2rem,5vw,4rem);
+       overflow:hidden}
+  .hero .scrim{background:
+       linear-gradient(180deg,rgba(0,0,0,.82) 0,rgba(0,0,0,.25) 34%,rgba(0,0,0,.9) 88%,#000 100%),
+       linear-gradient(90deg,rgba(0,0,0,.86) 0,rgba(0,0,0,.15) 62%)}
+  .hero .ghost{position:absolute;right:-2vw;top:8%;z-index:1;pointer-events:none;
+       font-family:var(--f-d);font-style:italic;font-weight:900;text-transform:uppercase;
+       font-size:clamp(6rem,22vw,20rem);line-height:.78;letter-spacing:-.04em;
+       color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.075);
+       white-space:nowrap}
+  .hero .in{position:relative;z-index:2;max-width:56rem}
+  .hero h1{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.7rem 0 0;
+       font-size:clamp(2.6rem,11vw,8.6rem);line-height:.86;letter-spacing:-.035em;
+       text-transform:uppercase;text-shadow:0 0 70px rgba(235,238,245,.22)}
+  .hero h1 em{font-style:italic;color:transparent;-webkit-text-stroke:1.6px rgba(244,245,248,.92)}
+  .hero p{margin:1.5rem 0 0;color:var(--muted);font-size:.92rem;line-height:1.72;max-width:44ch}
+  .hero p b{color:var(--text);font-weight:500}
+  .cue{position:absolute;left:clamp(1.2rem,5vw,4.5rem);bottom:1.1rem;z-index:3;
+       display:flex;align-items:center;gap:.55rem;font-size:.58rem;letter-spacing:.2em;
+       text-transform:uppercase;color:var(--faint)}
+  .cue::before{content:"";width:5px;height:9px;background:currentColor;opacity:.7;
+       clip-path:polygon(40% 0,100% 0,60% 100%,0 100%);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.25}50%{opacity:.9}}
+
+  /* ── stat rail ────────────────────────────────────────────────────────── */
+  .rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+       border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+       background:var(--slab)}
+  .rail>div{padding:1.5rem clamp(1rem,3vw,2.2rem);border-left:1px solid var(--line)}
+  .rail>div:first-child{border-left:0}
+  .rail .rv{font-family:var(--f-d);font-style:italic;font-weight:900;font-size:clamp(1.7rem,4.2vw,3.1rem);
+       line-height:.95;letter-spacing:-.03em}
+  .rail .rv s{text-decoration:none;font-size:.42em;color:var(--muted);margin-left:.25em}
+  .rail .rk{margin-top:.5rem;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  @media (max-width:52rem){.rail{grid-template-columns:repeat(2,1fr)}
+       .rail>div:nth-child(3){border-left:0}
+       .rail>div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+  /* ── section furniture ────────────────────────────────────────────────── */
+  section.band{padding:clamp(3rem,8vw,6.5rem) clamp(1.2rem,5vw,4.5rem)}
+  .head{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.2rem}
+  .head h2{font-family:var(--f-d);font-style:italic;font-weight:900;margin:0;
+       font-size:clamp(1.5rem,4vw,2.6rem);line-height:1;text-transform:uppercase;letter-spacing:-.02em}
+  .head .rule{flex:1;height:8px;background:var(--hatch);opacity:.3}
+
+  /* ── doors ────────────────────────────────────────────────────────────── */
+  .doors{display:grid;gap:.7rem;grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width:56rem){.doors{grid-template-columns:1fr}}
+  .door{--c:var(--cut-m);position:relative;display:flex;flex-direction:column;justify-content:flex-end;
+       min-height:clamp(15rem,34vw,23rem);padding:1.5rem 1.35rem 1.3rem;overflow:hidden;
+       box-shadow:var(--edge);isolation:isolate;
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .door .scrim{background:linear-gradient(180deg,rgba(0,0,0,.28) 0,rgba(0,0,0,.55) 45%,rgba(2,3,5,.93) 100%)}
+  .door .in{position:relative;z-index:2}
+  .door .no{position:absolute;top:1.1rem;left:1.35rem;z-index:2;font-size:.58rem;
+       letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .door h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.45rem 0 0;
+       font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:.98;text-transform:uppercase;letter-spacing:-.02em}
+  .door p{margin:.6rem 0 0;color:var(--muted);font-size:.76rem;line-height:1.55;max-width:34ch}
+  .door .go{margin-top:1rem;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+       color:var(--text);display:inline-flex;align-items:center;gap:.5rem}
+  .door .go::after{content:"";width:1.6rem;height:1px;background:currentColor;
+       transition:width .45s cubic-bezier(.16,1,.3,1)}
+  .door:hover .shot::after{filter:grayscale(.15) contrast(1.1) brightness(.82);transform:scale(1.05)}
+  .door:hover .go::after{width:3.4rem}
+  .door:hover p{color:#C9CDD8}
+  .door.key .scrim{background:linear-gradient(180deg,rgba(0,0,0,.2) 0,rgba(0,0,0,.5) 40%,rgba(255,255,255,.94) 100%)}
+  .door.key h3,.door.key .go{color:#07080B}
+  .door.key p{color:#3a3d45}
+  .door.key:hover p{color:#26282e}
+
+  /* ── the machine band ─────────────────────────────────────────────────── */
+  .rig{display:grid;gap:.7rem;grid-template-columns:1.35fr 1fr}
+  @media (max-width:56rem){.rig{grid-template-columns:1fr}}
+  .frame{--c:var(--cut-m);position:relative;min-height:clamp(13rem,26vw,20rem);overflow:hidden;
        box-shadow:var(--edge);
        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
-  .tile .kick{font-size:.6rem;letter-spacing:.19em;text-transform:uppercase;color:var(--faint);
-       display:flex;align-items:center;gap:.45rem}
-  .tile .kick::before{content:"";width:5px;height:9px;flex:none;background:currentColor;
-       opacity:.55;clip-path:polygon(40% 0,100% 0,60% 100%,0 100%)}
-  .tile h2{font-family:var(--f-d);font-style:italic;font-weight:900;margin:0;
-       font-size:1.5rem;line-height:1.05;text-transform:uppercase}
-  .tile p{margin:0;color:var(--muted);font-size:.78rem;line-height:1.5}
-  .tile.link{cursor:pointer}
-  .tile.a{background:var(--slab)}
-  .tile.b{background:var(--slab)}
-  .tile.c{background:linear-gradient(180deg,#FFF,#CFD3DD);color:#07080B}
-  .tile.c .kick{color:#4a4d55}
-  .tile.c p{color:#3a3d45}
+  .frame .cap{position:absolute;left:0;bottom:0;z-index:2;padding:.7rem 1rem;
+       font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+       background:linear-gradient(180deg,transparent,rgba(0,0,0,.85))}
+  .frame.tall{grid-row:span 2}
+  .say{padding:1.6rem 1.4rem;background:var(--slab);box-shadow:var(--edge)}
+  .say p{margin:0 0 .9rem;color:var(--muted);font-size:.82rem;line-height:1.72}
+  .say p:last-child{margin-bottom:0}
+  .say b{color:var(--text);font-weight:500}
 
-  footer{padding:1.2rem;text-align:center;font-size:.6rem;letter-spacing:.16em;
+  /* ── ticker ───────────────────────────────────────────────────────────── */
+  .ticker{position:relative;overflow:hidden;border-top:1px solid var(--line);
+       border-bottom:1px solid var(--line);background:rgba(6,7,10,.7);padding:.75rem 0}
+  .ticker .run{display:inline-flex;gap:2.4rem;white-space:nowrap;
+       animation:run 44s linear infinite;font-size:.6rem;letter-spacing:.2em;
        text-transform:uppercase;color:var(--faint)}
+  .ticker span::before{content:"\25E4";margin-right:.7rem;color:var(--dim,#40444F)}
+  @keyframes run{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+
+  footer{position:relative;z-index:1;padding:2.2rem 1.2rem;text-align:center;font-size:.6rem;
+       letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+
+  /* ── scroll reveal ────────────────────────────────────────────────────── */
+  .rise{opacity:0;transform:translate3d(0,26px,0);
+        transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+  .rise.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    body::before,.ticker .run,.cue::before{animation:none}
+    .rise{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+  }
 </style>
 </head>
 <body>
@@ -115,37 +211,115 @@
 </header>
 
 <main>
-  <div class="hero">
-    <span class="kick">autogod.org</span>
-    <h1>Jack's AI Dashboard</h1>
-    <p>Hi, I'm Jack &mdash; over the past year I've built an AI inference
-    machine and run autonomous agents, first from home in Atlanta and now
-    from a dorm room at Georgia Southern. This is where that work lives:
-    the projects and hours I'm actually proud of.</p>
+
+  <section class="hero">
+    <div class="shot" style="--img:url('media/hero.jpg');--pos:center 40%"></div>
+    <div class="scrim"></div>
+    <div class="ghost" aria-hidden="true">autogod</div>
+    <div class="in">
+      <span class="kick">Jack Powell &mdash; Atlanta, GA</span>
+      <h1>What I do<br><em>all day</em></h1>
+      <p>I build machines that build things. Three data-center GPUs in a
+      tower at home run my own models, and an agent called <b>AUTOGOD</b>
+      works on that stack around the clock &mdash; planning, building, and
+      rating its own work while I sleep. No cloud API bills, nothing
+      leaving the house.</p>
+    </div>
+    <span class="cue">scroll</span>
+  </section>
+
+  <div class="rail">
+    <div><div class="rv">3</div><div class="rk">Tesla GPUs</div></div>
+    <div><div class="rv">64<s>GB</s></div><div class="rk">VRAM on one box</div></div>
+    <div><div class="rv">27</div><div class="rk">projects built unattended</div></div>
+    <div><div class="rv">24<s>/7</s></div><div class="rk">the loop never stops</div></div>
   </div>
 
-  <nav class="nav">
-    <a class="tile cut a" href="/portfolio/">
-      <span class="kick">01 &middot; about me</span>
-      <h2>About</h2>
-      <p>My real background and experience &mdash; the long version, from a
-      general perspective.</p>
-    </a>
-    <a class="tile cut b" href="/showcase/">
-      <span class="kick">02 &middot; built with AI</span>
-      <h2>Showcase</h2>
-      <p>Everything I've shipped, completely free to use &mdash; no accounts,
-      no usage limits.</p>
-    </a>
-    <a class="tile cut c" href="https://fleet.autogod.org/">
-      <span class="kick">03 &middot; auth required</span>
-      <h2>Login &rarr;</h2>
-      <p>The control panel where I run and manage all my AI agents.</p>
-    </a>
-  </nav>
+  <section class="band">
+    <div class="head rise"><h2>Three doors</h2><span class="rule"></span><span class="kick">pick one</span></div>
+    <nav class="doors">
+      <a class="door rise" href="/portfolio/" style="transition-delay:.05s">
+        <div class="shot" style="--img:url('media/door-about.jpg')"></div>
+        <div class="scrim"></div>
+        <span class="no">01 &middot; about me</span>
+        <div class="in">
+          <h3>About</h3>
+          <p>Self-taught, hardware first. The long version &mdash; how a kid
+          building PCs at 11 ended up running an inference rack.</p>
+          <span class="go">read it</span>
+        </div>
+      </a>
+      <a class="door rise" href="/showcase/" style="transition-delay:.13s">
+        <div class="shot" style="--img:url('media/door-showcase.jpg')"></div>
+        <div class="scrim"></div>
+        <span class="no">02 &middot; built with AI</span>
+        <div class="in">
+          <h3>Showcase</h3>
+          <p>Everything shipped, building, or shelved. Free to run, no
+          accounts, no usage limits &mdash; it's my hardware.</p>
+          <span class="go">see the work</span>
+        </div>
+      </a>
+      <a class="door key rise" href="https://fleet.autogod.org/" style="transition-delay:.21s">
+        <div class="shot" style="--img:url('media/door-login.jpg')"></div>
+        <div class="scrim"></div>
+        <span class="no">03 &middot; auth required</span>
+        <div class="in">
+          <h3>Login &rarr;</h3>
+          <p>The control panel where the whole fleet is run from. One wall,
+          every agent, every GPU.</p>
+          <span class="go">sign in</span>
+        </div>
+      </a>
+    </nav>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="head rise"><h2>The machine</h2><span class="rule"></span><span class="kick">thebeast</span></div>
+    <div class="rig">
+      <div class="frame tall rise">
+        <div class="shot" style="--img:url('media/rig.jpg')"></div>
+        <span class="cap">thebeast &mdash; V100 32GB + 2&times; P100 16GB</span>
+      </div>
+      <div class="say rise" style="transition-delay:.08s">
+        <p>It started as one Tesla P100 running a 14B model. Then a second
+        card. Then a 32GB V100 next to them. Today it's <b>64GB of VRAM on a
+        2014 workstation board</b>, and it runs a 27B model at Q4 without
+        ever calling out to anyone's API.</p>
+        <p>FRIDAY, the voice assistant, lives on the V100. AUTOGOD, the
+        worker, gets the pair of P100s. When one of them is idle the other
+        takes the cards &mdash; the whole layout is swapped from a panel on
+        the wall.</p>
+      </div>
+      <div class="frame rise" style="transition-delay:.14s">
+        <div class="shot" style="--img:url('media/console.jpg')"></div>
+        <span class="cap">the fleet console &mdash; every agent on one wall</span>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<footer>autogod.org &mdash; prototype</footer>
+<div class="ticker" aria-hidden="true">
+  <div class="run">
+    <span>Tesla V100 32GB</span><span>2&times; Tesla P100 16GB</span><span>i7-5820K</span>
+    <span>Qwen3.8-27B Q4</span><span>whisper.cpp</span><span>zero cloud API calls</span>
+    <span>27 projects built while I slept</span><span>nothing leaves the house</span>
+    <span>Tesla V100 32GB</span><span>2&times; Tesla P100 16GB</span><span>i7-5820K</span>
+    <span>Qwen3.8-27B Q4</span><span>whisper.cpp</span><span>zero cloud API calls</span>
+    <span>27 projects built while I slept</span><span>nothing leaves the house</span>
+  </div>
+</div>
+
+<footer>autogod.org &mdash; built and run by Jack Powell</footer>
+
+<script>
+  /* reveal on scroll — one observer, no library */
+  const io = new IntersectionObserver((es) => {
+    for (const e of es) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }, {rootMargin: "0px 0px -10% 0px", threshold: .12});
+  document.querySelectorAll(".rise").forEach(el => io.observe(el));
+</script>
 
 </body>
 </html>
