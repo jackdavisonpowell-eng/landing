@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>autogod</title>
+<title>Jack's AI Dashboard</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9700;</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,11 +60,14 @@
 
   main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
        padding:3rem 1.2rem}
-  .hero{text-align:center;max-width:46rem;margin-bottom:2.6rem}
+  .hero{text-align:center;max-width:40rem;margin-bottom:2.6rem}
+  .hero .kick{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
+       color:var(--faint);display:block;margin-bottom:.7rem}
   .hero h1{font-family:var(--f-d);font-style:italic;font-weight:900;margin:0;
-       font-size:clamp(2.6rem,8vw,5.6rem);line-height:.94;letter-spacing:-.02em;
+       font-size:clamp(2rem,5.6vw,3.6rem);line-height:1;letter-spacing:-.02em;
        text-transform:uppercase;text-shadow:0 0 46px rgba(235,238,245,.24)}
-  .hero p{margin:1rem auto 0;color:var(--muted);font-size:.92rem;max-width:38ch}
+  .hero p{margin:1.1rem auto 0;color:var(--muted);font-size:.86rem;line-height:1.65;
+       max-width:46ch}
 
   .nav{display:grid;gap:.6rem;grid-template-columns:repeat(3,minmax(0,1fr));
        width:100%;max-width:52rem}
@@ -101,25 +104,31 @@
 
 <main>
   <div class="hero">
-    <h1>Autogod</h1>
-    <p>Things I build with AI, and the console I run them from.</p>
+    <span class="kick">autogod.org</span>
+    <h1>Jack's AI Dashboard</h1>
+    <p>Hi, I'm Jack &mdash; over the past year I've built an AI inference
+    machine and run autonomous agents, first from home in Atlanta and now
+    from a dorm room at Georgia Southern. This is where that work lives:
+    the projects and hours I'm actually proud of.</p>
   </div>
 
   <nav class="nav">
     <a class="tile cut a" href="/portfolio/">
-      <span class="kick">01 &middot; about</span>
-      <h2>Portfolio</h2>
-      <p>Who's building this, and why.</p>
+      <span class="kick">01 &middot; about me</span>
+      <h2>About</h2>
+      <p>My real background and experience &mdash; the long version, from a
+      general perspective.</p>
     </a>
     <a class="tile cut b" href="/showcase/">
-      <span class="kick">02 &middot; projects</span>
+      <span class="kick">02 &middot; built with AI</span>
       <h2>Showcase</h2>
-      <p>What's shipped &mdash; live, building, shelved.</p>
+      <p>Everything I've shipped, completely free to use &mdash; no accounts,
+      no usage limits.</p>
     </a>
     <a class="tile cut c" href="https://fleet.autogod.org/">
       <span class="kick">03 &middot; auth required</span>
       <h2>Login &rarr;</h2>
-      <p>Control center for the running fleet.</p>
+      <p>The control panel where I run and manage all my AI agents.</p>
     </a>
   </nav>
 </main>

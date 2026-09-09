@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portfolio &mdash; autogod</title>
+<title>About &mdash; Jack's AI Dashboard</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9700;</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
     --hatch:repeating-linear-gradient(118deg,rgba(255,255,255,.22) 0 1px,transparent 1px 6px);
     --f-d:"Archivo","Helvetica Neue",Arial,sans-serif;
     --f-m:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-    --cut:20px; --cut-s:7px;
+    --cut:20px;
   }
   *{box-sizing:border-box}
   html{background:var(--ground)}
@@ -50,12 +50,52 @@
        padding:.5rem 1rem;background:var(--key);color:var(--muted);box-shadow:var(--edge);
        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
   .top a.back:hover{background:var(--key-hi);color:var(--text)}
-  main{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 1.2rem}
-  .void{text-align:center;color:var(--faint);max-width:34rem}
-  .void b{display:block;font-family:var(--f-d);font-style:italic;font-weight:900;
-       font-size:clamp(2rem,5vw,3rem);color:var(--muted);text-transform:uppercase;
-       margin-bottom:.7rem;letter-spacing:-.02em}
-  .void p{font-size:.85rem;line-height:1.6;color:var(--faint)}
+  main{flex:1;padding:3.2rem 1.2rem 2rem}
+  .wrap{max-width:44rem;margin:0 auto}
+  .profile{text-align:center;margin-bottom:2.6rem}
+  .profile .kick{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
+        color:var(--faint);display:block;margin-bottom:.7rem}
+  .profile h1{display:block;font-family:var(--f-d);font-style:italic;font-weight:900;
+        font-size:clamp(2rem,5.4vw,3.4rem);color:var(--text);text-transform:uppercase;
+        margin-bottom:.6rem;letter-spacing:-.02em;line-height:1;
+        text-shadow:0 0 40px rgba(235,238,245,.2)}
+  .profile p{font-size:.86rem;line-height:1.7;color:var(--muted);margin:0 auto;max-width:42ch}
+
+  .sec{--c:var(--cut-s);background:var(--slab);box-shadow:var(--edge);
+        padding:1.5rem 1.5rem 1.6rem;margin-bottom:.6rem;
+        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .sec .kick{font-size:.6rem;letter-spacing:.19em;text-transform:uppercase;color:var(--faint);
+        display:flex;align-items:center;gap:.45rem;margin-bottom:.6rem}
+  .sec .kick::before{content:"";width:5px;height:9px;flex:none;background:currentColor;
+        opacity:.55;clip-path:polygon(40% 0,100% 0,60% 100%,0 100%)}
+  .sec h2{font-family:var(--f-d);font-style:italic;font-weight:900;margin:0 0 .7rem;
+        font-size:1.3rem;line-height:1.1;text-transform:uppercase;color:var(--text)}
+  .sec p{margin:0 0 .7rem;color:var(--muted);font-size:.84rem;line-height:1.7}
+  .sec p:last-child{margin-bottom:0}
+  .sec b{color:var(--text);font-weight:600}
+
+  .now{display:flex;gap:0;margin-top:.2rem;box-shadow:inset 0 1px 0 var(--line-soft, rgba(255,255,255,.07))}
+  .now div{flex:1;min-width:0;padding:.6rem .1rem .1rem}
+  .now div+div{box-shadow:inset 1px 0 0 rgba(255,255,255,.07);padding-left:.9rem}
+  .now .rv{font-family:var(--f-d);font-style:italic;font-weight:900;font-size:1rem;
+        line-height:1.25;color:var(--text)}
+  .now .rk{font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;
+        color:var(--faint);margin-top:.2rem}
+
+  .links{display:grid;gap:.6rem;grid-template-columns:repeat(3,1fr);margin-top:1rem}
+  @media (max-width:37rem){.links{grid-template-columns:1fr}}
+  .links a{--c:var(--cut-s);display:flex;flex-direction:column;gap:.35rem;
+        padding:1.1rem 1.1rem 1rem;background:var(--key);box-shadow:var(--edge);
+        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .links a:hover{background:var(--key-hi)}
+  .links a .kick{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
+        color:var(--faint);display:flex;align-items:center;gap:.4rem}
+  .links a .kick::before{content:"";width:5px;height:7px;flex:none;background:currentColor;
+        opacity:.65;clip-path:polygon(34% 0,100% 0,60% 100%,0 100%)}
+  .links a h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:0;
+        font-size:1.1rem;line-height:1.15;text-transform:uppercase;color:var(--text)}
+  .links a p{margin:0;color:var(--muted);font-size:.74rem;line-height:1.5}
+
   footer{padding:1.2rem;text-align:center;font-size:.6rem;letter-spacing:.16em;
        text-transform:uppercase;color:var(--faint)}
 </style>
@@ -67,9 +107,74 @@
   <a class="back" href="/">&larr; home</a>
 </header>
 <main>
-  <div class="void">
-    <b>Portfolio</b>
-    <p>Not written yet. The <a href="/showcase/" style="color:var(--muted);text-decoration:underline">showcase</a> has the project grid in the meantime.</p>
+  <div class="wrap">
+
+    <div class="profile">
+      <span class="kick">about me</span>
+      <h1>Jack Davison Powell</h1>
+      <p>Self-taught builder working toward AI engineering and autonomous
+      systems &mdash; local LLM infrastructure, agents, and the hardware
+      underneath both.</p>
+    </div>
+
+    <section class="sec cut">
+      <span class="kick">01 &middot; what I'm building</span>
+      <h2>AUTOGOD</h2>
+      <p>AUTOGOD is an autonomous agent system I run on self-hosted LLM
+      inference &mdash; repurposed data-center GPUs doing the work cloud
+      APIs would otherwise bill me for. It watches for useful work, plans
+      it, does it, and hands the result back. This dashboard, the
+      <a href="/showcase/" style="color:var(--text);text-decoration:underline">showcase</a>
+      page, and the fleet control panel are all part of the same project.</p>
+      <p>Everything on the showcase page was built this way &mdash; free to
+      run, with no usage limits, because it's my own hardware.</p>
+    </section>
+
+    <section class="sec cut">
+      <span class="kick">02 &middot; how I got here</span>
+      <h2>Self-taught, hardware first</h2>
+      <p>I built my first PC at 11 and have been building systems &mdash;
+      for myself, then for family and friends &mdash; ever since. No formal
+      CS background; I call myself a <b>vibe coder</b>: intuitive, learns by
+      doing, ships things that actually run instead of studying the theory
+      first.</p>
+      <p>The newer territory is server administration and AI infrastructure
+      &mdash; local LLMs, RAG, embeddings, agent orchestration &mdash;
+      learned the same way: by struggling through it myself instead of
+      taking a course.</p>
+    </section>
+
+    <section class="sec cut">
+      <span class="kick">03 &middot; right now</span>
+      <h2>Atlanta &rarr; Georgia Southern</h2>
+      <p>I grew up building this in Atlanta and I'm still running it from a
+      dorm room at Georgia Southern University now &mdash; the hardware
+      stayed home, the agents didn't stop.</p>
+      <div class="now">
+        <div><div class="rv">11</div><div class="rk">age of first build</div></div>
+        <div><div class="rv">self-taught</div><div class="rk">no formal CS</div></div>
+        <div><div class="rv">home &rarr; dorm</div><div class="rk">ATL &rarr; GSU</div></div>
+      </div>
+    </section>
+
+    <nav class="links">
+      <a href="https://github.com/jackdavisonpowell-eng">
+        <span class="kick">code</span>
+        <h3>GitHub</h3>
+        <p>Public repos &mdash; the tools I actually use daily, open sourced.</p>
+      </a>
+      <a href="/showcase/">
+        <span class="kick">projects</span>
+        <h3>Showcase</h3>
+        <p>Everything shipped, building, or shelved.</p>
+      </a>
+      <a href="https://fleet.autogod.org/">
+        <span class="kick">auth required</span>
+        <h3>Control panel</h3>
+        <p>Where I run and manage the agents.</p>
+      </a>
+    </nav>
+
   </div>
 </main>
 <footer>autogod.org &mdash; prototype</footer>
