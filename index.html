@@ -258,6 +258,13 @@
   .pj .shot{height:11rem;position:relative;flex:none}
   .pj .shot::before{content:"";position:absolute;inset:0;z-index:1;
        background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(4,5,8,.9))}
+  .pj .by{position:absolute;top:.8rem;left:.85rem;z-index:2;display:inline-flex;
+       align-items:center;gap:.45rem;padding:.34rem .6rem;font-size:.5rem;
+       letter-spacing:.18em;text-transform:uppercase;color:var(--text);
+       background:rgba(6,7,10,.72);backdrop-filter:blur(6px) saturate(1.3);
+       box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(0,0,0,.7)}
+  .pj .by::before{content:"";width:.62rem;height:.56rem;flex:none;background:currentColor;
+       opacity:.9;clip-path:polygon(38% 0,100% 0,62% 100%,0 100%)}
   .pj .body{position:relative;z-index:2;padding:1.1rem 1.25rem 1.35rem;display:flex;
        flex-direction:column;flex:1;background:var(--slab)}
   .pj .top{display:flex;align-items:flex-start;gap:.6rem;min-height:2.5em}
@@ -269,7 +276,7 @@
        margin:-1.4rem 0 2rem}
   .pj h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.35rem 0 0;
        font-size:clamp(1.3rem,2.4vw,1.9rem);line-height:1;text-transform:uppercase;
-       letter-spacing:-.02em}
+       letter-spacing:-.02em;min-height:2em}
   .pj p{margin:.65rem 0 0;color:var(--muted);font-size:.78rem;line-height:1.6}
   .pj dl{margin:1rem 0 0;display:grid;grid-template-columns:auto 1fr;gap:.28rem .9rem;
        font-size:.62rem;line-height:1.3}
@@ -432,9 +439,9 @@
         <button class="arw next" type="button" aria-label="Next project"></button>
       </span>
     </div>
-    <p class="lede rise">Four picked out of everything running. Each one holds a
-    goal, does the work on its own hardware, and reports what it did &mdash;
-    that is the whole pattern the rest of the stack repeats.</p>
+    <p class="lede rise">Four picked out of everything running. Three of them
+    AUTOGOD wrote on its own, overnight, and I read the code afterwards rather
+    than before. FRIDAY is the one I built myself.</p>
     <div class="track rise" id="track" tabindex="0" aria-label="Selected projects"></div>
   </section>
 
@@ -520,7 +527,10 @@
     try {
       const r = await fetch("/showcase/projects.json", {cache: "no-cache"});
       const d = await r.json();
-      picked = (d.projects || []).filter(p => p.feature).slice(0, 4);
+      // what AUTOGOD built leads, since that is the point the section makes
+      picked = (d.projects || []).filter(p => p.feature)
+        .sort((a, b) => (b.built_by ? 1 : 0) - (a.built_by ? 1 : 0))
+        .slice(0, 4);
     } catch (e) { /* the section simply stays empty rather than half-painted */ }
     if (!picked.length) { document.getElementById("work").hidden = true; return; }
 
@@ -531,8 +541,10 @@
         .map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("");
       const cover = p.cover
         ? `style="--img:url('/showcase/media/${esc(p.cover)}')"` : "";
+      const by = p.built_by
+        ? `<span class="by">built by ${esc(p.built_by)}</span>` : "";
       return `<a class="pj cut plate" href="/showcase/">
-        <span class="shot" ${cover}></span>
+        <span class="shot" ${cover}>${by}</span>
         <span class="body">
           <span class="top"><span class="kick">${esc(p.kicker)}</span>
             <span class="st ${esc(p.status)}">${esc(p.status)}</span></span>
