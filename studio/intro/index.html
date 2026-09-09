@@ -1,7 +1,5 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AUTOGOD</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9700;</text></svg>">
@@ -14,41 +12,35 @@
   body{color:var(--t);font-family:"IBM Plex Mono",monospace;font-size:15px;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
 
-  /* ── the boot screen ────────────────────────────────────────────────── */
-  #boot{position:fixed;inset:0;z-index:50;background:#000;display:flex;
-        flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;
-        padding:1rem;overflow:hidden}
-  /* the art paints itself the way a BBS screen used to arrive over a modem:
-     left to right, top to bottom, with the write head visible */
-  #art{font-family:"IBM Plex Mono",ui-monospace,monospace;max-width:100%;font-size:clamp(3.5px,calc((100vw - 2.5rem)/48),24px);
-       line-height:1.02;letter-spacing:0;white-space:pre;color:#fff;
-       text-shadow:0 0 14px rgba(255,255,255,.34),0 0 42px rgba(200,215,255,.18);
-       will-change:contents}
-  #art .head{background:#fff;color:#000}
-  #boot .rail{width:min(92vw,52rem);height:2px;background:rgba(255,255,255,.12);position:relative}
-  #boot .rail i{position:absolute;inset:0 auto 0 0;width:0%;background:#fff;display:block}
-  #boot .lines{width:min(92vw,52rem);min-height:4.6rem;font-size:.66rem;letter-spacing:.16em;
-       text-transform:uppercase;color:var(--f);line-height:1.9}
+  #boot{position:fixed;inset:0;z-index:50;background:#000;display:flex;flex-direction:column;
+        align-items:center;justify-content:center;gap:1.6rem;padding:1rem;overflow:hidden}
+  #art{font-family:"IBM Plex Mono",ui-monospace,monospace;max-width:100%;
+       font-size:clamp(3.5px,calc((100vw - 2.5rem)/48),22px);
+       line-height:1.04;white-space:pre;will-change:contents}
+  #boot .lines{width:min(92vw,46rem);min-height:3.2rem;font-size:.62rem;letter-spacing:.18em;
+       text-transform:uppercase;color:var(--f);line-height:2;text-align:center}
   #boot .lines b{color:var(--t);font-weight:500}
-  #boot .skip{position:absolute;bottom:1.2rem;right:1.4rem;font-size:.55rem;letter-spacing:.2em;
-       text-transform:uppercase;color:var(--f)}
-  /* CRT: scanlines, a slow roll, and a vignette */
   #boot::after{content:"";position:absolute;inset:0;pointer-events:none;
-       background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.42) 2px 4px);
-       mix-blend-mode:multiply;opacity:.55}
-  #boot::before{content:"";position:absolute;inset:-40%;pointer-events:none;z-index:2;
-       background:linear-gradient(180deg,transparent 42%,rgba(255,255,255,.05) 50%,transparent 58%);
-       animation:roll 5.5s linear infinite}
-  @keyframes roll{from{transform:translateY(-30%)}to{transform:translateY(60%)}}
-  body.done #boot{opacity:0;transform:scale(1.06);pointer-events:none;
+       background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.40) 2px 4px);
+       mix-blend-mode:multiply;opacity:.5}
+  /* colour switch — here so you can pick, not part of the real page */
+  .swatches{position:fixed;bottom:1.1rem;left:50%;transform:translateX(-50%);z-index:60;
+       display:flex;gap:.4rem;align-items:center}
+  .swatches span{font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--f);
+       margin-right:.4rem}
+  .swatches button{border:0;cursor:pointer;font:inherit;font-size:.55rem;letter-spacing:.16em;
+       text-transform:uppercase;padding:.45rem .8rem;background:rgba(255,255,255,.07);
+       color:var(--m);box-shadow:var(--edge)}
+  .swatches button.on{background:linear-gradient(180deg,#FFF,#CFD3DD);color:#07080B;font-weight:600}
+  body.done #boot{opacity:0;transform:scale(1.05);pointer-events:none;
        transition:opacity .9s ease,transform 1.4s cubic-bezier(.16,1,.3,1)}
+  body.done .swatches{opacity:.35}
 
-  /* ── what is underneath ─────────────────────────────────────────────── */
-  main{opacity:0;transform:translateY(26px);
-       transition:opacity 1s ease .25s,transform 1.2s cubic-bezier(.16,1,.3,1) .25s}
+  main{opacity:0;transform:translateY(24px);
+       transition:opacity 1s ease .2s,transform 1.2s cubic-bezier(.16,1,.3,1) .2s}
   body.done main{opacity:1;transform:none}
   .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
-        padding:6rem clamp(1.2rem,5vw,5rem) 4rem;position:relative}
+        padding:6rem clamp(1.2rem,5vw,5rem) 5rem;position:relative}
   .hero::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;
        background:repeating-linear-gradient(118deg,rgba(255,255,255,.055) 0 1px,transparent 1px 11px)}
   .kick{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--f)}
@@ -63,106 +55,114 @@
        transition:background .25s,color .25s,transform .35s cubic-bezier(.16,1,.3,1)}
   .doors a:hover{background:rgba(255,255,255,.16);color:var(--t);transform:translateY(-2px)}
   .doors a.key{background:linear-gradient(180deg,#FFF,#CFD3DD);color:#07080B;font-weight:600}
-  .mini{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:.55rem 1rem;
-        border-top:1px solid var(--line);background:rgba(3,4,6,.85);backdrop-filter:blur(6px);
-        font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--f);
-        display:flex;justify-content:space-between;gap:1rem;opacity:0;transition:opacity .8s ease .9s}
-  body.done .mini{opacity:1}
-  @media (prefers-reduced-motion:reduce){
-    #boot::before{animation:none}
-    main{transition:none}
-  }
-</style>
-</head>
+</style></head>
 <body>
 
-<div id="boot">
-  <pre id="art" aria-label="AUTOGOD"></pre>
-  <div class="rail"><i id="rail"></i></div>
-  <div class="lines" id="lines"></div>
-  <span class="skip">click or press any key to skip</span>
-</div>
+<div id="boot"><pre id="art" aria-label="AUTOGOD"></pre><div class="lines" id="lines"></div></div>
+<div class="swatches" id="sw"><span>colour</span></div>
 
 <main>
   <section class="hero">
     <span class="kick">Jack Powell &mdash; Atlanta, GA</span>
     <h1>AUTOGOD<br><span class="o">documentation</span></h1>
     <p class="lede">Two servers in Atlanta, three data-center GPUs, self-hosted language
-    models, and <b>autonomous agents</b> that work on the stack around the clock. This is
-    the record of it.</p>
+    models, and <b>autonomous agents</b> that work on the stack around the clock.</p>
     <nav class="doors">
-      <a href="/portfolio/">About</a>
-      <a href="/showcase/">Showcase</a>
-      <a href="/blog/">The Log</a>
-      <a class="key" href="https://fleet.autogod.org/">Login &rarr;</a>
+      <a href="/portfolio/">About</a><a href="/showcase/">Showcase</a>
+      <a href="/blog/">The Log</a><a class="key" href="https://fleet.autogod.org/">Login &rarr;</a>
     </nav>
   </section>
 </main>
 
-<div class="mini"><span>autogod.org</span><span>Tesla V100 &middot; 2&times; P100 &middot; 64GB VRAM</span></div>
-
 <script>
-const ART = ["                        ▄                                                    ", "                       ██▄                                                 ▄█", "                       ████                                               ███", "                       ████                                               ███", "               ▄       █▓▓█                                               ███", " ─ ──── ──── ▄██ ───── ██▓█  ▄▄▄ ──────────────────── ─ ───────────────── ▀▀▀", "       ▄███ ████ ▀ ▀▀▀ ███████▓██ ▄███▀▀▀███ ▄███▀▀▀███ ▄███▀▀▀███ ▄███▀▀▀▀ ▀", "       ▐███ █▓▓█ ░ ███ ████  ▀▀▀  █▓▓█ ░ ███ █▓▓█ ░ ███ █▓▓█ ░ ███ █▓▓█ ░ ███", " ▄███▀▀█▓██ ██▓█ ▒ ███ ██▓█       ██▓█ ▒ ███ ██▓█ ▒ ███ ██▓█ ▒ ███ ██▓█ ▒ ███", " █▓▓█ ▒ ███ ████ ▓ ███ ████       ████ ▓ ███ ████ ▓ ███ ████ ▓ ███ ████ ▓ ███", " ████ ▓ ███ ████ ▒ ███ ████       ████ ▒ ███ ████ ▒ ███ ████ ▒ ███ ████ ▒ ███", " ████ ▒ ███ ████ ░ ███ ████       ████ ░ ███ ████ ░ ███ ████ ░ ███ ████ ░ ███", " ▀███▄▄▄███ ▀███▄▄▄███ ▀███▄▄▄██▀ ▀███▄▄▄███ ▀███▄▄▄███ ▀███▄▄▄███ ▀███▄▄▄███", " ▄ ▄▄ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ███ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄", " ▓ ▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ███ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓", " ▀ ▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ███ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀", "  ▌█▓▒░ A U T O G O D . O R G ░▒▓█▐                 ███                      ", " ▄ ▄▄ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ███ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄", "                                             ▄███▀▀▀███                      ", "                                             █▓▓█ ░ ███                      ", "                                             ▀███▄▄▄██▀                      "];
-const W = ART[0].length;
+const ART = ["          ▄███▄   ██   ██ ███████   ▄███▄    ▄███▄   ▄███▄   █████▄          ", "      ▄  ██▀ ▀██ ██   ██    ███    ██▀ ▀██  ██▀ ▀▀   ██▀ ▀██ ██   ██  ▄      ", "   ▄███ ██   ██  ██   ██    ███    ██   ██  ██       ██   ██  ██   ██ ███▄   ", "▄██████ ███████  ██   ██    ███    ██   ██  ██  ███  ██   ██  ██   ██ ██████▄", "   ▀███ ██   ██  ██   ██    ███    ██   ██  ██   ██  ██   ██  ██   ██ ███▀   ", "      ▀██   ██   ██▄ ▄██    ███    ██▄ ▄██  ██▄ ▄██  ██▄ ▄██   ██   ██▀      ", "       ██   ██   ▀███▀      ███     ▀███▀    ▀███▀     ▀███▀   █████▀        ", "                                                                             ", "                      ▌█▓▒░ A U T O G O D . O R G ░▒▓█▐                      "];
+const W = ART[0].length, N = ART.length;
+const $art = document.getElementById("art"), $lines = document.getElementById("lines");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const $art = document.getElementById("art");
-const $rail = document.getElementById("rail");
-const $lines = document.getElementById("lines");
 
-const BOOT = [
-  "carrier detected &middot; 77 columns",
-  "loading <b>AUTOGOD-BANNER.NFO</b>",
-  "three cards online &middot; <b>64 GB VRAM</b>",
-  "ready",
-];
-
-let finished = false;
-function finish() {
-  if (finished) return;
-  finished = true;
-  $art.textContent = ART.join("\n");
-  $rail.style.width = "100%";
-  document.body.classList.add("done");
-  setTimeout(() => { const b = document.getElementById("boot"); if (b) b.remove(); }, 1600);
+/* ── the Pi's own colour model, ported straight across ─────────────────
+   Top-lit ramp down the letterforms (255 at the crown to 236 through the
+   body, tagline row held at 242), plus a breathing pulse, a state lift,
+   and a gaussian highlight walking across the columns. Everything below
+   is the same arithmetic hud.py runs on the touchscreen. */
+const TAG = 242;
+function rowBase(i) {
+  if (N <= 1 || i >= N - 1) return TAG;
+  const frac = Math.min(1, i / Math.max(1, N - 2));
+  return Math.round(255 - Math.pow(frac, 0.8) * (255 - 236));
 }
-addEventListener("keydown", finish);
-addEventListener("click", finish);
-addEventListener("wheel", finish, {passive: true});
+function glint(frac, t) {                       // the idle sweep
+  const gx = ((t * 0.07) % 1.4) - 0.2;
+  return 5.0 * Math.exp(-Math.pow((frac - gx) / 0.12, 2));
+}
 
-if (reduce) {
-  finish();
-} else {
-  /* paint the art the way it used to arrive: a character at a time, fast,
-     with the write head lit. Chunked per frame so it never blocks. */
-  const TOTAL = ART.length * W;
-  let cur = 0, t0 = null;
-  const DURATION = 1500;                       // ms for the whole painting
+const TINTS = {
+  white:  [255, 255, 255],
+  amber:  [255, 176, 54],
+  sky:    [135, 206, 235],
+  phosphor: [126, 255, 148],
+  red:    [255, 92, 78],
+};
+let tint = "white";
 
-  function paint(ts) {
-    if (t0 === null) t0 = ts;
-    const p = Math.min(1, (ts - t0) / DURATION);
-    const target = Math.floor(p * TOTAL);
-    if (target !== cur) {
-      cur = target;
-      const row = Math.floor(cur / W), col = cur % W;
-      let out = "";
-      for (let r = 0; r < ART.length; r++) {
-        if (r < row) out += ART[r];
-        else if (r > row) out += " ".repeat(W);
-        else out += ART[r].slice(0, col);
-        if (r < ART.length - 1) out += "\n";
+/* index 232..255 is the terminal's grey ramp; map it to 0..1 and tint it */
+function paint(t, lvl) {
+  const [tr, tg, tb] = TINTS[tint];
+  const breathAll = 1.4 * Math.sin(t * 0.9) * (1 - 0.6 * lvl);
+  const lift = 5.0 * lvl;
+  let out = "";
+  for (let i = 0; i < N; i++) {
+    const base = rowBase(i);
+    let run = "", last = null;
+    for (let c = 0; c < W; c++) {
+      const col = Math.max(232, Math.min(255,
+        Math.round(base + breathAll + lift + glint(c / (W - 1), t))));
+      if (col !== last) {
+        if (last !== null) out += run + "</span>";
+        const k = (col - 232) / 23;
+        const g = Math.pow(k, 1.15);
+        out += `<span style="color:rgb(${Math.round(tr*g)},${Math.round(tg*g)},${Math.round(tb*g)});` +
+               `text-shadow:0 0 ${(6*g).toFixed(1)}px rgba(${tr},${tg},${tb},${(0.42*g).toFixed(2)})">`;
+        run = ""; last = col;
       }
-      $art.textContent = out;
-      $rail.style.width = (p * 100) + "%";
-      const li = Math.min(BOOT.length - 1, Math.floor(p * BOOT.length));
-      $lines.innerHTML = BOOT.slice(0, li + 1)
-        .map((l, i) => `<div>${i === li ? "&gt; " : "&nbsp;&nbsp;"}${l}</div>`).join("");
+      run += ART[i][c].replace("&","&amp;").replace("<","&lt;");
     }
-    if (p < 1) requestAnimationFrame(paint);
-    else setTimeout(finish, 620);              // a beat to look at it
+    out += run + "</span>";
+    if (i < N - 1) out += "\n";
   }
-  requestAnimationFrame(paint);
+  $art.innerHTML = out;
 }
+
+const BOOT = ["carrier detected", "<b>AUTOGOD-HEADER.NFO</b>", "three cards online &middot; <b>64 GB VRAM</b>", "ready"];
+let t0 = null, done = false, raf = 0;
+function finish(){ if(done) return; done = true; document.body.classList.add("done"); }
+addEventListener("keydown", finish); addEventListener("click", (e)=>{ if(!e.target.closest(".swatches")) finish(); });
+addEventListener("wheel", finish, {passive:true});
+
+function loop(ts) {
+  if (t0 === null) t0 = ts;
+  const t = (ts - t0) / 1000;
+  /* she lights on arrival and settles: 1.0 down to idle, slow the way the
+     Pi fades it (0.06 a frame toward dark, never a cut) */
+  const lvl = Math.max(0, 1 - t / 2.4);
+  const boot = Math.min(1, t / 0.9);
+  paint(t, lvl * boot);
+  const li = Math.min(BOOT.length - 1, Math.floor((t / 2.2) * BOOT.length));
+  $lines.innerHTML = BOOT.slice(0, li + 1).map((l, i) =>
+    `<div>${i === li ? "&gt; " : "&nbsp;&nbsp;"}${l}</div>`).join("");
+  if (!done && t > 3.4) finish();
+  raf = requestAnimationFrame(loop);
+}
+
+Object.keys(TINTS).forEach(k => {
+  const b = document.createElement("button");
+  b.textContent = k; b.className = k === tint ? "on" : "";
+  b.onclick = () => { tint = k; document.querySelectorAll(".swatches button")
+      .forEach(x => x.classList.toggle("on", x.textContent === k));
+    document.body.classList.remove("done"); done = false; t0 = null; };
+  document.getElementById("sw").appendChild(b);
+});
+
+if (reduce) { paint(0, 0); finish(); } else { raf = requestAnimationFrame(loop); }
 </script>
-</body>
-</html>
+</body></html>
