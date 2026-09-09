@@ -6,6 +6,14 @@ hardware ladder), and `showcase` (not in this repo — it's a symlink on the
 server to the separate [showcase](https://github.com/jackdavisonpowell-eng/showcase)
 repo's checkout).
 
+## Content
+
+Blog posts and showcase write-ups are **markdown notes in the Obsidian vault**
+under `Site/`, not files in this repo. `publish.py` reads them and writes
+`blog/posts.json` here and `projects.json` into the showcase checkout;
+`site-publish.timer` on thebeast runs it every two minutes. `HOW-TO-UPDATE.md`
+is the guide for writing them. Don't hand-edit content into the HTML.
+
 ## Photos
 
 Both pages are photo-driven. Image slots are CSS custom properties layered
