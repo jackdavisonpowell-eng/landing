@@ -38,6 +38,7 @@ real photo whenever you have one. "WANTED" is an empty slot.
 | `ladder-clubs.jpg` | robotics / engineering / coding clubs | WANTED |
 | `ladder-highschool.jpg` | Midtown + dual enrollment | drawn |
 | `ladder-sim-rig.jpg` | the sim rig — wheel, cockpit, VR | have it |
+| `ladder-sewing.jpg` | the pants, or the machine you made them on | WANTED |
 | `ladder-maximus-rebuild.jpg` | MAXIMUS rebuilt in white | WANTED |
 | `ladder-home-lab.jpg` | the X99 home lab, 1660 era | have it |
 | `ladder-discovering-ai.jpg` | ChatGPT, then the harnesses, then cheap P100s | WANTED |

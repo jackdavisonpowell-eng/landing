@@ -116,6 +116,22 @@
        font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
        background:linear-gradient(180deg,transparent,rgba(0,0,0,.85))}
 
+  /* ── what it adds up to ───────────────────────────────────────────────── */
+  .caps{display:grid;gap:.7rem;grid-template-columns:repeat(4,minmax(0,1fr))}
+  @media (max-width:64rem){.caps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:38rem){.caps{grid-template-columns:1fr}}
+  .cap-card{--c:var(--cut-m);position:relative;padding:1.3rem 1.2rem 1.2rem;
+       background:var(--slab);box-shadow:var(--edge);
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .cap-card h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.45rem 0 .9rem;
+       font-size:1.2rem;line-height:1.02;text-transform:uppercase;letter-spacing:-.01em}
+  .cap-card ul{margin:0;padding:0;list-style:none}
+  .cap-card li{position:relative;padding-left:.95rem;margin-bottom:.5rem;color:var(--muted);
+       font-size:.76rem;line-height:1.5}
+  .cap-card li::before{content:"";position:absolute;left:0;top:.45em;width:5px;height:8px;
+       background:currentColor;opacity:.5;clip-path:polygon(40% 0,100% 0,60% 100%,0 100%)}
+  .cap-card li b{color:var(--text);font-weight:500}
+
   /* ── the ladder ───────────────────────────────────────────────────────── */
   .ladder{position:relative;display:grid;gap:0}
   .ladder::before{content:"";position:absolute;left:calc(clamp(2.6rem,6vw,4.4rem) - 1px);top:.6rem;bottom:.6rem;
@@ -212,10 +228,12 @@
     <div class="who">
       <span class="kick">about me</span>
       <h1>Jack<br>Powell</h1>
-      <p class="lede">Self-taught builder working toward <b>AI and computer
-      engineering</b> and autonomous systems &mdash; local LLM infrastructure,
-      agents, and the hardware underneath both. I have been building machines
-      since I was eleven. These days they build things back.</p>
+      <p class="lede">I build and run <b>local AI infrastructure</b>: two
+      servers in Atlanta, three data-center GPUs, self-hosted language models,
+      and autonomous agents that work on the stack around the clock. I
+      specified, built and administer all of it &mdash; hardware, network and
+      software. Working toward AI and computer engineering, and looking for
+      work where the machine is the product.</p>
     </div>
     <div class="portrait">
       <div class="shot" style="--img:url('/media/profile.jpg');--pos:center 30%"></div>
@@ -254,7 +272,53 @@
   </section>
 
   <section class="band" style="padding-top:0">
-    <div class="head rise"><h2>The ladder</h2><span class="rule"></span><span class="kick">02 &middot; hardware first</span></div>
+    <div class="head rise"><h2>What it adds up to</h2><span class="rule"></span><span class="kick">02 &middot; what I can do</span></div>
+    <div class="caps">
+      <div class="cap-card rise">
+        <span class="kick">infrastructure</span>
+        <h3>Systems</h3>
+        <ul>
+          <li><b>Linux server administration</b> &mdash; Debian, systemd units and timers, remote-only operation</li>
+          <li><b>Proxmox</b> containers, resource weighting, service isolation</li>
+          <li>Public services behind <b>Cloudflare tunnels</b>, TLS, gated auth</li>
+          <li>Backup, recovery and change discipline on machines I cannot walk over to</li>
+        </ul>
+      </div>
+      <div class="cap-card rise" style="transition-delay:.07s">
+        <span class="kick">networking</span>
+        <h3>Network</h3>
+        <ul>
+          <li><b>VLAN segmentation</b> &mdash; trusted, servers, IoT and guest kept apart</li>
+          <li>Network-wide <b>DNS</b> with Pi-hole on my own hardware</li>
+          <li><b>Firewall policy</b> written around least reach for least trust</li>
+          <li>Mesh access across sites with Tailscale, passwordless key distribution</li>
+        </ul>
+      </div>
+      <div class="cap-card rise" style="transition-delay:.14s">
+        <span class="kick">ai infrastructure</span>
+        <h3>Models</h3>
+        <ul>
+          <li><b>Self-hosted inference</b> with llama.cpp &mdash; quantised 27B and 35B models in production</li>
+          <li><b>Multi-GPU placement</b> decided by measurement, not assumption</li>
+          <li>Embeddings and retrieval over a live corpus, shared by every agent</li>
+          <li><b>Agent orchestration</b> &mdash; goal loops, gating, and honest self-evaluation</li>
+        </ul>
+      </div>
+      <div class="cap-card rise" style="transition-delay:.21s">
+        <span class="kick">hardware &amp; build</span>
+        <h3>Hardware</h3>
+        <ul>
+          <li>Multi-GPU builds on <b>repurposed data-center cards</b></li>
+          <li><b>BIOS modification and flashing</b> where stock firmware blocked the build</li>
+          <li>PCIe lane budgeting, power delivery, passive-card cooling, thermal triage</li>
+          <li>Python and front-end work with <b>no dependencies</b>, shipped as public repos</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="head rise"><h2>The ladder</h2><span class="rule"></span><span class="kick">03 &middot; how I got here</span></div>
     <div class="ladder">
 
       <div class="rung rise">
@@ -356,6 +420,26 @@
       <div class="rung rise">
         <div class="no">06</div>
         <div>
+          <h3>Making my own clothes</h3>
+          <p>I wanted a particular pair of pants and could not afford them, so
+          I made them instead, on my mom's old sewing machine. The first pair
+          took months. I have made several since.</p>
+          <p>My drafting and design class did the real work here &mdash; it gave
+          me a way to draw a design properly and see whether it would hold up
+          before cutting into fabric I could not un-cut. Fabric does not have
+          an undo, which makes you plan in a way software never forces you to.
+          <b>I still design systems the same way I learned to draft a pattern:
+          on paper first, and measured twice.</b></p>
+          <div class="spec"><b>pattern drafting</b><b>garment construction</b><b>self-taught</b></div>
+        </div>
+        <div class="rshot">
+          <div class="shot" style="--img:url('/media/ladder-sewing.jpg')"></div>
+        </div>
+      </div>
+
+      <div class="rung rise">
+        <div class="no">07</div>
+        <div>
           <h3>MAXIMUS, rebuilt</h3>
           <p>I tore the first build down and did it properly &mdash; the white
           machine it is now, with the RTX 5070 behind it. Same name, nothing
@@ -368,7 +452,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">07</div>
+        <div class="no">08</div>
         <div>
           <h3>The home lab begins</h3>
           <p>An X99 board, 16 GB of RAM and a GTX 1660, put together to stream
@@ -384,7 +468,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">08</div>
+        <div class="no">09</div>
         <div>
           <h3>Discovering what AI could actually do</h3>
           <p>I started using ChatGPT to help me code in high school, back when
@@ -413,7 +497,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">09</div>
+        <div class="no">10</div>
         <div>
           <h3>The networking phase</h3>
           <p>Once there was more than one server, one flat network stopped
@@ -437,7 +521,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">10</div>
+        <div class="no">11</div>
         <div>
           <h3>The first P100</h3>
           <p>So: one Tesla P100, 16 GB, running 14B models on my own
@@ -453,7 +537,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">11</div>
+        <div class="no">12</div>
         <div>
           <h3>So I bought another</h3>
           <p>Two P100s, 32 GB of VRAM, and suddenly the models were big enough
@@ -469,7 +553,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">12</div>
+        <div class="no">13</div>
         <div>
           <h3>Pantheon takes the rest</h3>
           <p>The big box was now worth too much as a GPU machine to keep
@@ -486,7 +570,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">13</div>
+        <div class="no">14</div>
         <div>
           <h3>Three cards, and the BIOS that would not allow it</h3>
           <p>Fitting a third card to a Gigabyte X99 board is an address-space
@@ -510,7 +594,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">14</div>
+        <div class="no">15</div>
         <div>
           <h3>A fleet, not a box</h3>
           <p>FRIDAY, the voice assistant, takes the V100. AUTOGOD, the worker,
@@ -526,7 +610,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">15</div>
+        <div class="no">16</div>
         <div>
           <h3>Atlanta &rarr; Georgia Southern</h3>
           <p>I grew up building this in Atlanta and I run it now from a dorm
@@ -543,7 +627,7 @@
   </section>
 
   <section class="band" style="padding-top:0">
-    <div class="head rise"><h2>How I learn</h2><span class="rule"></span><span class="kick">03</span></div>
+    <div class="head rise"><h2>How I learn</h2><span class="rule"></span><span class="kick">04</span></div>
     <div class="split flip">
       <div class="say rise" style="transition-delay:.08s">
         <p>The newer territory is server administration and AI infrastructure
@@ -562,7 +646,7 @@
   </section>
 
   <section class="band" style="padding-top:0">
-    <div class="head rise"><h2>Elsewhere</h2><span class="rule"></span><span class="kick">04</span></div>
+    <div class="head rise"><h2>Elsewhere</h2><span class="rule"></span><span class="kick">05</span></div>
     <nav class="links">
       <a class="rise" href="https://github.com/jackdavisonpowell-eng">
         <span class="kick">code</span>
