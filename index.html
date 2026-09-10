@@ -38,6 +38,8 @@
   body::before{content:"";position:fixed;inset:-20vmax;z-index:0;pointer-events:none;
        background:var(--hatch-lg);opacity:.5;animation:drift 90s linear infinite}
   @keyframes drift{to{transform:translate3d(11vmax,-6vmax,0)}}
+  /* the sky from the fleet console: a slow starfield behind everything, above the hatch */
+  #sky{position:fixed;inset:0;z-index:0;pointer-events:none}
 
   .cut{--c:var(--cut);position:relative;
        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
@@ -486,6 +488,7 @@
 </style>
 </head>
 <body>
+<canvas id="sky" aria-hidden="true"></canvas>
 
 <header class="bar">
   <span class="underline"></span>
@@ -1047,6 +1050,64 @@
         <h3>${esc(p.title)}</h3><p>${esc(cut)}</p><span class="go">read it</span></a>`;
     }).join("");
   })();
+</script>
+
+<script>
+(function sky() {
+  const cv = document.getElementById("sky"); if (!cv || !cv.getContext) return;
+  const g = cv.getContext("2d");
+  const DPR = Math.min(devicePixelRatio || 1, 2);
+  let W = 0, H = 0, stars = [];
+  const SP = 64, sprite = document.createElement("canvas");
+  sprite.width = sprite.height = SP;
+  (function cut() {
+    const c = sprite.getContext("2d");
+    const gr = c.createRadialGradient(SP/2, SP/2, 0, SP/2, SP/2, SP/2);
+    gr.addColorStop(0, "rgba(255,255,255,1)");
+    gr.addColorStop(.12, "rgba(248,250,255,.95)");
+    gr.addColorStop(.28, "rgba(226,234,255,.42)");
+    gr.addColorStop(.55, "rgba(200,214,255,.12)");
+    gr.addColorStop(1, "rgba(180,200,255,0)");
+    c.fillStyle = gr; c.fillRect(0, 0, SP, SP);
+  })();
+  function resize() {
+    W = cv.width = Math.floor(innerWidth * DPR);
+    H = cv.height = Math.floor(innerHeight * DPR);
+    cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px";
+    const n = Math.max(160, Math.min(420, Math.round(innerWidth * innerHeight / 6500)));
+    stars = Array.from({length: n}, () => {
+      const d = Math.random() < .5 ? 0 : (Math.random() < .65 ? 1 : 2);
+      return {x: Math.random() * W, y: Math.random() * H, d,
+              vx: -(d * .55 + .35) * DPR, tw: Math.random() * 6.28,
+              tws: .5 + Math.random() * 1.1,
+              sz: (Math.random() < .12 ? 2.6 : 1) * (.8 + Math.random() * .7)};
+    });
+  }
+  function step(now) {
+    for (const s of stars) { s.x += s.vx; if (s.x < -8) s.x = W + 8; }
+    g.clearRect(0, 0, W, H);
+    g.globalCompositeOperation = "lighter";
+    const t = now / 1000;
+    for (const s of stars) {
+      const a = [.55, .72, .95][s.d] * (0.7 + 0.3 * Math.sin(t * s.tws + s.tw));
+      const r = (s.d * 1.5 + 3.2) * s.sz * DPR;
+      g.globalAlpha = Math.min(1, a);
+      g.drawImage(sprite, s.x - r, s.y - r, r * 2, r * 2);
+    }
+    g.globalAlpha = 1; g.globalCompositeOperation = "source-over";
+  }
+  let raf = 0;
+  function loop(now) { step(now); raf = requestAnimationFrame(loop); }
+  addEventListener("resize", resize);
+  document.addEventListener("visibilitychange", () => {
+    // a tab you are not looking at should not hold a GPU awake
+    if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
+    else if (!raf) raf = requestAnimationFrame(loop);
+  });
+  resize();
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) step(0);
+  else raf = requestAnimationFrame(loop);
+})();
 </script>
 
 </body>

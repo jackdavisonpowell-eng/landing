@@ -1,0 +1,43 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image test</title>
+<style>
+  body{margin:0;background:#000;color:#F4F5F8;font:14px/1.5 ui-monospace,Menlo,monospace;padding:1rem}
+  h1{font:900 1.4rem/1 sans-serif;margin:0 0 .3rem}
+  p{color:#9BA0AE;margin:.2rem 0 1rem;font-size:.85rem}
+  .g{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
+  @media(min-width:48rem){.g{grid-template-columns:repeat(3,1fr)}}
+  .t{position:relative;aspect-ratio:4/3;background:#0B0D12 repeating-linear-gradient(118deg,rgba(255,255,255,.11) 0 1px,transparent 1px 7px);overflow:hidden}
+  .t b{position:absolute;left:.5rem;top:.4rem;z-index:3;font:700 1.6rem/1 sans-serif;text-shadow:0 0 6px #000}
+  .t small{position:absolute;left:.5rem;bottom:.4rem;right:.5rem;z-index:3;font-size:.62rem;color:#ddd;text-shadow:0 0 6px #000}
+  /* 1 & 2: the site's mechanism — background on a pseudo-element, filtered */
+  .bg::after{content:"";position:absolute;inset:0;background:var(--img) center/cover no-repeat;
+       filter:grayscale(1) contrast(1.22) brightness(.62)}
+  /* 3 & 4: plain <img> */
+  .t img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  /* 5: site mechanism inside a backdrop-filter plate */
+  .plate{backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+       clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
+  /* 6: site mechanism, unfiltered */
+  .nofilter::after{filter:none}
+  pre{white-space:pre-wrap;word-break:break-all;font-size:.7rem;color:#9BA0AE;margin-top:1rem;border-top:1px solid #222;padding-top:.6rem}
+</style></head><body>
+<h1>Which squares show a photo?</h1>
+<p>Same picture six ways. Tell me the numbers that are blank (just hatch). The text at the bottom is your browser; send that too.</p>
+<div class="g">
+  <div class="t bg" style="--img:url('../../media/hero.jpg')"><b>1</b><small>background · relative · no stamp (the hero)</small></div>
+  <div class="t bg" style="--img:url('/media/ladder-first-build.jpg?v=1788981357')"><b>2</b><small>background · absolute · ?v= stamp (the ladder)</small></div>
+  <div class="t"><img src="../../media/hero.jpg" alt=""><b>3</b><small>&lt;img&gt; · relative · no stamp</small></div>
+  <div class="t"><img src="/media/ladder-first-build.jpg?v=1788981357" alt=""><b>4</b><small>&lt;img&gt; · absolute · ?v= stamp</small></div>
+  <div class="t bg plate" style="--img:url('/showcase/media/friday.jpg?v=1788981357')"><b>5</b><small>background inside a blur plate (the work cards)</small></div>
+  <div class="t bg nofilter" style="--img:url('/media/ladder-first-build.jpg?v=1788981357')"><b>6</b><small>background · no grayscale filter</small></div>
+</div>
+<pre id="ua"></pre>
+<script>
+  const ua = navigator.userAgent, out = [ua, `viewport ${innerWidth}×${innerHeight}`, `dpr ${devicePixelRatio}`];
+  const probe = (u) => fetch(u, {cache: "no-store"}).then(r => `${u.split("?")[0]} → ${r.status} ${r.headers.get("content-type")}`).catch(e => `${u} → FAILED ${e.message}`);
+  Promise.all(["/media/hero.jpg", "/media/ladder-first-build.jpg?v=1788981357", "/showcase/media/friday.jpg?v=1788981357"].map(probe))
+    .then(r => document.getElementById("ua").textContent = out.concat(r).join("\n"));
+  document.getElementById("ua").textContent = out.join("\n");
+</script>
+</body></html>
