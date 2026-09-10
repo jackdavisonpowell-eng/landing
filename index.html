@@ -154,9 +154,27 @@
        padding:.28rem .9rem .34rem}
   /* the mark leans the way the display face does; the O stays a circle, so
      each letter counter-skews by exactly what its parent applies */
-  .bar .mark pre{white-space:pre;line-height:1.03;color:#fff;font-family:"IBM Plex Mono",monospace;
-       font-weight:500;font-size:calc((var(--rw) - 2.6rem) / 47);margin:0;
-       text-shadow:0 0 10px rgba(255,255,255,.34),0 0 30px rgba(190,210,255,.16)}
+  /* ── the mark, split into glyphs so each can move on its own ── */
+  .bar .mark .art{display:flex;align-items:flex-start;perspective:700px;transform-style:preserve-3d;will-change:transform}
+  .bar .mark .art pre{white-space:pre;line-height:1.03;color:#fff;font-family:"IBM Plex Mono",monospace;
+       font-weight:500;font-size:calc((var(--rw) - 2.6rem) / 47);margin:0;transform-origin:50% 50%;
+       text-shadow:0 0 10px rgba(255,255,255,.34),0 0 30px rgba(190,210,255,.16);will-change:transform}
+  /* five idles. A scheduler picks one every few seconds, never the same twice
+     running, and the mark also plays one when the pointer lands on it. */
+  .idle-wiggle .art pre{animation:mk-wiggle .26s ease-in-out infinite alternate;animation-delay:calc(var(--i) * -.045s)}
+  @keyframes mk-wiggle{from{transform:rotate(-6deg) translateY(-1px)}to{transform:rotate(6deg) translateY(1px)}}
+  .idle-wave .art pre{animation:mk-wave 1.15s cubic-bezier(.45,0,.2,1) 2;animation-delay:calc(var(--i) * .085s)}
+  @keyframes mk-wave{0%,100%{transform:translateY(0)}32%{transform:translateY(-9px) scale(1.06)}68%{transform:translateY(4px)}}
+  .idle-spin .art{animation:mk-spin 1.7s cubic-bezier(.55,0,.15,1) 1}
+  @keyframes mk-spin{to{transform:rotateY(360deg)}}
+  .idle-flip .art pre{animation:mk-flip 1.05s cubic-bezier(.5,0,.25,1) 1;animation-delay:calc(var(--i) * .075s)}
+  @keyframes mk-flip{to{transform:rotateX(-360deg)}}
+  .idle-glitch .art pre{animation:mk-glitch .8s steps(1,end) 1;animation-delay:calc(var(--i) * .02s)}
+  @keyframes mk-glitch{0%{transform:none}8%{transform:translate(-3px,1px) skewX(8deg)}16%{transform:translate(3px,-2px)}
+       24%{transform:translate(-2px,2px) skewX(-9deg);opacity:.7}32%{transform:translate(4px,0)}40%{transform:translate(-1px,-2px) skewX(5deg)}
+       48%{transform:translate(2px,1px);opacity:1}56%{transform:translate(-3px,0) skewX(-4deg)}64%{transform:translate(1px,2px)}
+       72%{transform:translate(-2px,-1px)}80%{transform:translate(2px,0) skewX(3deg)}90%{transform:translate(-1px,1px)}100%{transform:none}}
+  @media (prefers-reduced-motion:reduce){.bar .mark .art,.bar .mark .art pre{animation:none!important}}
   .bar .mark .dot{margin-top:.26rem;line-height:1;font-size:.5rem;letter-spacing:.42em;color:var(--faint);
        text-transform:uppercase}
 
@@ -558,13 +576,49 @@
     <a class="key" href="https://fleet.autogod.org/">Admin panel</a>
   </nav>
   <div class="mark">
-    <pre aria-label="AUTOGOD">          ▄███▄   ██   ██ ███████   ▄███▄    ▄███▄   ▄███▄   █████▄          
-      ▄  ██▀ ▀██ ██   ██    ███    ██▀ ▀██  ██▀ ▀▀   ██▀ ▀██ ██   ██  ▄      
-   ▄███ ██   ██  ██   ██    ███    ██   ██  ██       ██   ██  ██   ██ ███▄   
-▄██████ ███████  ██   ██    ███    ██   ██  ██  ███  ██   ██  ██   ██ ██████▄
-   ▀███ ██   ██  ██   ██    ███    ██   ██  ██   ██  ██   ██  ██   ██ ███▀   
-      ▀██   ██   ██▄ ▄██    ███    ██▄ ▄██  ██▄ ▄██  ██▄ ▄██   ██   ██▀      
-       ██   ██   ▀███▀      ███     ▀███▀    ▀███▀     ▀███▀   █████▀        </pre>
+    <div class="art" role="img" aria-label="AUTOGOD"><pre aria-hidden="true">          ▄███▄  
+      ▄  ██▀ ▀██ 
+   ▄███ ██   ██  
+▄██████ ███████  
+   ▀███ ██   ██  
+      ▀██   ██   
+       ██   ██   </pre><pre aria-hidden="true"> ██   ██ 
+██   ██  
+██   ██  
+██   ██  
+██   ██  
+██▄ ▄██  
+▀███▀    </pre><pre aria-hidden="true">███████  
+  ███    
+  ███    
+  ███    
+  ███    
+  ███    
+  ███    </pre><pre aria-hidden="true"> ▄███▄   
+██▀ ▀██  
+██   ██  
+██   ██  
+██   ██  
+██▄ ▄██  
+ ▀███▀   </pre><pre aria-hidden="true"> ▄███▄   
+██▀ ▀▀   
+██       
+██  ███  
+██   ██  
+██▄ ▄██  
+ ▀███▀   </pre><pre aria-hidden="true">▄███▄   
+██▀ ▀██ 
+██   ██ 
+██   ██ 
+██   ██ 
+██▄ ▄██ 
+  ▀███▀ </pre><pre aria-hidden="true">█████▄          
+██   ██  ▄      
+ ██   ██ ███▄   
+ ██   ██ ██████▄
+ ██   ██ ███▀   
+  ██   ██▀      
+  █████▀        </pre></div>
     <span class="dot">autogod.org</span>
   </div>
 </header>
@@ -1179,6 +1233,27 @@
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) step(0);
   else raf = requestAnimationFrame(loop);
 })();
+</script>
+
+<script>
+  /* the mark's idles: a random one every 5–12 s, another on hover, none under
+     reduced motion, none while the tab is hidden */
+  (() => {
+    const art = document.querySelector(".bar .mark .art"); if (!art) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    art.querySelectorAll("pre").forEach((p, i) => p.style.setProperty("--i", i));
+    const IDLES = [["idle-wiggle", 1500], ["idle-wave", 2450], ["idle-spin", 1750], ["idle-flip", 1750], ["idle-glitch", 1000]];
+    let last = -1, busy = false;
+    const play = (k) => {
+      if (busy) return; busy = true; last = k;
+      const [cls, ms] = IDLES[k]; art.classList.add(cls);
+      setTimeout(() => { art.classList.remove(cls); busy = false; }, ms);
+    };
+    const random = () => { let k; do k = Math.floor(Math.random() * IDLES.length); while (k === last); play(k); };
+    const tick = () => { if (!document.hidden) random(); setTimeout(tick, 5000 + Math.random() * 7000); };
+    setTimeout(tick, 2600);
+    art.closest(".mark").addEventListener("mouseenter", random);
+  })();
 </script>
 
 </body>
