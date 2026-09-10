@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jack Powell &mdash; autogod.org</title>
+<title>Jack Powell &mdash; I build machines that build things</title>
 <meta name="description" content="I build machines that build things. Local AI inference, autonomous agents, and the hardware underneath both.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9700;</text></svg>">
 <script>document.documentElement.classList.add("js")</script>
@@ -115,7 +115,7 @@
 
   /* keys with a real bevel, not a flat chip. Every key is the same key —
      the only one that looks different is the page you are on. */
-  .bar .key{position:relative;display:inline-flex;align-items:center;justify-content:center;
+  .bar .key,.hero .key{position:relative;display:inline-flex;align-items:center;justify-content:center;
        font-family:var(--f-m);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
        color:var(--muted);height:1.9rem;padding:0 .95rem;min-width:5.6rem;white-space:nowrap;
        background:linear-gradient(180deg,#2B2F3A 0%,#1A1D25 46%,#0D0F14 100%);
@@ -129,17 +129,17 @@
        transition:transform .1s ease,box-shadow .1s ease,color .18s ease,background .18s ease;
        --c:6px;
        clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
-  .bar .key:hover{color:var(--text);transform:translateY(-1px);
+  .bar .key,.hero .key:hover{color:var(--text);transform:translateY(-1px);
        background:linear-gradient(180deg,#373C49 0%,#212530 46%,#111318 100%);
        box-shadow:0 3px 0 rgba(0,0,0,.8),0 6px 12px rgba(0,0,0,.6),
                   inset 0 1px 0 rgba(255,255,255,.26),
                   inset 0 -6px 10px rgba(0,0,0,.4)}
-  .bar .key:focus-visible{outline:2px solid rgba(255,255,255,.85);outline-offset:2px}
-  .bar .key:active{transform:translateY(2px);
+  .bar .key,.hero .key:focus-visible{outline:2px solid rgba(255,255,255,.85);outline-offset:2px}
+  .bar .key,.hero .key:active{transform:translateY(2px);
        box-shadow:0 0 0 rgba(0,0,0,.8),0 1px 2px rgba(0,0,0,.6),
                   inset 0 2px 5px rgba(0,0,0,.7)}
   /* the page you are on: the key that is already pressed */
-  .bar .key.on,.bar .key.on:hover{color:#07080B;font-weight:600;transform:none;
+  .bar .key.on,.bar .key.on:hover,.hero .key.on,.hero .key.on:hover{color:#07080B;font-weight:600;transform:none;
        background:linear-gradient(180deg,#FFFFFF 0%,#DEE2EA 46%,#B2B8C4 100%);
        border-top:1px solid rgba(255,255,255,.95);
        border-left:1px solid rgba(255,255,255,.5);
@@ -163,6 +163,7 @@
     .key{padding:.5rem .7rem;letter-spacing:.12em}
   }
   @media (max-width:52rem){
+    .hero .cue{display:none}   /* the live readout already points down; two cues collide here */
     :root{--rw:0px;--tall:46px;--rise:0px}
     .bar .mark,.bar .edge,.bar .baseline{display:none}
     .bar .underline{width:100%}
@@ -170,7 +171,7 @@
     .strip::-webkit-scrollbar{display:none}
     .strip .count{display:none}
   }
-  @media (prefers-reduced-motion:reduce){.bar .key{transition:none}}
+  @media (prefers-reduced-motion:reduce){.bar .key,.hero .key{transition:none}}
 
   main{position:relative;z-index:1}
   .kick{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
@@ -200,31 +201,6 @@
   .cue::before{content:"";width:5px;height:9px;background:currentColor;opacity:.7;
        clip-path:polygon(40% 0,100% 0,60% 100%,0 100%);animation:pulse 2.4s ease-in-out infinite}
   @keyframes pulse{0%,100%{opacity:.25}50%{opacity:.9}}
-
-  /* ── stat rail ────────────────────────────────────────────────────────── */
-  /* the rail is the hand-off: it totals up the hero and points down into
-     what comes next, rather than ending the screen on four dead numbers */
-  .bridge{background:var(--slab);border-top:1px solid var(--line);
-       border-bottom:1px solid var(--line)}
-  .bridge .lead{display:flex;align-items:center;gap:1rem;
-       padding:.8rem clamp(1rem,3vw,2.2rem)}
-  .bridge .lead .rule{flex:1;height:8px;background:var(--hatch);opacity:.28}
-  .bridge .lead a{display:inline-flex;align-items:center;gap:.55rem;flex:none;
-       font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-  .bridge .lead a:hover{color:var(--text)}
-  .bridge .lead a::after{content:"";width:6px;height:10px;background:currentColor;
-       clip-path:polygon(40% 0,100% 0,60% 100%,0 100%);animation:pulse 2.4s ease-in-out infinite}
-  .rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-       border-top:1px solid var(--line)}
-  .rail>div{padding:1.5rem clamp(1rem,3vw,2.2rem);border-left:1px solid var(--line)}
-  .rail>div:first-child{border-left:0}
-  .rail .rv{font-family:var(--f-d);font-style:italic;font-weight:900;font-size:clamp(1.7rem,4.2vw,3.1rem);
-       line-height:.95;letter-spacing:-.03em}
-  .rail .rv s{text-decoration:none;font-size:.42em;color:var(--muted);margin-left:.25em}
-  .rail .rk{margin-top:.5rem;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
-  @media (max-width:52rem){.rail{grid-template-columns:repeat(2,1fr)}
-       .rail>div:nth-child(3){border-left:0}
-       .rail>div:nth-child(n+3){border-top:1px solid var(--line)}}
 
   /* ── the work: four picked projects, on a rail you can push ─────────────
      Same projects.json the showcase reads, filtered to feature: true, so the
@@ -342,49 +318,6 @@
        font-size:clamp(1.5rem,4vw,2.6rem);line-height:1;text-transform:uppercase;letter-spacing:-.02em}
   .head .rule{flex:1;height:8px;background:var(--hatch);opacity:.3}
 
-  /* ── doors ────────────────────────────────────────────────────────────── */
-  .doors{display:grid;gap:.7rem;grid-template-columns:repeat(4,minmax(0,1fr))}
-  @media (max-width:74rem){.doors{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media (max-width:42rem){.doors{grid-template-columns:1fr}}
-  .door{--c:var(--cut-m);position:relative;display:flex;flex-direction:column;justify-content:flex-end;
-       min-height:clamp(15rem,26vw,21rem);padding:1.5rem 1.35rem 1.3rem;overflow:hidden;
-       box-shadow:var(--edge);isolation:isolate;
-       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
-  .door .scrim{background:linear-gradient(180deg,rgba(0,0,0,.28) 0,rgba(0,0,0,.55) 45%,rgba(2,3,5,.93) 100%)}
-  .door .in{position:relative;z-index:2}
-  .door .no{position:absolute;top:1.1rem;left:1.35rem;z-index:2;font-size:.58rem;
-       letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-  .door h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.45rem 0 0;
-       font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:.98;text-transform:uppercase;letter-spacing:-.02em}
-  .door p{margin:.6rem 0 0;color:var(--muted);font-size:.76rem;line-height:1.55;max-width:34ch}
-  .door .go{margin-top:1rem;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
-       color:var(--text);display:inline-flex;align-items:center;gap:.5rem}
-  .door .go::after{content:"";width:1.6rem;height:1px;background:currentColor;
-       transition:width .45s cubic-bezier(.16,1,.3,1)}
-  .door:hover .shot::after{filter:grayscale(.15) contrast(1.1) brightness(.82);transform:scale(1.05)}
-  .door:hover .go::after{width:3.4rem}
-  .door:hover p{color:#C9CDD8}
-  .door.key .scrim{background:linear-gradient(180deg,rgba(0,0,0,.2) 0,rgba(0,0,0,.5) 40%,rgba(255,255,255,.94) 100%)}
-  .door.key h3,.door.key .go{color:#07080B}
-  .door.key p{color:#3a3d45}
-  .door.key:hover p{color:#26282e}
-
-  /* ── the machine band ─────────────────────────────────────────────────── */
-  .rig{display:grid;gap:.7rem;grid-template-columns:1.35fr 1fr}
-  @media (max-width:56rem){.rig{grid-template-columns:1fr}}
-  .frame{--c:var(--cut-m);position:relative;min-height:clamp(13rem,26vw,20rem);overflow:hidden;
-       box-shadow:var(--edge);
-       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
-  .frame .cap{position:absolute;left:0;bottom:0;z-index:2;padding:.7rem 1rem;
-       font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
-       background:linear-gradient(180deg,transparent,rgba(0,0,0,.85))}
-  .frame.tall{grid-row:span 2}
-  .rig:has(.frame:only-of-type){grid-template-rows:auto}
-  .say{padding:1.6rem 1.4rem;background:var(--slab);box-shadow:var(--edge)}
-  .say p{margin:0 0 .9rem;color:var(--muted);font-size:.82rem;line-height:1.72}
-  .say p:last-child{margin-bottom:0}
-  .say b{color:var(--text);font-weight:500}
-
   /* ── server spec sheets ───────────────────────────────────────────────── */
   .boxes{display:grid;gap:.7rem;grid-template-columns:repeat(2,minmax(0,1fr))}
   @media (max-width:56rem){.boxes{grid-template-columns:1fr}}
@@ -419,6 +352,124 @@
   footer{position:relative;z-index:1;padding:2.2rem 1.2rem;text-align:center;font-size:.6rem;
        letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
 
+
+  /* ── hero, the finished version ──────────────────────────────────────── */
+  .hero .in{max-width:62rem}
+  .hero h1{font-size:clamp(2.3rem,7.4vw,6.3rem)}
+  .hero p{max-width:50ch}
+  .hero .keys{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.7rem}
+  .hero .key{height:2.2rem;padding:0 1.25rem;font-size:.64rem}
+  .hero .live{display:flex;align-items:center;gap:.7rem;margin-top:1.6rem;
+       font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  .hero .live i{width:7px;height:7px;flex:none;background:var(--text);
+       clip-path:polygon(38% 0,100% 0,62% 100%,0 100%);animation:pulse 2.4s ease-in-out infinite}
+  .hero .live b{color:var(--muted);font-weight:500}
+  /* the headline lands: pure CSS, so the page never depends on a script to show it */
+  .js .hero .in>*{animation:land .9s cubic-bezier(.16,1,.3,1) both}
+  .js .hero .in>*:nth-child(2){animation-delay:.08s}
+  .js .hero .in>*:nth-child(3){animation-delay:.18s}
+  .js .hero .in>*:nth-child(4){animation-delay:.26s}
+  .js .hero .in>*:nth-child(5){animation-delay:.34s}
+  @keyframes land{from{opacity:0;transform:translate3d(0,22px,0)}to{opacity:1;transform:none}}
+
+  /* ── the loop: how it runs, in five plates ───────────────────────────── */
+  .loop{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.55rem;position:relative}
+  @media (max-width:64rem){.loop{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:38rem){.loop{grid-template-columns:1fr}}
+  .step{--c:var(--cut-m);position:relative;padding:1.2rem 1.1rem 1.25rem;min-height:11rem;
+       background:var(--slab);box-shadow:var(--edge);display:flex;flex-direction:column;
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .step .n{font-family:var(--f-d);font-style:italic;font-weight:900;font-size:2.2rem;line-height:.9;
+       color:transparent;-webkit-text-stroke:1.2px rgba(244,245,248,.55);letter-spacing:-.04em}
+  .step h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.7rem 0 0;
+       font-size:1.35rem;line-height:1;text-transform:uppercase;letter-spacing:-.015em}
+  .step p{margin:.6rem 0 0;color:var(--muted);font-size:.74rem;line-height:1.55}
+  .step .arr{position:absolute;right:.7rem;top:.95rem;width:8px;height:12px;background:var(--text);
+       opacity:.55;clip-path:polygon(0 0,100% 50%,0 100%)}
+  .step:last-child .arr{transform:rotate(180deg) translateY(2px);opacity:.9}
+  .step.hot{box-shadow:var(--edge),0 0 0 1px rgba(255,255,255,.14),0 0 40px rgba(255,255,255,.06)}
+  .loop-note{margin:1.1rem 0 0;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  .loop-note b{color:var(--muted);font-weight:500}
+
+  /* ── who built it ─────────────────────────────────────────────────────── */
+  .who{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:.7rem;align-items:stretch}
+  @media (max-width:60rem){.who{grid-template-columns:1fr}}
+  .who .say{--c:var(--cut-m);padding:1.6rem 1.5rem;background:var(--slab);box-shadow:var(--edge);
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .who .say h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.4rem 0 0;
+       font-size:clamp(1.8rem,4vw,2.8rem);line-height:.95;text-transform:uppercase;letter-spacing:-.03em}
+  .who .say p{margin:1.1rem 0 0;color:var(--muted);font-size:.9rem;line-height:1.72;max-width:52ch}
+  .who .say p b{color:var(--text);font-weight:500}
+  .facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}
+  .fact{--c:var(--cut-s);position:relative;padding:1.05rem 1.1rem;background:var(--slab);box-shadow:var(--edge);
+       display:flex;flex-direction:column;justify-content:center;
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .fact .v{font-family:var(--f-d);font-style:italic;font-weight:900;font-size:clamp(1.3rem,2.6vw,2rem);
+       line-height:.95;letter-spacing:-.03em;text-transform:uppercase}
+  .fact .v s{text-decoration:none;font-size:.45em;color:var(--muted);margin-left:.2em}
+  .fact .k{margin-top:.45rem;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  .caps{display:grid;gap:.7rem;grid-template-columns:repeat(4,minmax(0,1fr))}
+  @media (max-width:64rem){.caps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:38rem){.caps{grid-template-columns:1fr}}
+  .cap-card{--c:var(--cut-m);position:relative;padding:1.3rem 1.2rem 1.2rem;
+       background:var(--slab);box-shadow:var(--edge);
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .cap-card h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.45rem 0 .9rem;
+       font-size:1.2rem;line-height:1.02;text-transform:uppercase;letter-spacing:-.01em}
+  .cap-card ul{margin:0;padding:0;list-style:none}
+  .cap-card li{position:relative;padding-left:.95rem;margin-bottom:.5rem;color:var(--muted);
+       font-size:.76rem;line-height:1.5}
+  .cap-card li::before{content:"";position:absolute;left:0;top:.45em;width:5px;height:8px;
+       background:currentColor;opacity:.5;clip-path:polygon(40% 0,100% 0,60% 100%,0 100%)}
+  .cap-card li b{color:var(--text);font-weight:500}
+
+
+  /* the ladder is depth for whoever keeps scrolling, so it runs tight */
+  .rung{padding:1.35rem 0;grid-template-columns:clamp(2.4rem,5vw,3.6rem) minmax(0,1fr) clamp(12rem,24vw,19rem)}
+  .rung .lead{font-size:.88rem}
+  .rung li{font-size:.78rem;margin-bottom:.32rem}
+  .rung h3{font-size:clamp(1.05rem,2.4vw,1.5rem)}
+  .band>.lede{max-width:62ch;color:var(--muted);font-size:.85rem;line-height:1.7;margin:-1.4rem 0 2rem}
+
+  /* ── from the log ─────────────────────────────────────────────────────── */
+  .posts{display:grid;gap:.7rem;grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width:60rem){.posts{grid-template-columns:1fr}}
+  .post{--c:var(--cut-m);position:relative;display:flex;flex-direction:column;padding:1.3rem 1.25rem 1.2rem;
+       background:var(--slab);box-shadow:var(--edge);min-height:11rem;
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  .post .d{font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  .post h3{font-family:var(--f-d);font-style:italic;font-weight:900;margin:.5rem 0 0;
+       font-size:1.35rem;line-height:1;text-transform:uppercase;letter-spacing:-.015em}
+  .post p{margin:.65rem 0 0;color:var(--muted);font-size:.78rem;line-height:1.6}
+  .post .go{margin-top:auto;padding-top:1rem;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+       display:inline-flex;align-items:center;gap:.6rem}
+  .post .go::after{content:"";width:1.6rem;height:1px;background:currentColor;
+       transition:width .35s cubic-bezier(.16,1,.3,1)}
+  .post:hover .go::after{width:3.4rem}
+  .head .more{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);flex:none}
+  .head .more:hover{color:var(--text)}
+
+  /* ── footer ───────────────────────────────────────────────────────────── */
+  footer.foot{padding:2.6rem clamp(1.2rem,5vw,4.5rem) 2.4rem;text-align:left;text-transform:none;
+       letter-spacing:0;font-size:.74rem;color:var(--muted);border-top:1px solid var(--line);
+       display:grid;grid-template-columns:1fr auto;gap:1.2rem 3rem;align-items:start}
+  @media (max-width:52rem){footer.foot{grid-template-columns:1fr}}
+  footer .fwm{display:inline-flex;align-items:center;font-family:var(--f-d);font-style:italic;font-weight:900;
+       font-size:1.35rem;text-transform:uppercase;line-height:1;color:var(--text)}
+  footer .fwm::before{content:"";width:1.05rem;height:.95rem;margin-right:.6rem;background:var(--text);
+       opacity:.9;clip-path:polygon(38% 0,100% 0,62% 100%,0 100%)}
+  footer .fwm i{color:var(--muted);font-style:italic}
+  footer .fl p{margin:.7rem 0 0;max-width:52ch;line-height:1.65}
+  footer nav{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end}
+  @media (max-width:52rem){footer nav{justify-content:flex-start}}
+  footer nav a{--c:5px;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;padding:.5rem .85rem;
+       background:var(--key);color:var(--muted);box-shadow:var(--edge);
+       clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+  footer nav a:hover{background:var(--key-hi);color:var(--text)}
+  footer .gen{grid-column:1/-1;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);
+       padding-top:1.1rem;border-top:1px solid var(--line)}
+  footer .gen b{color:var(--muted);font-weight:500}
+
   /* ── scroll reveal ────────────────────────────────────────────────────── */
   /* Reveal on scroll is decoration, so it can never be the reason a section
      is unreadable: content is visible by default and only starts hidden once
@@ -428,7 +479,7 @@
         transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
   .js .rise.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){
-    body::before,.ticker .run,.cue::before{animation:none}
+    body::before,.ticker .run,.cue::before,.hero .live i,.js .hero .in>*{animation:none}
     .rise,.js .rise{opacity:1;transform:none;transition:none}
     html{scroll-behavior:auto}
   }
@@ -444,7 +495,6 @@
     <span class="glyph"></span>
     <a class="key on" href="/" aria-current="page">Home</a>
     <a class="key" href="/showcase/">Showcase</a>
-    <a class="key" href="/portfolio/">About Jack</a>
     <a class="key" href="/blog/">Blog</a>
     <a class="key" href="https://fleet.autogod.org/">Admin panel</a>
   </nav>
@@ -467,20 +517,32 @@
     <div class="scrim"></div>
     <div class="ghost" aria-hidden="true">autogod</div>
     <div class="in">
-      <span class="kick">Jack Powell &mdash; Atlanta, GA</span>
-      <h1>What is <em>this?</em></h1>
-      <p>A hub for everything I build. Two servers in Atlanta run my own
-      language models on repurposed data-center GPUs, and every AI and
-      autonomous project that comes off them lands here &mdash; what it is,
-      what it runs on, and the part that was actually hard.</p>
-      <p><b>AUTOGOD</b> is the agent at the center of it. I give it a goal and
-      it works the stack on its own: picking what to try, building it, judging
-      what it built, keeping what survives and dropping what does not. Most of
-      that happens overnight while I sleep. The showcase is what it kept. The
-      blog is what broke.</p>
+      <span class="kick">Jack Powell &middot; Atlanta, GA</span>
+      <h1>I build machines<br><em>that build things.</em></h1>
+      <p>Two servers at home run my own language models on repurposed data-center
+      GPUs. An agent I wrote, <b>AUTOGOD</b>, works that stack overnight: it picks
+      a goal, builds it, judges what it built, and ships what survives. Three of
+      the four projects below, it wrote itself.</p>
+      <div class="keys">
+        <a class="key on" href="#work">See the work</a>
+        <a class="key" href="/showcase/">Every project</a>
+        <a class="key" href="/blog/">Read the log</a>
+      </div>
+      <span class="live" id="live"><i></i><b>12 projects</b> &middot; 10 live &middot; nothing leaves the house</span>
     </div>
     <span class="cue">scroll</span>
   </section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="run">
+    <span>AUTOGOD</span><span>FRIDAY</span><span>Tesla V100 32GB</span><span>2&times; Tesla P100 16GB</span>
+    <span>Qwen3.8-27B Q4</span><span>whisper.cpp</span><span>zero cloud API calls</span>
+    <span>27 projects built while I slept</span><span>nothing leaves the house</span>
+    <span>AUTOGOD</span><span>FRIDAY</span><span>Tesla V100 32GB</span><span>2&times; Tesla P100 16GB</span>
+    <span>Qwen3.8-27B Q4</span><span>whisper.cpp</span><span>zero cloud API calls</span>
+    <span>27 projects built while I slept</span><span>nothing leaves the house</span>
+  </div>
+</div>
 
   <section class="band work" id="work">
     <div class="head rise"><h2>The work</h2><span class="rule"></span>
@@ -495,8 +557,97 @@
     <div class="track rise" id="track" tabindex="0" aria-label="Selected projects"></div>
   </section>
 
+  <section class="band" id="how" style="padding-top:0">
+    <div class="head rise"><h2>How it runs</h2><span class="rule"></span><span class="kick">the loop, every night</span></div>
+    <p class="lede rise">There is one pattern under everything on this page. I set a goal.
+    The machine does the rest while I sleep, and in the morning I read what it kept.</p>
+    <div class="loop">
+      <div class="step rise"><span class="arr"></span><span class="n">01</span><h3>Goal</h3>
+        <p>I write one line in a note. That is the whole brief.</p></div>
+      <div class="step rise" style="transition-delay:.06s"><span class="arr"></span><span class="n">02</span><h3>Plan</h3>
+        <p>AUTOGOD breaks it into work it can actually finish in a night.</p></div>
+      <div class="step rise hot" style="transition-delay:.12s"><span class="arr"></span><span class="n">03</span><h3>Build</h3>
+        <p>On its own GPUs, with its own model. No cloud API, no bill.</p></div>
+      <div class="step rise" style="transition-delay:.18s"><span class="arr"></span><span class="n">04</span><h3>Judge</h3>
+        <p>It rates what it made, honestly, before I ever see it.</p></div>
+      <div class="step rise" style="transition-delay:.24s"><span class="arr"></span><span class="n">05</span><h3>Keep or kill</h3>
+        <p>Survivors land on the showcase. The rest goes in the log.</p></div>
+    </div>
+    <p class="loop-note rise"><b>Zero idle GPU hours.</b> If a card is on, it is working.</p>
+  </section>
+
+  <section class="band" id="about" style="padding-top:0">
+    <div class="head rise"><h2>Who built it</h2><span class="rule"></span><span class="kick">one person</span></div>
+    <div class="who">
+      <div class="say rise">
+        <span class="kick">Jack Powell</span>
+        <h3>Self-taught.<br>Hardware first.</h3>
+        <p>I build and run <b>local AI infrastructure</b>: two servers in Atlanta,
+        three data-center GPUs, self-hosted language models, and autonomous agents
+        that work on the stack around the clock. I specified, built and administer
+        all of it &mdash; hardware, network and software.</p>
+        <p>Working toward AI and computer engineering, and looking for work where
+        <b>the machine is the product</b>.</p>
+      </div>
+      <div class="facts rise" style="transition-delay:.08s">
+        <div class="fact"><span class="v">2</span><span class="k">servers, both mine</span></div>
+        <div class="fact"><span class="v">64<s>GB</s></span><span class="k">VRAM in one tower</span></div>
+        <div class="fact"><span class="v">Age 11</span><span class="k">first build, still in use</span></div>
+        <div class="fact"><span class="v">0</span><span class="k">cloud API calls</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="head rise"><h2>What I can do</h2><span class="rule"></span><span class="kick">and have done</span></div>
+    <div class="caps">
+      <div class="cap-card rise">
+        <span class="kick">infrastructure</span>
+        <h3>Systems</h3>
+        <ul>
+          <li><b>Linux server administration</b> &mdash; Debian, systemd units and timers, remote-only operation</li>
+          <li><b>Proxmox</b> containers, resource weighting, service isolation</li>
+          <li>Public services behind <b>Cloudflare tunnels</b>, TLS, gated auth</li>
+          <li>Backup, recovery and change discipline on machines I cannot walk over to</li>
+        </ul>
+      </div>
+      <div class="cap-card rise" style="transition-delay:.07s">
+        <span class="kick">networking</span>
+        <h3>Network</h3>
+        <ul>
+          <li><b>VLAN segmentation</b> &mdash; trusted, servers, IoT and guest kept apart</li>
+          <li>Network-wide <b>DNS</b> with Pi-hole on my own hardware</li>
+          <li><b>Firewall policy</b> written around least reach for least trust</li>
+          <li>Mesh access across sites with Tailscale, passwordless key distribution</li>
+        </ul>
+      </div>
+      <div class="cap-card rise" style="transition-delay:.14s">
+        <span class="kick">ai infrastructure</span>
+        <h3>Models</h3>
+        <ul>
+          <li><b>Self-hosted inference</b> with llama.cpp &mdash; quantised 27B and 35B models in production</li>
+          <li><b>Multi-GPU placement</b> decided by measurement, not assumption</li>
+          <li>Embeddings and retrieval over a live corpus, shared by every agent</li>
+          <li><b>Agent orchestration</b> &mdash; goal loops, gating, and honest self-evaluation</li>
+        </ul>
+      </div>
+      <div class="cap-card rise" style="transition-delay:.21s">
+        <span class="kick">hardware &amp; build</span>
+        <h3>Hardware</h3>
+        <ul>
+          <li>Multi-GPU builds on <b>repurposed data-center cards</b></li>
+          <li><b>BIOS modification and flashing</b> where stock firmware blocked the build</li>
+          <li>PCIe lane budgeting, power delivery, passive-card cooling, thermal triage</li>
+          <li>Python and front-end work with <b>no dependencies</b>, shipped as public repos</li>
+          <li>Ran a <b>profitable resale business</b> solo &mdash; sourcing, pricing, fulfilment</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <section class="band" style="padding-top:0">
     <div class="head rise"><h2>The ladder</h2><span class="rule"></span><span class="kick">how I got here</span></div>
+    <p class="lede rise">Eighteen steps from a first build at eleven to a rack that runs its own agents. Photos where I have them.</p>
     <div class="ladder">
 
       <div class="rung rise">
@@ -768,20 +919,29 @@
     </div>
   </section>
 
+  <section class="band" id="log" style="padding-top:0">
+    <div class="head rise"><h2>From the log</h2><span class="rule"></span><a class="more" href="/blog/">all entries &rarr;</a></div>
+    <p class="lede rise">What broke, what I measured, what I decided. Written as I go, not cleaned up afterwards.</p>
+    <div class="posts rise" id="posts"></div>
+  </section>
+
 </main>
 
-<div class="ticker" aria-hidden="true">
-  <div class="run">
-    <span>Tesla V100 32GB</span><span>2&times; Tesla P100 16GB</span><span>i7-5820K</span>
-    <span>Qwen3.8-27B Q4</span><span>whisper.cpp</span><span>zero cloud API calls</span>
-    <span>27 projects built while I slept</span><span>nothing leaves the house</span>
-    <span>Tesla V100 32GB</span><span>2&times; Tesla P100 16GB</span><span>i7-5820K</span>
-    <span>Qwen3.8-27B Q4</span><span>whisper.cpp</span><span>zero cloud API calls</span>
-    <span>27 projects built while I slept</span><span>nothing leaves the house</span>
+<footer class="foot">
+  <div class="fl">
+    <span class="fwm">autogod<i>.org</i></span>
+    <p>Built and run by Jack Powell in Atlanta, GA. The site, the agents and the models
+    all run on the two machines described above.</p>
   </div>
-</div>
+  <nav>
+    <a href="https://github.com/jackdavisonpowell-eng">GitHub</a>
+    <a href="/showcase/">Showcase</a>
+    <a href="/blog/">Blog</a>
+    <a href="https://fleet.autogod.org/">Admin panel</a>
+  </nav>
+  <span class="gen" id="gen">Written as Obsidian notes &middot; published by a script on the server</span>
+</footer>
 
-<footer>autogod.org &mdash; built and run by Jack Powell</footer>
 
 <script>
   /* reveal on scroll — one observer, no library */
@@ -849,6 +1009,43 @@
     track.addEventListener("scroll", ends, {passive: true});
     addEventListener("resize", ends);
     ends();
+  })();
+
+  /* the hero readout and the footer stamp come from the same data file as the
+     cards, so they are true by construction */
+  (async () => {
+    try {
+      const d = await (await fetch("/showcase/projects.json", {cache: "no-cache"})).json();
+      const ps = d.projects || [], live = ps.filter(p => p.status === "live").length;
+      const el = document.getElementById("live");
+      if (el && ps.length) el.innerHTML =
+        `<i></i><b>${ps.length} projects</b> &middot; ${live} live &middot; nothing leaves the house`;
+      const when = (d.generated || "").slice(0, 10);
+      const g = document.getElementById("gen");
+      if (g && when) g.innerHTML =
+        `Written as Obsidian notes &middot; published by a script on the server &middot; <b>last published ${when}</b>`;
+    } catch (e) {}
+  })();
+
+  /* the log strip: up to three latest entries, from the blog's own posts.json */
+  (async () => {
+    const box = document.getElementById("posts");
+    if (!box) return;
+    let posts = [];
+    try {
+      const d = await (await fetch("/blog/posts.json", {cache: "no-cache"})).json();
+      posts = (d.posts || d || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date))).slice(0, 3);
+    } catch (e) {}
+    if (!posts.length) { document.getElementById("log").hidden = true; return; }
+    const esc = (t) => String(t == null ? "" : t).replace(/[&<>"]/g,
+      c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+    const plain = (h) => { const t = document.createElement("div"); t.innerHTML = h || ""; return (t.textContent || "").trim(); };
+    box.innerHTML = posts.map(p => {
+      const x = plain(p.html); const cut = x.length > 190 ? x.slice(0, 187).replace(/\s+\S*$/, "") + "…" : x;
+      return `<a class="post" href="/blog/#${esc(p.slug || "")}">
+        <span class="d">${esc(p.date)}${(p.tags || []).length ? " &middot; " + esc((p.tags || []).join(", ")) : ""}</span>
+        <h3>${esc(p.title)}</h3><p>${esc(cut)}</p><span class="go">read it</span></a>`;
+    }).join("");
   })();
 </script>
 

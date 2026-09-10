@@ -12,23 +12,22 @@ have to match between shots. Shoot for shape and contrast, not colour.
 
 | file | where it goes | crop |
 | --- | --- | --- |
-| `profile.jpg` | your face, About masthead | tall, 3:4 |
 | `hero.jpg` | full-bleed behind the home headline | wide, >=2400px |
 | `rig.jpg` | "The machine" band, home page | portrait-ish |
 | `pantheon.jpg` | Pantheon, home servers band | wide |
-| `rack.jpg` | the whole rack, About page | tall, 4:5 |
+| `rack.jpg` | the whole rack; Fleet Console cover on the showcase | tall, 4:5 |
 
 The four cards under "Start here" borrow ladder photos rather than carry
 shots of their own: first build, three cards, second P100, and the fleet. Send
 a picture made for one of those cards and it takes that card over.
 
 Empty slots were removed rather than left showing a placeholder, so the only
-waiting slot is `profile.jpg`. For any other
-picture, send it and the slot goes back in.
+About page folded into the front page on 2026-09-09, so there is no portrait slot
+any more. For any other picture, send it and a slot goes in.
 
 ## The ladder
 
-Only the steps below have a picture slot on the About page.
+Only the steps below have a picture slot on the ladder (front page).
 Landscape, 4:3. Named for the step, so nothing is renamed when a step is
 added in the middle.
 
