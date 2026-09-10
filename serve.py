@@ -61,9 +61,18 @@ class Handler(SimpleHTTPRequestHandler):
                 return
         super().do_GET()
 
+    def send_response(self, code, message=None):
+        self._status = code
+        super().send_response(code, message)
+
     def end_headers(self):
         path = self.path.split("?", 1)[0].lower()
-        if path.endswith(NO_CACHE):
+        # A missing photo must never be remembered. Browsers and the edge were
+        # holding 404s for four hours, so a file that landed later stayed
+        # invisible until the cache aged out.
+        if getattr(self, "_status", 200) >= 400:
+            self.send_header("Cache-Control", "no-store")
+        elif path.endswith(NO_CACHE):
             self.send_header("Cache-Control", "no-cache, must-revalidate")
         elif path.rsplit(".", 1)[-1] in (
                 "jpg", "jpeg", "png", "webp", "gif", "avif",

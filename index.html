@@ -967,10 +967,10 @@
   (async () => {
     const track = document.getElementById("track");
     if (!track) return;
-    let picked = [];
+    let picked = [], d = {};
     try {
       const r = await fetch("/showcase/projects.json", {cache: "no-cache"});
-      const d = await r.json();
+      d = await r.json();
       // what AUTOGOD built leads, since that is the point the section makes
       picked = (d.projects || []).filter(p => p.feature)
         .sort((a, b) => (b.built_by ? 1 : 0) - (a.built_by ? 1 : 0))
@@ -983,8 +983,9 @@
     track.innerHTML = picked.map(p => {
       const rows = (p.stats || []).slice(0, 3)
         .map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("");
+      const stamp = encodeURIComponent((d.generated || "").replace(/\D/g, "").slice(0, 12));
       const cover = p.cover
-        ? `style="--img:url('/showcase/media/${esc(p.cover)}')"` : "";
+        ? `style="--img:url('/showcase/media/${esc(p.cover)}?v=${stamp}')"` : "";
       const by = p.built_by
         ? `<span class="by">built by ${esc(p.built_by)}</span>` : "";
       return `<a class="pj cut plate" href="/showcase/">
