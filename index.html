@@ -474,6 +474,60 @@
        padding-top:1.1rem;border-top:1px solid var(--line)}
   footer .gen b{color:var(--muted);font-weight:500}
 
+
+  /* ── cinematic ────────────────────────────────────────────────────────────
+     Slow, filmic, confident. Every effect here is a transform or a clip, so it
+     costs nothing to paint, and every one of them is gated on html.js and off
+     under reduced motion. The page is complete without any of it. */
+  .hero .shot,.hero .ghost,.hero .in{will-change:transform}
+  .js .hero .shot::after{animation:zoom 2.6s cubic-bezier(.16,1,.3,1) both}
+  @keyframes zoom{from{transform:scale(1.07)}to{transform:scale(1)}}
+  /* pictures wipe open as they arrive */
+  .js .rise .shot,.js .rise.rshot,.js .rise .lid{clip-path:inset(0 100% 0 0);transition:clip-path 1.1s cubic-bezier(.16,1,.3,1)}
+  .js .rise.in .shot,.js .rise.rshot.in,.js .rise.in .lid{clip-path:inset(0 0 0 0)}
+  .js .rise .shot::after{transform:scale(1.08);transition:filter .6s ease,transform 1.6s cubic-bezier(.16,1,.3,1)}
+  .js .rise.in .shot::after{transform:scale(1)}
+  /* the hatch rule draws itself in behind each heading */
+  .js .head .rule{transform:scaleX(0);transform-origin:left;transition:transform 1s cubic-bezier(.16,1,.3,1) .15s}
+  .js .head.in .rule{transform:scaleX(1)}
+  /* numbers in the readout land a beat after the copy */
+  .hero .live b{display:inline-block;min-width:6.5ch}
+
+  /* ── Jack's timeline: text down the left, pictures floating down the right ─
+     A photo is not a column any more. Each one is placed by hand where the
+     eye would otherwise start to wander, sized to be looked at, tilted a hair,
+     and it drifts a little slower than the page so it feels like it is
+     hanging in front of it. */
+  .rung{grid-template-columns:clamp(2.4rem,5vw,3.6rem) minmax(0,1fr);overflow:visible}
+  .rung>div:nth-child(2){max-width:58ch}
+  .rung .rshot{--w:24rem;--r:0deg;--dx:2vw;--dy:0rem;--p:0px;
+       position:absolute;right:var(--dx);top:var(--dy);width:min(var(--w),44vw);
+       aspect-ratio:4/3;z-index:3;align-self:auto;
+       transform:translate3d(0,var(--p),0) rotate(var(--r));
+       box-shadow:0 30px 70px rgba(0,0,0,.65),0 8px 22px rgba(0,0,0,.5),var(--edge);
+       transition:transform .8s cubic-bezier(.16,1,.3,1),box-shadow .8s ease}
+  .rung .rshot:hover{transform:translate3d(0,var(--p),0) rotate(0deg) scale(1.03);z-index:6;
+       box-shadow:0 40px 90px rgba(0,0,0,.75),0 10px 26px rgba(0,0,0,.55),var(--edge)}
+  .rung .rshot .shot::after{filter:grayscale(1) contrast(1.15) brightness(.78)}
+  .rung .rshot:hover .shot::after{filter:grayscale(.1) contrast(1.05) brightness(.95)}
+  .rung .rshot .cap{font-size:.56rem;padding:.7rem .85rem}
+  .ladder{overflow:visible}
+  section.band.timeline{overflow:hidden;padding-right:0}
+  section.band.timeline .ladder{padding-right:clamp(1.2rem,5vw,4.5rem)}
+  @media (max-width:62rem){
+    .rung .rshot{position:static;transform:none;width:100%;max-width:34rem;margin-top:.9rem;
+         grid-column:2;box-shadow:var(--edge)}
+    .rung .rshot:hover{transform:none}
+  }
+  @media (max-width:44rem){.rung .rshot{grid-column:1;max-width:none}}
+  @media (prefers-reduced-motion:reduce){
+    .js .hero .shot::after{animation:none}
+    .js .rise .shot,.js .rise.rshot,.js .rise .lid{clip-path:none;transition:none}
+    .js .rise .shot::after{transform:none;transition:none}
+    .js .head .rule{transform:none;transition:none}
+    .rung .rshot{transition:none}
+  }
+
   /* ── scroll reveal ────────────────────────────────────────────────────── */
   /* Reveal on scroll is decoration, so it can never be the reason a section
      is unreadable: content is visible by default and only starts hidden once
@@ -652,9 +706,9 @@
     </div>
   </section>
 
-  <section class="band" style="padding-top:0">
-    <div class="head rise"><h2>The ladder</h2><span class="rule"></span><span class="kick">how I got here</span></div>
-    <p class="lede rise">Fifteen steps from a first build at eleven to a rack that runs its own agents. Photos where I have them.</p>
+  <section class="band timeline" style="padding-top:0">
+    <div class="head rise"><h2>Jack&rsquo;s timeline</h2><span class="rule"></span><span class="kick">how I got here</span></div>
+    <p class="lede rise">Fifteen steps from a first build at eleven to a rack that runs its own agents.</p>
     <div class="ladder">
 
       <div class="rung rise">
@@ -665,7 +719,7 @@
           <ul><li>Then took apart every family computer I could get permission for</li></ul>
           <div class="spec"><b>MAXIMUS</b><b>first build</b></div>
         </div>
-        <div class="rshot">
+        <div class="rshot rise" data-drift=".18" style="--w:29rem;--r:-2.5deg;--dx:2vw;--dy:-1.5rem">
           <div class="shot" style="--img:url('/media/ladder-first-build.jpg')"></div>
           <span class="cap">the first build</span>
         </div>
@@ -709,7 +763,7 @@
           <ul><li>The white machine it is today, with the RTX 5070 behind it</li><li>Same name, nothing left of the original but the idea</li></ul>
           <div class="spec"><b>RTX 5070</b><b>white build</b></div>
         </div>
-        <div class="rshot">
+        <div class="rshot rise" data-drift=".10" style="--w:23rem;--r:2deg;--dx:9vw;--dy:-15rem">
           <div class="shot" style="--img:url('/media/ladder-maximus-rebuild.jpg')"></div>
         </div>
       </div>
@@ -722,7 +776,7 @@
           <ul><li>Turned into Pi-hole, a handful of servers and services only I depended on</li><li>The whole original home lab mess</li></ul>
           <div class="spec"><b>X99</b><b>16 GB RAM</b><b>GTX 1660</b><b>Pi-hole</b></div>
         </div>
-        <div class="rshot">
+        <div class="rshot rise" data-drift=".22" style="--w:20rem;--r:-1.5deg;--dx:1vw;--dy:4rem">
           <div class="shot" style="--img:url('/media/ladder-home-lab.jpg')"></div>
           <span class="cap">GA-X99-UD3P &mdash; where the home lab started</span>
         </div>
@@ -756,7 +810,7 @@
           <ul><li>Good enough to talk to, not good enough to trust with a task</li></ul>
           <div class="spec"><b>Tesla P100 16GB</b><b>14B models</b></div>
         </div>
-        <div class="rshot">
+        <div class="rshot rise" data-drift=".12" style="--w:26rem;--r:1.5deg;--dx:7vw;--dy:-14rem">
           <div class="shot" style="--img:url('/media/ladder-first-p100.jpg')"></div>
           <span class="cap">the P100, out of the box</span>
         </div>
@@ -770,7 +824,7 @@
           <ul><li>The point it stopped answering questions and started finishing tasks</li></ul>
           <div class="spec"><b>2&times; P100</b><b>32 GB VRAM</b><b>autonomous work</b></div>
         </div>
-        <div class="rshot">
+        <div class="rshot rise" data-drift=".26" style="--w:19rem;--r:-3deg;--dx:0vw;--dy:4rem">
           <div class="shot" style="--img:url('/media/ladder-second-p100.jpg')"></div>
           <span class="cap">on the bench, both cards in</span>
         </div>
@@ -784,7 +838,7 @@
           <ul><li>A Dell R210 running the websites, game servers and media stack</li><li>Proxmox containers, resource-weighted so they coexist under load</li></ul>
           <div class="spec"><b>Dell R210</b><b>Proxmox</b><b>game servers</b><b>media stack</b></div>
         </div>
-        <div class="rshot">
+        <div class="rshot rise" data-drift=".14" style="--w:24rem;--r:2.5deg;--dx:11vw;--dy:-2rem">
           <div class="shot" style="--img:url('/media/ladder-pantheon.jpg')"></div>
           <span class="cap">Pantheon &mdash; a Dell R210 with the lid off</span>
         </div>
@@ -798,7 +852,7 @@
           <ul><li>Stock firmware&rsquo;s <b>Above 4G Decoding</b> toggle is broken on that board</li><li>Flashed a modded BIOS raising high MMIO from <b>256 GB to 1 TB</b></li><li>FreeDOS stick and a patched flasher, since the stock tool rejects modified images</li><li>Above 4G on, PCIe forced to Gen 3, legacy video off, one cleared CMOS</li><li>All three run at x8 &mdash; the CPU has only 28 lanes to give</li></ul>
           <div class="spec"><b>V100 32GB</b><b>modded BIOS</b><b>Above 4G</b><b>64 GB VRAM</b></div>
         </div>
-        <div class="rshot">
+        <div class="rshot rise" data-drift=".20" style="--w:21rem;--r:-2deg;--dx:2vw;--dy:2rem">
           <div class="shot" style="--img:url('/media/ladder-three-cards.jpg')"></div>
           <span class="cap">V100 32GB and two P100s, before they went in</span>
         </div>
@@ -812,7 +866,7 @@
           <ul><li>FRIDAY, the voice assistant, on the V100</li><li>AUTOGOD, the worker, on the P100 pair</li><li>The layout swaps <b>without dropping a session mid-answer</b></li></ul>
           <div class="spec"><b>FRIDAY &rarr; V100</b><b>AUTOGOD &rarr; 2&times; P100</b><b>hot swap</b></div>
         </div>
-        <div class="rshot">
+        <div class="rshot rise" data-drift=".12" style="--w:27rem;--r:1deg;--dx:3vw;--dy:9rem">
           <div class="shot" style="--img:url('/media/ladder-the-fleet.jpg')"></div>
           <span class="cap">the Pi satellite, running FRIDAY</span>
         </div>
@@ -936,6 +990,47 @@
     if (r.top < innerHeight && r.bottom > 0) show(el);
   });
   setTimeout(() => document.querySelectorAll(".rise:not(.in)").forEach(show), 2500);
+  /* cinematic: one scroll handler, transforms only, nothing under reduced motion */
+  (() => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const shot = document.querySelector(".hero .shot"), ghost = document.querySelector(".hero .ghost"),
+          copy = document.querySelector(".hero .in"), floats = [...document.querySelectorAll(".rshot[data-drift]")];
+    let raf = 0;
+    const paint = () => {
+      raf = 0;
+      const y = scrollY, vh = innerHeight;
+      if (y < vh * 1.2) {
+        if (shot)  shot.style.transform  = `translate3d(0,${y * .28}px,0)`;
+        if (ghost) ghost.style.transform = `translate3d(${-y * .18}px,${y * .06}px,0)`;
+        if (copy)  { copy.style.transform = `translate3d(0,${y * .12}px,0)`; copy.style.opacity = Math.max(0, 1 - y / (vh * .9)); }
+      }
+      for (const f of floats) {
+        const r = f.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) continue;
+        const mid = (r.top + r.height / 2) - vh / 2;          // 0 when centred on screen
+        f.style.setProperty("--p", `${(-mid * parseFloat(f.dataset.drift)).toFixed(1)}px`);
+      }
+    };
+    addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(paint); }, {passive: true});
+    addEventListener("resize", paint); paint();
+
+    // cards and rungs arrive in sequence, not all at once
+    document.querySelectorAll(".track > .pj").forEach((el, i) => el.style.transitionDelay = `${i * .07}s`);
+    document.querySelectorAll(".rung.rise").forEach((el, i) => el.style.transitionDelay = `${(i % 3) * .06}s`);
+
+    // the readout counts up once the data has landed
+    const live = document.getElementById("live");
+    if (live) new MutationObserver(() => {
+      live.querySelectorAll("b").forEach(b => {
+        const m = b.textContent.match(/^(\d+)(.*)$/); if (!m || b.dataset.done) return;
+        b.dataset.done = 1; const end = +m[1], t0 = performance.now();
+        const tick = (t) => { const k = Math.min(1, (t - t0) / 900), e = 1 - Math.pow(1 - k, 3);
+          b.textContent = Math.round(end * e) + m[2]; if (k < 1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      });
+    }).observe(live, {childList: true});
+  })();
+
 
   /* the four cards come from the showcase's own data file, filtered to the
      ones flagged feature in the vault. No second list to keep in step. */
