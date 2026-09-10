@@ -462,6 +462,8 @@
        opacity:.9;clip-path:polygon(38% 0,100% 0,62% 100%,0 100%)}
   footer .fwm i{color:var(--muted);font-style:italic}
   footer .fl p{margin:.7rem 0 0;max-width:52ch;line-height:1.65}
+  footer .contact a{color:var(--text);border-bottom:1px solid rgba(255,255,255,.25)}
+  footer .contact a:hover{border-bottom-color:var(--text)}
   footer nav{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end}
   @media (max-width:52rem){footer nav{justify-content:flex-start}}
   footer nav a{--c:5px;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;padding:.5rem .85rem;
@@ -523,13 +525,15 @@
       <span class="kick">Jack Powell &middot; Atlanta, GA</span>
       <h1>I build machines<br><em>that build things.</em></h1>
       <p>Two servers at home run my own language models on repurposed data-center
-      GPUs. An agent I wrote, <b>AUTOGOD</b>, works that stack overnight: it picks
-      a goal, builds it, judges what it built, and ships what survives. Three of
-      the four projects below, it wrote itself.</p>
+      GPUs. An agent I designed and run, <b>AUTOGOD</b>, works that stack
+      overnight: I set the goals, it plans and builds against them on my
+      hardware, and I decide what ships. Three of the four projects below came
+      out of that loop.</p>
       <div class="keys">
         <a class="key on" href="#work">See the work</a>
         <a class="key" href="/showcase/">Every project</a>
         <a class="key" href="/blog/">Read the log</a>
+        <a class="key" href="/resume/">R&eacute;sum&eacute;</a>
       </div>
       <span class="live" id="live"><i></i><b>12 projects</b> &middot; 10 live &middot; nothing leaves the house</span>
     </div>
@@ -540,10 +544,10 @@
   <div class="run">
     <span>AUTOGOD</span><span>FRIDAY</span><span>Tesla V100 32GB</span><span>2&times; Tesla P100 16GB</span>
     <span>Qwen3.8-27B Q4</span><span>whisper.cpp</span><span>zero cloud API calls</span>
-    <span>27 projects built while I slept</span><span>nothing leaves the house</span>
+    <span>27 lab projects, one every few hours</span><span>nothing leaves the house</span>
     <span>AUTOGOD</span><span>FRIDAY</span><span>Tesla V100 32GB</span><span>2&times; Tesla P100 16GB</span>
     <span>Qwen3.8-27B Q4</span><span>whisper.cpp</span><span>zero cloud API calls</span>
-    <span>27 projects built while I slept</span><span>nothing leaves the house</span>
+    <span>27 lab projects, one every few hours</span><span>nothing leaves the house</span>
   </div>
 </div>
 
@@ -554,9 +558,9 @@
         <button class="arw next" type="button" aria-label="Next project"></button>
       </span>
     </div>
-    <p class="lede rise">Four picked out of everything running. Three of them
-    AUTOGOD wrote on its own, overnight, and I read the code afterwards rather
-    than before. FRIDAY is the one I built myself.</p>
+    <p class="lede rise">Four picked out of everything running. Three came out of
+    the AUTOGOD loop: goals I set, built overnight on my hardware, then read,
+    kept and published by me. FRIDAY I wrote by hand.</p>
     <div class="track rise" id="track" tabindex="0" aria-label="Selected projects"></div>
   </section>
 
@@ -572,7 +576,7 @@
       <div class="step rise hot" style="transition-delay:.12s"><span class="arr"></span><span class="n">03</span><h3>Build</h3>
         <p>On its own GPUs, with its own model. No cloud API, no bill.</p></div>
       <div class="step rise" style="transition-delay:.18s"><span class="arr"></span><span class="n">04</span><h3>Judge</h3>
-        <p>It rates what it made, honestly, before I ever see it.</p></div>
+        <p>It scores what it made against the goal. Then I read it, and I make the call.</p></div>
       <div class="step rise" style="transition-delay:.24s"><span class="arr"></span><span class="n">05</span><h3>Keep or kill</h3>
         <p>Survivors land on the showcase. The rest goes in the log.</p></div>
     </div>
@@ -650,7 +654,7 @@
 
   <section class="band" style="padding-top:0">
     <div class="head rise"><h2>The ladder</h2><span class="rule"></span><span class="kick">how I got here</span></div>
-    <p class="lede rise">Eighteen steps from a first build at eleven to a rack that runs its own agents. Photos where I have them.</p>
+    <p class="lede rise">Fifteen steps from a first build at eleven to a rack that runs its own agents. Photos where I have them.</p>
     <div class="ladder">
 
       <div class="rung rise">
@@ -700,40 +704,6 @@
       <div class="rung rise">
         <div class="no">05</div>
         <div>
-          <h3>The sim rig</h3>
-          <p class="lead">Built a full sim-racing cockpit from scratch.</p>
-          <ul><li>Logitech G29, Oculus Quest 2, heavily modded Assetto Corsa</li><li>Bass shakers wired in, so you feel the kerbs through the seat</li><li>Driven by MAXIMUS</li></ul>
-          <div class="spec"><b>Logitech G29</b><b>Quest 2</b><b>Assetto Corsa</b><b>bass shakers</b></div>
-        </div>
-        <div class="rshot">
-          <div class="shot" style="--img:url('/media/ladder-sim-rig.jpg')"></div>
-          <span class="cap">the cockpit &mdash; G29, pedals, VR</span>
-        </div>
-      </div>
-
-      <div class="rung rise">
-        <div class="no">06</div>
-        <div>
-          <h3>Making my own clothes</h3>
-          <p class="lead">Could not afford the jeans I wanted, so I made them instead.</p>
-          <ul><li>My mom&rsquo;s old sewing machine &mdash; months for the first pair, several since</li><li>Drafting class taught me to draw a pattern before cutting</li><li>Fabric has no undo, which forces planning software never does</li></ul>
-          <div class="spec"><b>pattern drafting</b><b>garment construction</b><b>self-taught</b></div>
-        </div>
-      </div>
-
-      <div class="rung rise">
-        <div class="no">07</div>
-        <div>
-          <h3>Reselling on Depop</h3>
-          <p class="lead">Built a profitable resale business on my own, as a notable seller.</p>
-          <ul><li>Sourced jeans cheap in thrift stores, sold at market price</li><li><b>Thousands of dollars</b> &mdash; my first real online business</li><li>Ran all of it: sourcing, pricing, photography, shipping, buyers</li></ul>
-          <div class="spec"><b>Depop</b><b>sourcing &amp; pricing</b><b>margin</b><b>first business</b></div>
-        </div>
-      </div>
-
-      <div class="rung rise">
-        <div class="no">08</div>
-        <div>
           <h3>MAXIMUS, rebuilt</h3>
           <p class="lead">Tore the first build down and did it properly.</p>
           <ul><li>The white machine it is today, with the RTX 5070 behind it</li><li>Same name, nothing left of the original but the idea</li></ul>
@@ -745,7 +715,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">09</div>
+        <div class="no">06</div>
         <div>
           <h3>The home lab begins</h3>
           <p class="lead">An X99 board, 16 GB and a GTX 1660, built to stream games to myself.</p>
@@ -759,7 +729,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">10</div>
+        <div class="no">07</div>
         <div>
           <h3>Discovering what AI could actually do</h3>
           <p class="lead">Chat-window coding became agentic harnesses, and my throughput exploded.</p>
@@ -769,7 +739,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">11</div>
+        <div class="no">08</div>
         <div>
           <h3>The networking phase</h3>
           <p class="lead">Split one flat house network into four, with policy behind it.</p>
@@ -779,7 +749,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">12</div>
+        <div class="no">09</div>
         <div>
           <h3>The first P100</h3>
           <p class="lead">One 16 GB Tesla P100 running 14B models, with nobody metering it.</p>
@@ -793,7 +763,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">13</div>
+        <div class="no">10</div>
         <div>
           <h3>So I bought another</h3>
           <p class="lead">Two P100s, 32 GB of VRAM, and the models got big enough to leave alone.</p>
@@ -807,7 +777,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">14</div>
+        <div class="no">11</div>
         <div>
           <h3>Pantheon takes the rest</h3>
           <p class="lead">Bought a second server so the GPU box could do nothing but models.</p>
@@ -821,7 +791,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">15</div>
+        <div class="no">12</div>
         <div>
           <h3>Three cards, and the BIOS that would not allow it</h3>
           <p class="lead">Fitting a third compute card was an address-space problem, not a slot problem.</p>
@@ -835,7 +805,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">16</div>
+        <div class="no">13</div>
         <div>
           <h3>A fleet, not a box</h3>
           <p class="lead">Three cards, two workloads, reassigned from a control panel.</p>
@@ -849,7 +819,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">17</div>
+        <div class="no">14</div>
         <div>
           <h3>Atlanta &rarr; Georgia Southern</h3>
           <p class="lead">Running the whole stack remotely, from a dorm room.</p>
@@ -859,7 +829,7 @@
       </div>
 
       <div class="rung rise">
-        <div class="no">18</div>
+        <div class="no">15</div>
         <div>
           <h3>What I am aiming at</h3>
           <p class="lead">Training models, not only running them.</p>
@@ -935,8 +905,13 @@
     <span class="fwm">autogod<i>.org</i></span>
     <p>Built and run by Jack Powell in Atlanta, GA. The site, the agents and the models
     all run on the two machines described above.</p>
+    <p class="contact">Hiring, or want to talk about any of it?
+    <a href="mailto:jackdavisonpowell@gmail.com">jackdavisonpowell@gmail.com</a>
+    &middot; <a href="/resume/">r&eacute;sum&eacute;</a>
+    &middot; <a href="https://github.com/jackdavisonpowell-eng">github</a></p>
   </div>
   <nav>
+    <a href="/resume/">R&eacute;sum&eacute;</a>
     <a href="https://github.com/jackdavisonpowell-eng">GitHub</a>
     <a href="/showcase/">Showcase</a>
     <a href="/blog/">Blog</a>
@@ -1040,7 +1015,7 @@
       const d = await (await fetch("/blog/posts.json", {cache: "no-cache"})).json();
       posts = (d.posts || d || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date))).slice(0, 3);
     } catch (e) {}
-    if (!posts.length) { document.getElementById("log").hidden = true; return; }
+    if (posts.length < 2) { document.getElementById("log").hidden = true; return; }
     const esc = (t) => String(t == null ? "" : t).replace(/[&<>"]/g,
       c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
     const plain = (h) => { const t = document.createElement("div"); t.innerHTML = h || ""; return (t.textContent || "").trim(); };
